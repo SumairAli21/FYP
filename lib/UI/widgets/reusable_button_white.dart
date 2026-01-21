@@ -10,11 +10,11 @@ class appbuttonwhite extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
       width: width,
-      height: 52, // Figma-like fixed height
+      height: 52, 
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white, // blue button
+          backgroundColor: Colors.white, 
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -23,7 +23,8 @@ class appbuttonwhite extends StatelessWidget {
         child: Text(
           title,
           style: const TextStyle(
-            fontSize: 16,
+            fontFamily: "button",
+            fontSize: 18,
             fontWeight: FontWeight.w600,
             color: Colors.black,
           ),

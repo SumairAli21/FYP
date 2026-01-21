@@ -77,9 +77,11 @@ class OnbordingSlides extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
+
                 subtitle,
                 
                 style: TextStyle(
+                  fontFamily: "button",
                   fontSize: 14,
                   color: Colors.white70,
                   height: 1.5,

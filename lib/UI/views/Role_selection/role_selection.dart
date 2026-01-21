@@ -40,11 +40,12 @@ class RoleSelection extends StatelessWidget {
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 13,),
                     Text(
                       "Choose how you want to use the app.\nYou can change this anytime later.",
                       textAlign: TextAlign.start,
                       style: TextStyle(
+                        fontFamily: "button",
                         color: Colors.white70,
                         fontSize: 16
                       ),
