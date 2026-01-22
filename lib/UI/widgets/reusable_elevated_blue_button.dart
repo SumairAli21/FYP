@@ -10,11 +10,13 @@ class appbutton extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
       width: width,
-      height: 52, 
+      height: 52,
       child: ElevatedButton(
         onPressed: onTap,
+          
+        
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2F6BFF), 
+          backgroundColor: const Color(0xFF2F6BFF),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

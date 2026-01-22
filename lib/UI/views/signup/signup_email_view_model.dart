@@ -1,14 +1,18 @@
 import 'package:englify_app/app/app.locator.dart';
 import 'package:englify_app/app/app.router.dart';
+import 'package:englify_app/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SignupEmailViewModel extends BaseViewModel {
   final _navigationservice = locator<NavigationService>();
+  
 
   final emailcontroller = TextEditingController();
   String? emailerror;
+
+
 
   bool get isemailvalid {
     final email = emailcontroller.text.trim();
@@ -32,7 +36,9 @@ class SignupEmailViewModel extends BaseViewModel {
       notifyListeners();
       return;
     }
-    _navigationservice.navigateToSignupPasswordView();
+    _navigationservice.navigateToSignupPasswordView(
+      email: emailcontroller.text.trim()
+    );
   }
 
   void ongotologin() {

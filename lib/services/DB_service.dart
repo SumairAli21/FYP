@@ -26,7 +26,7 @@ CREATE TABLE ${DBConstants.userTable} (
 ${DBConstants.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
 ${DBConstants.columnEmail} TEXT UNIQUE,
 ${DBConstants.columnPassword} TEXT,
-${DBConstants.columnRole} TEXT,  
+${DBConstants.columnRole} TEXT 
 )
 ''');
   }
@@ -40,7 +40,7 @@ ${DBConstants.columnRole} TEXT,
     await db.insert(DBConstants.userTable, {
       DBConstants.columnEmail : email,
       DBConstants.columnPassword : password,
-      DBConstants.userTable : role
+      DBConstants.columnRole : role
     },
     conflictAlgorithm: ConflictAlgorithm.replace,
     );

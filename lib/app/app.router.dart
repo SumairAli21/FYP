@@ -7,16 +7,22 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:englify_app/UI/views/auth/auth_view.dart' as _i5;
+import 'package:englify_app/UI/views/classroomcode/classroom_view.dart' as _i11;
+import 'package:englify_app/UI/views/forgatepassword/forpass_view.dart' as _i12;
 import 'package:englify_app/UI/views/login/login_view.dart' as _i7;
 import 'package:englify_app/UI/views/onbording/onbording_view.dart' as _i3;
+import 'package:englify_app/UI/views/personalization/personalization_view.dart'
+    as _i9;
 import 'package:englify_app/UI/views/Role_selection/role_selection.dart' as _i4;
 import 'package:englify_app/UI/views/signup/signup_email_view.dart' as _i6;
 import 'package:englify_app/UI/views/signup/signup_password_view.dart' as _i8;
 import 'package:englify_app/UI/views/splach/splach_view.dart' as _i2;
-import 'package:flutter/material.dart' as _i9;
+import 'package:englify_app/UI/views/teacher/teacher_home/teacher_home_view.dart'
+    as _i10;
+import 'package:flutter/material.dart' as _i13;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i10;
+import 'package:stacked_services/stacked_services.dart' as _i14;
 
 class Routes {
   static const splachView = '/';
@@ -33,6 +39,14 @@ class Routes {
 
   static const signupPasswordView = '/signup-password-view';
 
+  static const personalizationView = '/personalization-view';
+
+  static const teacherHomeView = '/teacher-home-view';
+
+  static const classroomcodeView = '/classroomcode-view';
+
+  static const forpassView = '/forpass-view';
+
   static const all = <String>{
     splachView,
     onbordingView,
@@ -41,6 +55,10 @@ class Routes {
     signupemailview,
     loginView,
     signupPasswordView,
+    personalizationView,
+    teacherHomeView,
+    classroomcodeView,
+    forpassView,
   };
 }
 
@@ -53,6 +71,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.signupemailview, page: _i6.Signupemailview),
     _i1.RouteDef(Routes.loginView, page: _i7.LoginView),
     _i1.RouteDef(Routes.signupPasswordView, page: _i8.SignupPasswordView),
+    _i1.RouteDef(Routes.personalizationView, page: _i9.PersonalizationView),
+    _i1.RouteDef(Routes.teacherHomeView, page: _i10.TeacherHomeView),
+    _i1.RouteDef(Routes.classroomcodeView, page: _i11.ClassroomcodeView),
+    _i1.RouteDef(Routes.forpassView, page: _i12.ForpassView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -60,7 +82,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SplachViewArguments>(
         orElse: () => const SplachViewArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.SplachView(key: args.key),
         settings: data,
       );
@@ -69,7 +91,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<OnbordingViewArguments>(
         orElse: () => const OnbordingViewArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => _i3.OnbordingView(key: args.key),
         settings: data,
       );
@@ -78,7 +100,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<RoleSelectionArguments>(
         orElse: () => const RoleSelectionArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => _i4.RoleSelection(key: args.key),
         settings: data,
       );
@@ -87,7 +109,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<AuthViewArguments>(
         orElse: () => const AuthViewArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.AuthView(key: args.key),
         settings: data,
       );
@@ -96,7 +118,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SignupemailviewArguments>(
         orElse: () => const SignupemailviewArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.Signupemailview(key: args.key),
         settings: data,
       );
@@ -105,17 +127,52 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<LoginViewArguments>(
         orElse: () => const LoginViewArguments(),
       );
-      return _i9.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => _i7.LoginView(key: args.key),
         settings: data,
       );
     },
     _i8.SignupPasswordView: (data) {
-      final args = data.getArgs<SignupPasswordViewArguments>(
-        orElse: () => const SignupPasswordViewArguments(),
+      final args = data.getArgs<SignupPasswordViewArguments>(nullOk: false);
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            _i8.SignupPasswordView(key: args.key, email: args.email),
+        settings: data,
       );
-      return _i9.MaterialPageRoute<dynamic>(
-        builder: (context) => _i8.SignupPasswordView(key: args.key),
+    },
+    _i9.PersonalizationView: (data) {
+      final args = data.getArgs<PersonalizationViewArguments>(
+        orElse: () => const PersonalizationViewArguments(),
+      );
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) => _i9.PersonalizationView(key: args.key),
+        settings: data,
+      );
+    },
+    _i10.TeacherHomeView: (data) {
+      final args = data.getArgs<TeacherHomeViewArguments>(
+        orElse: () => const TeacherHomeViewArguments(),
+      );
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) => _i10.TeacherHomeView(key: args.key),
+        settings: data,
+      );
+    },
+    _i11.ClassroomcodeView: (data) {
+      final args = data.getArgs<ClassroomcodeViewArguments>(
+        orElse: () => const ClassroomcodeViewArguments(),
+      );
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) => _i11.ClassroomcodeView(key: args.key),
+        settings: data,
+      );
+    },
+    _i12.ForpassView: (data) {
+      final args = data.getArgs<ForpassViewArguments>(
+        orElse: () => const ForpassViewArguments(),
+      );
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) => _i12.ForpassView(key: args.key),
         settings: data,
       );
     },
@@ -131,7 +188,7 @@ class StackedRouter extends _i1.RouterBase {
 class SplachViewArguments {
   const SplachViewArguments({this.key});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -153,7 +210,7 @@ class SplachViewArguments {
 class OnbordingViewArguments {
   const OnbordingViewArguments({this.key});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -175,7 +232,7 @@ class OnbordingViewArguments {
 class RoleSelectionArguments {
   const RoleSelectionArguments({this.key});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -197,7 +254,7 @@ class RoleSelectionArguments {
 class AuthViewArguments {
   const AuthViewArguments({this.key});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -219,7 +276,7 @@ class AuthViewArguments {
 class SignupemailviewArguments {
   const SignupemailviewArguments({this.key});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -241,7 +298,7 @@ class SignupemailviewArguments {
 class LoginViewArguments {
   const LoginViewArguments({this.key});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -261,9 +318,33 @@ class LoginViewArguments {
 }
 
 class SignupPasswordViewArguments {
-  const SignupPasswordViewArguments({this.key});
+  const SignupPasswordViewArguments({this.key, required this.email});
 
-  final _i9.Key? key;
+  final _i13.Key? key;
+
+  final String email;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "email": "$email"}';
+  }
+
+  @override
+  bool operator ==(covariant SignupPasswordViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.email == email;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ email.hashCode;
+  }
+}
+
+class PersonalizationViewArguments {
+  const PersonalizationViewArguments({this.key});
+
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -271,7 +352,7 @@ class SignupPasswordViewArguments {
   }
 
   @override
-  bool operator ==(covariant SignupPasswordViewArguments other) {
+  bool operator ==(covariant PersonalizationViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key;
   }
@@ -282,9 +363,75 @@ class SignupPasswordViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i10.NavigationService {
+class TeacherHomeViewArguments {
+  const TeacherHomeViewArguments({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant TeacherHomeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class ClassroomcodeViewArguments {
+  const ClassroomcodeViewArguments({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant ClassroomcodeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class ForpassViewArguments {
+  const ForpassViewArguments({this.key});
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant ForpassViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i14.NavigationService {
   Future<dynamic> navigateToSplachView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -302,7 +449,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToOnbordingView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -320,7 +467,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToRoleSelection({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -338,7 +485,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToAuthView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -356,7 +503,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToSignupemailview({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -374,7 +521,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToLoginView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -392,7 +539,8 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToSignupPasswordView({
-    _i9.Key? key,
+    _i13.Key? key,
+    required String email,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -401,7 +549,79 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }) async {
     return navigateTo<dynamic>(
       Routes.signupPasswordView,
-      arguments: SignupPasswordViewArguments(key: key),
+      arguments: SignupPasswordViewArguments(key: key, email: email),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToPersonalizationView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.personalizationView,
+      arguments: PersonalizationViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToTeacherHomeView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.teacherHomeView,
+      arguments: TeacherHomeViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToClassroomcodeView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.classroomcodeView,
+      arguments: ClassroomcodeViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToForpassView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.forpassView,
+      arguments: ForpassViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -410,7 +630,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithSplachView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -428,7 +648,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithOnbordingView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -446,7 +666,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithRoleSelection({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -464,7 +684,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithAuthView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -482,7 +702,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithSignupemailview({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -500,7 +720,7 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithLoginView({
-    _i9.Key? key,
+    _i13.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -518,7 +738,8 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithSignupPasswordView({
-    _i9.Key? key,
+    _i13.Key? key,
+    required String email,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -527,7 +748,79 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }) async {
     return replaceWith<dynamic>(
       Routes.signupPasswordView,
-      arguments: SignupPasswordViewArguments(key: key),
+      arguments: SignupPasswordViewArguments(key: key, email: email),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithPersonalizationView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.personalizationView,
+      arguments: PersonalizationViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithTeacherHomeView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.teacherHomeView,
+      arguments: TeacherHomeViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithClassroomcodeView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.classroomcodeView,
+      arguments: ClassroomcodeViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithForpassView({
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.forpassView,
+      arguments: ForpassViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
