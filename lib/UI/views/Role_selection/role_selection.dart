@@ -36,6 +36,7 @@ class RoleSelection extends StatelessWidget {
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.white,
+                        fontFamily: "heading",
                         fontSize: 24,
                         fontWeight: FontWeight.w900,
                       ),

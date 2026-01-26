@@ -25,7 +25,7 @@ class OnbordingView extends StatelessWidget {
             ),
             OnbordingSlides(
               image: "assets/images/onbording2.png",
-              title: "practice.play.improve",
+              title: "practice. play. improve",
               subtitle:
                   "Learn through short lessons and tasks designed to keep you engaged. ",
               oncontinue: model.nextpage,

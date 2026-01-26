@@ -24,6 +24,8 @@ class OnbordingSlides extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -65,7 +67,8 @@ class OnbordingSlides extends StatelessWidget {
                 title.toUpperCase(),
               
                 style: TextStyle(
-                  fontSize: 22,
+                  fontFamily: "heading",
+                  fontSize: 26,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                 

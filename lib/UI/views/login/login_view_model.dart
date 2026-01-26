@@ -1,15 +1,17 @@
 import 'package:englify_app/app/app.locator.dart';
 import 'package:englify_app/app/app.router.dart';
-import 'package:englify_app/services/DB_service.dart';
+import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
+import 'package:englify_app/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class LoginViewModel extends BaseViewModel {
   final _navigationservice = locator<NavigationService>();
-  final _DBservice = locator<DbService>();
   final _localstorageservice = locator<LocalStorageService>();
+  final _userservice = locator<UserService>();
+  final _authservice = locator<AuthService>();
 
   String? errormasage;
   bool isobsurce = true;
@@ -36,7 +38,7 @@ class LoginViewModel extends BaseViewModel {
     final email = emailcontroller.text.trim();
     final password = passwordcontroller.text.trim();
 
-    Map<String, dynamic>? user = await _DBservice.loginUser(email, password);
+    final user = await _authservice.login(email, password);
 
     setBusy(false);
 
@@ -45,10 +47,12 @@ class LoginViewModel extends BaseViewModel {
       notifyListeners();
       return;
     }
-    final role = user['role'];
-    await _localstorageservice.saveuserrole(role);
+    final role = await _userservice.getUserrole(user.uid);
+
+    await _localstorageservice.islogintrue();
+
     if (role == "student") {
-      _navigationservice.replaceWithClassroomcodeView();
+      _navigationservice.replaceWithPersonalizationView();
     } else if (role == "teacher") {
       _navigationservice.replaceWithTeacherHomeView();
     }

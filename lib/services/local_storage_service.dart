@@ -30,4 +30,54 @@ class LocalStorageService {
     final pref = await SharedPreferences.getInstance();
     await pref.remove(_userRoleKey);
   }
+
+  // user islogin?
+  static const _isloginKey = "islogin";
+
+  Future<bool> getislogin() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getBool(_isloginKey) ?? false;
+  }
+
+  Future<void> islogintrue() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setBool(_isloginKey, true);
+  }
+
+  // future need
+  Future<void> isloginfalse() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setBool(_isloginKey, false);
+  }
+
+  // user personalization
+  static const _usernamekey = "user_name";
+
+  Future<void> saveusername(String name) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setString(_usernamekey, name);
+  }
+
+  Future<String?> getusername() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getString(_usernamekey);
+  }
+
+  Future<void> clearuserdata() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.clear();
+  }
+
+  // isclassroom join
+  static const classroomKey = "isclassroom_join";
+
+  Future<void> setclassroomjointrue() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setBool(classroomKey, true);
+  }
+
+  Future<bool> isclassroomjoined() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getBool(classroomKey) ?? false;
+  }
 }

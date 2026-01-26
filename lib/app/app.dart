@@ -8,9 +8,11 @@ import 'package:englify_app/UI/views/personalization/personalization_view.dart';
 import 'package:englify_app/UI/views/signup/signup_email_view.dart';
 import 'package:englify_app/UI/views/signup/signup_password_view.dart';
 import 'package:englify_app/UI/views/splach/splach_view.dart';
+import 'package:englify_app/UI/views/student_flow/studenhome/student_home_view.dart';
 import 'package:englify_app/UI/views/teacher/teacher_home/teacher_home_view.dart';
-import 'package:englify_app/services/DB_service.dart';
+import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
+import 'package:englify_app/services/user_service.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -27,12 +29,14 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: TeacherHomeView),
     MaterialRoute(page: ClassroomcodeView),
     MaterialRoute(page: ForpassView),
+    MaterialRoute(page: StudentHomeView),
 
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: LocalStorageService),
-    LazySingleton(classType: DbService)
+    LazySingleton(classType: AuthService),
+    LazySingleton(classType: UserService),
   ],
 )
 class App {}
