@@ -53,11 +53,11 @@ class RoleSelection extends StatelessWidget {
                     ),
                     Spacer(),
 
-                    appbutton(title: "Continue as Student", onTap: model.savestudentrole),
+                    AppButton(title: "Continue as Student", onTap: model.savestudentrole,),
 
                     SizedBox(height: 10,),
 
-                    appbuttonwhite(title: "Continue as Teacher", onTap: model.selectteacherrole),
+                    AppButtonWhite(title: "Continue as Teacher", onTap: model.selectteacherrole,),
                     SizedBox(height: 15,),
                ],
                 ),

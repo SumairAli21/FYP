@@ -55,7 +55,7 @@ class Signupemailview extends StatelessWidget {
                     errortext: model.emailerror
                     ),
                    SizedBox(height: 10,),
-                   appbutton(title: "Continue", onTap: model.oncontinue),
+                   AppButton(title: "Continue" ,onTap: model.oncontinue, ),
                    SizedBox(height: 17,),
                    Row(
                     mainAxisAlignment: MainAxisAlignment.center,

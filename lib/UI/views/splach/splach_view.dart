@@ -14,7 +14,10 @@ class SplachView extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.black,
           body: Center(
-            child: Image.asset("assets/images/applogo.png"),
+            child: Image.asset("assets/images/applogo.png",
+            height: 250,
+            width: 250,
+            ),
           ),
         );
       },

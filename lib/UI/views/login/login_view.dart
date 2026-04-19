@@ -10,6 +10,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final size = MediaQuery.of(context).size;
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
@@ -26,7 +27,7 @@ class LoginView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                     Row(
+                    Row(
                       children: [
                         IconButton(
                           onPressed: model.onback,
@@ -48,7 +49,7 @@ class LoginView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: size.height*0.10,),
+                    SizedBox(height: size.height * 0.10),
                     Text(
                       "Email address",
                       style: TextStyle(
@@ -56,11 +57,14 @@ class LoginView extends StatelessWidget {
                         fontSize: 14,
                         color: Colors.white,
                       ),
-                      
                     ),
-                    SizedBox(height: 5,),
-                    ResualeEmailTextfeild(onchange: model.onemailchage, emailcontroller: model.emailcontroller, errortext: model.errormasage),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 5),
+                    ResualeEmailTextfeild(
+                      onchange: model.onemailchage,
+                      emailcontroller: model.emailcontroller,
+                      errortext: model.errormasage,
+                    ),
+                    SizedBox(height: 10),
                     Text(
                       "Password",
                       style: TextStyle(
@@ -70,27 +74,33 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-                    ReusablePassTxtfeild(isobscue: model.isobsurce, onchnage: model.onpasschage, passcontroller: model.passwordcontroller, toggle: model.toggle),
-                  
+                    ReusablePassTxtfeild(
+                      isobscue: model.isobsurce,
+                      onchnage: model.onpasschage,
+                      passcontroller: model.passwordcontroller,
+                      toggle: model.toggle,
+                    ),
+
                     Align(
                       alignment: Alignment.centerRight,
-                      child: TextButton(onPressed: model.onforgate, child: Text(
-                        "Forget Password",
-                        style: TextStyle(
-                          fontFamily: "button",
-                          fontSize: 12,
-                          color: const Color.fromARGB(255, 249, 247, 247)
+                      child: TextButton(
+                        onPressed: model.onforgate,
+                        child: Text(
+                          "Forget Password",
+                          style: TextStyle(
+                            fontFamily: "button",
+                            fontSize: 12,
+                            color: const Color.fromARGB(255, 249, 247, 247),
+                          ),
                         ),
-                      )),
+                      ),
                     ),
-                    SizedBox(height: 10,),
-                    SizedBox(
-      width: size.width,
+                    SizedBox(height: 10),
+                     SizedBox(
+      width: width,
       height: 52,
       child: ElevatedButton(
-        onPressed: () async {
-          model.onlogin();
-        },
+        onPressed: model.isBusy ? null : model.onlogin,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF2F6BFF),
           elevation: 0,
@@ -98,18 +108,35 @@ class LoginView extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: Text(
-          "Login",
-          style: const TextStyle(
-            fontFamily: "button",
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (model.isBusy) ...[
+              const SizedBox(
+                height: 18,
+                width: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+              const SizedBox(width: 12),
+            ],
+            Text(
+              "Login",
+              style: const TextStyle(
+                fontFamily: "button",
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -119,22 +146,27 @@ class LoginView extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "button",
                               fontSize: 14,
-                              color: Colors.white70
+                              color: Colors.white70,
                             ),
-
                           ),
-                          TextButton(onPressed: model.onsignout,style: TextButton.styleFrom(padding: EdgeInsets.zero,), child: Text(
-                        "Sign out",
-                        style: TextStyle(
-                          fontFamily: "button",
-                          fontSize: 14,
-                          color: const Color.fromARGB(255, 249, 247, 247)
-                        ),
-                      )),
+                          TextButton(
+                            onPressed: model.onsignout,
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                            ),
+                            child: Text(
+                              "Sign out",
+                              style: TextStyle(
+                                fontFamily: "button",
+                                fontSize: 14,
+                                color: const Color.fromARGB(255, 249, 247, 247),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                    )
-                    ],
+                    ),
+                  ],
                 ),
               ),
             ),

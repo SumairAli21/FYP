@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
-class appbutton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
-  const appbutton({super.key, required this.title, required this.onTap});
+  final bool isLoading;
+
+  const AppButton({
+    super.key,
+    required this.title,
+    required this.onTap,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
     return SizedBox(
       width: width,
       height: 52,
       child: ElevatedButton(
-        onPressed: onTap,
-          
-        
+        onPressed: isLoading ? null : onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF2F6BFF),
           elevation: 0,
@@ -22,14 +28,31 @@ class appbutton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontFamily: "button",
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (isLoading) ...[
+              const SizedBox(
+                height: 18,
+                width: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+              const SizedBox(width: 12),
+            ],
+            Text(
+              title,
+              style: const TextStyle(
+                fontFamily: "button",
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );

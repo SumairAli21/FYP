@@ -48,13 +48,16 @@ class LoginViewModel extends BaseViewModel {
       return;
     }
     final role = await _userservice.getUserrole(user.uid);
+    
 
     await _localstorageservice.islogintrue();
 
     if (role == "student") {
+      
       _navigationservice.replaceWithPersonalizationView();
     } else if (role == "teacher") {
-      _navigationservice.replaceWithTeacherHomeView();
+      
+      _navigationservice.replaceWithTeacherBottomTabView();
     }
   }
 

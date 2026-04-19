@@ -84,7 +84,7 @@ class SignupPasswordView extends StatelessWidget {
                       txt: "At least 1 number",
                     ),
                     SizedBox(height: 25),
-                    appbutton(title: "Create account", onTap: model.oncreate),
+                    AppButton(title: "Create account", onTap: model.oncreate,),
                     SizedBox(height: 17),
                     Column(
                       children: [
@@ -100,7 +100,7 @@ class SignupPasswordView extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed:model.onnavigatetoterms,
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 minimumSize: Size.zero,
@@ -129,7 +129,7 @@ class SignupPasswordView extends StatelessWidget {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: model.onnavigatetoprivecy,
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 minimumSize: Size.zero,

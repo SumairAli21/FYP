@@ -80,4 +80,10 @@ class LocalStorageService {
     final pref = await SharedPreferences.getInstance();
     return pref.getBool(classroomKey) ?? false;
   }
+
+  // ✅ NEW METHOD - Clear classroom join status
+  Future<void> clearclassroomjoin() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.remove(classroomKey);
+  }
 }

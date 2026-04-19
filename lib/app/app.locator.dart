@@ -11,7 +11,15 @@ import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/auth_service.dart';
+import '../services/cloudniry_service.dart';
+import '../services/create_lesson_service.dart';
+import '../services/favourite_service.dart';
+import '../services/file_viewer_service.dart';
 import '../services/local_storage_service.dart';
+import '../services/online_DB_service.dart';
+import '../services/pints_service.dart';
+import '../services/quiz_service.dart';
+import '../services/storage_service.dart';
 import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
@@ -31,4 +39,12 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => LocalStorageService());
   locator.registerLazySingleton(() => AuthService());
   locator.registerLazySingleton(() => UserService());
+  locator.registerLazySingleton(() => classroomservice());
+  locator.registerLazySingleton(() => StorageService());
+  locator.registerLazySingleton(() => CloudinaryService());
+  locator.registerLazySingleton(() => CreateLessonService());
+  locator.registerLazySingleton(() => FileViewerService());
+  locator.registerLazySingleton(() => QuizService());
+  locator.registerLazySingleton(() => PointsService());
+  locator.registerLazySingleton(() => FavouriteService());
 }

@@ -67,4 +67,12 @@ class SignupPasswordViewModel extends BaseViewModel {
   void onback() {
     _navigationservice.back();
   }
+
+  void onnavigatetoterms() {
+    _navigationservice.navigateToTermsandcondView();
+  }
+
+  void onnavigatetoprivecy() {
+    _navigationservice.navigateToPrivecyandpolicyView();
+  }
 }
