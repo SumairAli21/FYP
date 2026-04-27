@@ -26,6 +26,7 @@ class CreateQuizView extends StatelessWidget {
         lessonId: lessonid,
         lessonTitle: lessontitle,
       ),
+      onViewModelReady: (model)=> model.init(),
       builder: (context, model, child) {
         return Scaffold(
           backgroundColor: const Color(0xFFF2F4F8),
@@ -112,46 +113,70 @@ class CreateQuizView extends StatelessWidget {
                           children: [
                             AppButtonWhite(title: "Add New Question", onTap: ()=> model.addQuestion(context)),
                               SizedBox(height: 12,),
-                              SizedBox(
-      width: double.infinity,
-      height: 52,
-      child: ElevatedButton(
-        onPressed: model.isBusy ? null : () => model.publishQuiz(context),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2F6BFF),
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (model.isBusy) ...[
-              const SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              ),
-              const SizedBox(width: 12),
-            ],
-            Text(
-              "Publish Quiz",
-              style: const TextStyle(
-                fontFamily: "button",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
+                           SizedBox(
+width: double.infinity,
+height:52,
+child: ElevatedButton(
+
+onPressed:
+model.canPublish
+? ()=>model.publishQuiz(context)
+: null,
+
+style:
+ElevatedButton.styleFrom(
+backgroundColor:
+model.quizAlreadyCreated
+? Colors.grey.shade600
+: const Color(0xFF2F6BFF),
+
+shape:
+RoundedRectangleBorder(
+borderRadius:
+BorderRadius.circular(12),
+),
+),
+
+child: Row(
+mainAxisAlignment:
+MainAxisAlignment.center,
+children: [
+
+if(model.isBusy)...[
+SizedBox(
+height:18,
+width:18,
+child:
+CircularProgressIndicator(
+strokeWidth:2,
+valueColor:
+AlwaysStoppedAnimation(
+Colors.white
+),
+),
+),
+SizedBox(width:12),
+],
+
+Text(
+
+model.quizAlreadyCreated
+? "Quiz Already Created ✓"
+: "Publish Quiz",
+
+style: TextStyle(
+color: Colors.white,
+fontSize:18,
+fontWeight:
+FontWeight.w600,
+),
+
+)
+
+],
+),
+),
+)
                                  ],
                         ),
                         )

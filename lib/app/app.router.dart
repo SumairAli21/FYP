@@ -6,64 +6,67 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:englify_app/models/lesson_data_model.dart' as _i34;
+import 'package:englify_app/models/lesson_data_model.dart' as _i36;
 import 'package:englify_app/UI/views/auth/auth_view.dart' as _i5;
+import 'package:englify_app/UI/views/changepassword/changepassword_view.dart'
+    as _i33;
 import 'package:englify_app/UI/views/classroomcode/classroom_view.dart' as _i11;
+import 'package:englify_app/UI/views/feedback/feedback_view.dart' as _i34;
 import 'package:englify_app/UI/views/forgatepassword/forpass_view.dart' as _i12;
 import 'package:englify_app/UI/views/login/login_view.dart' as _i7;
 import 'package:englify_app/UI/views/onbording/onbording_view.dart' as _i3;
 import 'package:englify_app/UI/views/personalization/personalization_view.dart'
     as _i9;
 import 'package:englify_app/UI/views/privecy&policy/privecyandpolicy_view.dart'
-    as _i18;
+    as _i17;
 import 'package:englify_app/UI/views/Role_selection/role_selection.dart' as _i4;
 import 'package:englify_app/UI/views/signup/signup_email_view.dart' as _i6;
 import 'package:englify_app/UI/views/signup/signup_password_view.dart' as _i8;
 import 'package:englify_app/UI/views/splach/splach_view.dart' as _i2;
 import 'package:englify_app/UI/views/student_flow/bottom_navigation/bottom_navi_view.dart'
-    as _i17;
-import 'package:englify_app/UI/views/student_flow/quiz_attempt/quiz_attempt_view.dart'
+    as _i16;
+import 'package:englify_app/UI/views/student_flow/profile/std_profile_view.dart'
     as _i32;
-import 'package:englify_app/UI/views/student_flow/select_lesson/std_select_lesson_view.dart'
+import 'package:englify_app/UI/views/student_flow/quiz_attempt/quiz_attempt_view.dart'
     as _i31;
-import 'package:englify_app/UI/views/student_flow/std_lesson_detail/std_lessondetail_view.dart'
+import 'package:englify_app/UI/views/student_flow/select_lesson/std_select_lesson_view.dart'
     as _i30;
+import 'package:englify_app/UI/views/student_flow/std_lesson_detail/std_lessondetail_view.dart'
+    as _i29;
 import 'package:englify_app/UI/views/student_flow/studenhome/student_home_view.dart'
     as _i13;
 import 'package:englify_app/UI/views/student_flow/student_classroom_detail/student_classroom_detai_view.dart'
-    as _i29;
+    as _i28;
 import 'package:englify_app/UI/views/student_flow/student_dashboard/student_dashboard_view.dart'
     as _i14;
 import 'package:englify_app/UI/views/student_flow/student_fav/student_fav_view.dart'
     as _i15;
-import 'package:englify_app/UI/views/student_flow/student_profile/student_profile_view.dart'
-    as _i16;
 import 'package:englify_app/UI/views/teacher_flow/classroom_create/classroom_create_view.dart'
-    as _i20;
+    as _i19;
 import 'package:englify_app/UI/views/teacher_flow/classroom_detail/classroomdetail_view.dart'
-    as _i25;
-import 'package:englify_app/UI/views/teacher_flow/create_lessons/create_lesson_view.dart'
-    as _i26;
-import 'package:englify_app/UI/views/teacher_flow/create_quiz/create_quiz_view.dart'
-    as _i28;
-import 'package:englify_app/UI/views/teacher_flow/lesson_detail/lesson_detail_view.dart'
-    as _i27;
-import 'package:englify_app/UI/views/teacher_flow/teacher_bottom_tabs/teacher_bottom_tab_view.dart'
     as _i24;
+import 'package:englify_app/UI/views/teacher_flow/create_lessons/create_lesson_view.dart'
+    as _i25;
+import 'package:englify_app/UI/views/teacher_flow/create_quiz/create_quiz_view.dart'
+    as _i27;
+import 'package:englify_app/UI/views/teacher_flow/lesson_detail/lesson_detail_view.dart'
+    as _i26;
+import 'package:englify_app/UI/views/teacher_flow/teacher_bottom_tabs/teacher_bottom_tab_view.dart'
+    as _i23;
 import 'package:englify_app/UI/views/teacher_flow/teacher_dashboard/teacher_dashboard_view.dart'
-    as _i21;
+    as _i20;
 import 'package:englify_app/UI/views/teacher_flow/teacher_home/teacher_home_view.dart'
     as _i10;
 import 'package:englify_app/UI/views/teacher_flow/teacher_profile/teacher_profile_view.dart'
-    as _i23;
-import 'package:englify_app/UI/views/teacher_flow/teacher_tracker/teacher_tracker_view.dart'
     as _i22;
+import 'package:englify_app/UI/views/teacher_flow/teacher_tracker/teacher_tracker_view.dart'
+    as _i21;
 import 'package:englify_app/UI/views/terms&condition/terms&cond_view.dart'
-    as _i19;
+    as _i18;
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as _i33;
+import 'package:flutter/material.dart' as _i35;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i35;
+import 'package:stacked_services/stacked_services.dart' as _i37;
 
 class Routes {
   static const splachView = '/';
@@ -93,8 +96,6 @@ class Routes {
   static const studentDashboardView = '/student-dashboard-view';
 
   static const studentFavView = '/student-fav-view';
-
-  static const studentProfileView = '/student-profile-view';
 
   static const bottomNaviView = '/bottom-navi-view';
 
@@ -128,6 +129,12 @@ class Routes {
 
   static const quizAttemptView = '/quiz-attempt-view';
 
+  static const stdProfileView = '/std-profile-view';
+
+  static const changePasswordView = '/change-password-view';
+
+  static const feedbackView = '/feedback-view';
+
   static const all = <String>{
     splachView,
     onbordingView,
@@ -143,7 +150,6 @@ class Routes {
     studentHomeView,
     studentDashboardView,
     studentFavView,
-    studentProfileView,
     bottomNaviView,
     privecyandpolicyView,
     termsandcondView,
@@ -160,6 +166,9 @@ class Routes {
     stdLessondetailView,
     stdSelectLessonView,
     quizAttemptView,
+    stdProfileView,
+    changePasswordView,
+    feedbackView,
   };
 }
 
@@ -179,26 +188,28 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.studentHomeView, page: _i13.StudentHomeView),
     _i1.RouteDef(Routes.studentDashboardView, page: _i14.StudentDashboardView),
     _i1.RouteDef(Routes.studentFavView, page: _i15.StudentFavView),
-    _i1.RouteDef(Routes.studentProfileView, page: _i16.StudentProfileView),
-    _i1.RouteDef(Routes.bottomNaviView, page: _i17.BottomNaviView),
-    _i1.RouteDef(Routes.privecyandpolicyView, page: _i18.PrivecyandpolicyView),
-    _i1.RouteDef(Routes.termsandcondView, page: _i19.TermsandcondView),
-    _i1.RouteDef(Routes.classroomCreateView, page: _i20.ClassroomCreateView),
-    _i1.RouteDef(Routes.teacherDashboardView, page: _i21.TeacherDashboardView),
-    _i1.RouteDef(Routes.teacherTrackerView, page: _i22.TeacherTrackerView),
-    _i1.RouteDef(Routes.teacherProfileView, page: _i23.TeacherProfileView),
-    _i1.RouteDef(Routes.teacherBottomTabView, page: _i24.TeacherBottomTabView),
-    _i1.RouteDef(Routes.classroomdetailView, page: _i25.ClassroomdetailView),
-    _i1.RouteDef(Routes.createLessonView, page: _i26.CreateLessonView),
-    _i1.RouteDef(Routes.lessonDetailView, page: _i27.LessonDetailView),
-    _i1.RouteDef(Routes.createQuizView, page: _i28.CreateQuizView),
+    _i1.RouteDef(Routes.bottomNaviView, page: _i16.BottomNaviView),
+    _i1.RouteDef(Routes.privecyandpolicyView, page: _i17.PrivecyandpolicyView),
+    _i1.RouteDef(Routes.termsandcondView, page: _i18.TermsandcondView),
+    _i1.RouteDef(Routes.classroomCreateView, page: _i19.ClassroomCreateView),
+    _i1.RouteDef(Routes.teacherDashboardView, page: _i20.TeacherDashboardView),
+    _i1.RouteDef(Routes.teacherTrackerView, page: _i21.TeacherTrackerView),
+    _i1.RouteDef(Routes.teacherProfileView, page: _i22.TeacherProfileView),
+    _i1.RouteDef(Routes.teacherBottomTabView, page: _i23.TeacherBottomTabView),
+    _i1.RouteDef(Routes.classroomdetailView, page: _i24.ClassroomdetailView),
+    _i1.RouteDef(Routes.createLessonView, page: _i25.CreateLessonView),
+    _i1.RouteDef(Routes.lessonDetailView, page: _i26.LessonDetailView),
+    _i1.RouteDef(Routes.createQuizView, page: _i27.CreateQuizView),
     _i1.RouteDef(
       Routes.studentClassroomDetaiView,
-      page: _i29.StudentClassroomDetaiView,
+      page: _i28.StudentClassroomDetaiView,
     ),
-    _i1.RouteDef(Routes.stdLessondetailView, page: _i30.StdLessondetailView),
-    _i1.RouteDef(Routes.stdSelectLessonView, page: _i31.StdSelectLessonView),
-    _i1.RouteDef(Routes.quizAttemptView, page: _i32.QuizAttemptView),
+    _i1.RouteDef(Routes.stdLessondetailView, page: _i29.StdLessondetailView),
+    _i1.RouteDef(Routes.stdSelectLessonView, page: _i30.StdSelectLessonView),
+    _i1.RouteDef(Routes.quizAttemptView, page: _i31.QuizAttemptView),
+    _i1.RouteDef(Routes.stdProfileView, page: _i32.StdProfileView),
+    _i1.RouteDef(Routes.changePasswordView, page: _i33.ChangePasswordView),
+    _i1.RouteDef(Routes.feedbackView, page: _i34.FeedbackView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -206,7 +217,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SplachViewArguments>(
         orElse: () => const SplachViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.SplachView(key: args.key),
         settings: data,
       );
@@ -215,7 +226,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<OnbordingViewArguments>(
         orElse: () => const OnbordingViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i3.OnbordingView(key: args.key),
         settings: data,
       );
@@ -224,7 +235,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<RoleSelectionArguments>(
         orElse: () => const RoleSelectionArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i4.RoleSelection(key: args.key),
         settings: data,
       );
@@ -233,7 +244,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<AuthViewArguments>(
         orElse: () => const AuthViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.AuthView(key: args.key),
         settings: data,
       );
@@ -242,7 +253,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SignupemailviewArguments>(
         orElse: () => const SignupemailviewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.Signupemailview(key: args.key),
         settings: data,
       );
@@ -251,14 +262,14 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<LoginViewArguments>(
         orElse: () => const LoginViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i7.LoginView(key: args.key),
         settings: data,
       );
     },
     _i8.SignupPasswordView: (data) {
       final args = data.getArgs<SignupPasswordViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i8.SignupPasswordView(key: args.key, email: args.email),
         settings: data,
@@ -268,7 +279,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<PersonalizationViewArguments>(
         orElse: () => const PersonalizationViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i9.PersonalizationView(key: args.key),
         settings: data,
       );
@@ -277,7 +288,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<TeacherHomeViewArguments>(
         orElse: () => const TeacherHomeViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i10.TeacherHomeView(key: args.key),
         settings: data,
       );
@@ -286,7 +297,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ClassroomcodeViewArguments>(
         orElse: () => const ClassroomcodeViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i11.ClassroomcodeView(key: args.key),
         settings: data,
       );
@@ -295,7 +306,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ForpassViewArguments>(
         orElse: () => const ForpassViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i12.ForpassView(key: args.key),
         settings: data,
       );
@@ -304,7 +315,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<StudentHomeViewArguments>(
         orElse: () => const StudentHomeViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i13.StudentHomeView(key: args.key),
         settings: data,
       );
@@ -313,7 +324,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<StudentDashboardViewArguments>(
         orElse: () => const StudentDashboardViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i14.StudentDashboardView(key: args.key),
         settings: data,
       );
@@ -322,112 +333,103 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<StudentFavViewArguments>(
         orElse: () => const StudentFavViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) => _i15.StudentFavView(key: args.key),
         settings: data,
       );
     },
-    _i16.StudentProfileView: (data) {
-      final args = data.getArgs<StudentProfileViewArguments>(
-        orElse: () => const StudentProfileViewArguments(),
-      );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i16.StudentProfileView(key: args.key),
-        settings: data,
-      );
-    },
-    _i17.BottomNaviView: (data) {
+    _i16.BottomNaviView: (data) {
       final args = data.getArgs<BottomNaviViewArguments>(
         orElse: () => const BottomNaviViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i17.BottomNaviView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i16.BottomNaviView(key: args.key),
         settings: data,
       );
     },
-    _i18.PrivecyandpolicyView: (data) {
+    _i17.PrivecyandpolicyView: (data) {
       final args = data.getArgs<PrivecyandpolicyViewArguments>(
         orElse: () => const PrivecyandpolicyViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i18.PrivecyandpolicyView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i17.PrivecyandpolicyView(key: args.key),
         settings: data,
       );
     },
-    _i19.TermsandcondView: (data) {
+    _i18.TermsandcondView: (data) {
       final args = data.getArgs<TermsandcondViewArguments>(
         orElse: () => const TermsandcondViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i19.TermsandcondView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i18.TermsandcondView(key: args.key),
         settings: data,
       );
     },
-    _i20.ClassroomCreateView: (data) {
+    _i19.ClassroomCreateView: (data) {
       final args = data.getArgs<ClassroomCreateViewArguments>(
         orElse: () => const ClassroomCreateViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i20.ClassroomCreateView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i19.ClassroomCreateView(key: args.key),
         settings: data,
       );
     },
-    _i21.TeacherDashboardView: (data) {
+    _i20.TeacherDashboardView: (data) {
       final args = data.getArgs<TeacherDashboardViewArguments>(
         orElse: () => const TeacherDashboardViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i21.TeacherDashboardView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i20.TeacherDashboardView(key: args.key),
         settings: data,
       );
     },
-    _i22.TeacherTrackerView: (data) {
+    _i21.TeacherTrackerView: (data) {
       final args = data.getArgs<TeacherTrackerViewArguments>(
         orElse: () => const TeacherTrackerViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i22.TeacherTrackerView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i21.TeacherTrackerView(key: args.key),
         settings: data,
       );
     },
-    _i23.TeacherProfileView: (data) {
+    _i22.TeacherProfileView: (data) {
       final args = data.getArgs<TeacherProfileViewArguments>(
         orElse: () => const TeacherProfileViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i23.TeacherProfileView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i22.TeacherProfileView(key: args.key),
         settings: data,
       );
     },
-    _i24.TeacherBottomTabView: (data) {
+    _i23.TeacherBottomTabView: (data) {
       final args = data.getArgs<TeacherBottomTabViewArguments>(
         orElse: () => const TeacherBottomTabViewArguments(),
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i24.TeacherBottomTabView(key: args.key),
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i23.TeacherBottomTabView(key: args.key),
         settings: data,
       );
     },
-    _i25.ClassroomdetailView: (data) {
+    _i24.ClassroomdetailView: (data) {
       final args = data.getArgs<ClassroomdetailViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i25.ClassroomdetailView(key: args.key, classroom: args.classroom),
+            _i24.ClassroomdetailView(key: args.key, classroom: args.classroom),
         settings: data,
       );
     },
-    _i26.CreateLessonView: (data) {
+    _i25.CreateLessonView: (data) {
       final args = data.getArgs<CreateLessonViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
+      return _i35.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i26.CreateLessonView(key: args.key, classid: args.classid),
+            _i25.CreateLessonView(key: args.key, classid: args.classid),
         settings: data,
       );
     },
-    _i27.LessonDetailView: (data) {
+    _i26.LessonDetailView: (data) {
       final args = data.getArgs<LessonDetailViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i27.LessonDetailView(
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i26.LessonDetailView(
           key: args.key,
           classroom: args.classroom,
           lessons: args.lessons,
@@ -435,10 +437,10 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i28.CreateQuizView: (data) {
+    _i27.CreateQuizView: (data) {
       final args = data.getArgs<CreateQuizViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i28.CreateQuizView(
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i27.CreateQuizView(
           key: args.key,
           classid: args.classid,
           lessonid: args.lessonid,
@@ -447,22 +449,22 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i29.StudentClassroomDetaiView: (data) {
+    _i28.StudentClassroomDetaiView: (data) {
       final args = data.getArgs<StudentClassroomDetaiViewArguments>(
         nullOk: false,
       );
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i29.StudentClassroomDetaiView(
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i28.StudentClassroomDetaiView(
           key: args.key,
           classroom: args.classroom,
         ),
         settings: data,
       );
     },
-    _i30.StdLessondetailView: (data) {
+    _i29.StdLessondetailView: (data) {
       final args = data.getArgs<StdLessondetailViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i30.StdLessondetailView(
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i29.StdLessondetailView(
           key: args.key,
           lesson: args.lesson,
           classroom: args.classroom,
@@ -470,10 +472,10 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i31.StdSelectLessonView: (data) {
+    _i30.StdSelectLessonView: (data) {
       final args = data.getArgs<StdSelectLessonViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i31.StdSelectLessonView(
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i30.StdSelectLessonView(
           key: args.key,
           lesson: args.lesson,
           classroom: args.classroom,
@@ -481,15 +483,42 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i32.QuizAttemptView: (data) {
+    _i31.QuizAttemptView: (data) {
       final args = data.getArgs<QuizAttemptViewArguments>(nullOk: false);
-      return _i33.MaterialPageRoute<dynamic>(
-        builder: (context) => _i32.QuizAttemptView(
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i31.QuizAttemptView(
           key: args.key,
           classId: args.classId,
           lessonId: args.lessonId,
           lessonTitle: args.lessonTitle,
         ),
+        settings: data,
+      );
+    },
+    _i32.StdProfileView: (data) {
+      final args = data.getArgs<StdProfileViewArguments>(
+        orElse: () => const StdProfileViewArguments(),
+      );
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i32.StdProfileView(key: args.key),
+        settings: data,
+      );
+    },
+    _i33.ChangePasswordView: (data) {
+      final args = data.getArgs<ChangePasswordViewArguments>(
+        orElse: () => const ChangePasswordViewArguments(),
+      );
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i33.ChangePasswordView(key: args.key),
+        settings: data,
+      );
+    },
+    _i34.FeedbackView: (data) {
+      final args = data.getArgs<FeedbackViewArguments>(
+        orElse: () => const FeedbackViewArguments(),
+      );
+      return _i35.MaterialPageRoute<dynamic>(
+        builder: (context) => _i34.FeedbackView(key: args.key),
         settings: data,
       );
     },
@@ -505,7 +534,7 @@ class StackedRouter extends _i1.RouterBase {
 class SplachViewArguments {
   const SplachViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -527,7 +556,7 @@ class SplachViewArguments {
 class OnbordingViewArguments {
   const OnbordingViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -549,7 +578,7 @@ class OnbordingViewArguments {
 class RoleSelectionArguments {
   const RoleSelectionArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -571,7 +600,7 @@ class RoleSelectionArguments {
 class AuthViewArguments {
   const AuthViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -593,7 +622,7 @@ class AuthViewArguments {
 class SignupemailviewArguments {
   const SignupemailviewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -615,7 +644,7 @@ class SignupemailviewArguments {
 class LoginViewArguments {
   const LoginViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -637,7 +666,7 @@ class LoginViewArguments {
 class SignupPasswordViewArguments {
   const SignupPasswordViewArguments({this.key, required this.email});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final String email;
 
@@ -661,7 +690,7 @@ class SignupPasswordViewArguments {
 class PersonalizationViewArguments {
   const PersonalizationViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -683,7 +712,7 @@ class PersonalizationViewArguments {
 class TeacherHomeViewArguments {
   const TeacherHomeViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -705,7 +734,7 @@ class TeacherHomeViewArguments {
 class ClassroomcodeViewArguments {
   const ClassroomcodeViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -727,7 +756,7 @@ class ClassroomcodeViewArguments {
 class ForpassViewArguments {
   const ForpassViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -749,7 +778,7 @@ class ForpassViewArguments {
 class StudentHomeViewArguments {
   const StudentHomeViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -771,7 +800,7 @@ class StudentHomeViewArguments {
 class StudentDashboardViewArguments {
   const StudentDashboardViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -793,7 +822,7 @@ class StudentDashboardViewArguments {
 class StudentFavViewArguments {
   const StudentFavViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -812,32 +841,10 @@ class StudentFavViewArguments {
   }
 }
 
-class StudentProfileViewArguments {
-  const StudentProfileViewArguments({this.key});
-
-  final _i33.Key? key;
-
-  @override
-  String toString() {
-    return '{"key": "$key"}';
-  }
-
-  @override
-  bool operator ==(covariant StudentProfileViewArguments other) {
-    if (identical(this, other)) return true;
-    return other.key == key;
-  }
-
-  @override
-  int get hashCode {
-    return key.hashCode;
-  }
-}
-
 class BottomNaviViewArguments {
   const BottomNaviViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -859,7 +866,7 @@ class BottomNaviViewArguments {
 class PrivecyandpolicyViewArguments {
   const PrivecyandpolicyViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -881,7 +888,7 @@ class PrivecyandpolicyViewArguments {
 class TermsandcondViewArguments {
   const TermsandcondViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -903,7 +910,7 @@ class TermsandcondViewArguments {
 class ClassroomCreateViewArguments {
   const ClassroomCreateViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -925,7 +932,7 @@ class ClassroomCreateViewArguments {
 class TeacherDashboardViewArguments {
   const TeacherDashboardViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -947,7 +954,7 @@ class TeacherDashboardViewArguments {
 class TeacherTrackerViewArguments {
   const TeacherTrackerViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -969,7 +976,7 @@ class TeacherTrackerViewArguments {
 class TeacherProfileViewArguments {
   const TeacherProfileViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -991,7 +998,7 @@ class TeacherProfileViewArguments {
 class TeacherBottomTabViewArguments {
   const TeacherBottomTabViewArguments({this.key});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   @override
   String toString() {
@@ -1013,7 +1020,7 @@ class TeacherBottomTabViewArguments {
 class ClassroomdetailViewArguments {
   const ClassroomdetailViewArguments({this.key, required this.classroom});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final Map<String, dynamic> classroom;
 
@@ -1037,7 +1044,7 @@ class ClassroomdetailViewArguments {
 class CreateLessonViewArguments {
   const CreateLessonViewArguments({this.key, required this.classid});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final String classid;
 
@@ -1065,11 +1072,11 @@ class LessonDetailViewArguments {
     required this.lessons,
   });
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final Map<String, dynamic> classroom;
 
-  final _i34.LessonData lessons;
+  final _i36.LessonData lessons;
 
   @override
   String toString() {
@@ -1098,7 +1105,7 @@ class CreateQuizViewArguments {
     required this.lessontitle,
   });
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final String classid;
 
@@ -1132,7 +1139,7 @@ class CreateQuizViewArguments {
 class StudentClassroomDetaiViewArguments {
   const StudentClassroomDetaiViewArguments({this.key, required this.classroom});
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final Map<String, dynamic> classroom;
 
@@ -1160,9 +1167,9 @@ class StdLessondetailViewArguments {
     required this.classroom,
   });
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
-  final _i34.LessonData lesson;
+  final _i36.LessonData lesson;
 
   final Map<String, dynamic> classroom;
 
@@ -1192,9 +1199,9 @@ class StdSelectLessonViewArguments {
     required this.classroom,
   });
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
-  final _i34.LessonData lesson;
+  final _i36.LessonData lesson;
 
   final Map<String, dynamic> classroom;
 
@@ -1225,7 +1232,7 @@ class QuizAttemptViewArguments {
     required this.lessonTitle,
   });
 
-  final _i33.Key? key;
+  final _i35.Key? key;
 
   final String classId;
 
@@ -1256,9 +1263,75 @@ class QuizAttemptViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i35.NavigationService {
+class StdProfileViewArguments {
+  const StdProfileViewArguments({this.key});
+
+  final _i35.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant StdProfileViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class ChangePasswordViewArguments {
+  const ChangePasswordViewArguments({this.key});
+
+  final _i35.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant ChangePasswordViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class FeedbackViewArguments {
+  const FeedbackViewArguments({this.key});
+
+  final _i35.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant FeedbackViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i37.NavigationService {
   Future<dynamic> navigateToSplachView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1276,7 +1349,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToOnbordingView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1294,7 +1367,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToRoleSelection({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1312,7 +1385,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToAuthView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1330,7 +1403,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToSignupemailview({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1348,7 +1421,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToLoginView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1366,7 +1439,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToSignupPasswordView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String email,
     int? routerId,
     bool preventDuplicates = true,
@@ -1385,7 +1458,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToPersonalizationView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1403,7 +1476,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToTeacherHomeView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1421,7 +1494,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToClassroomcodeView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1439,7 +1512,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToForpassView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1457,7 +1530,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToStudentHomeView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1475,7 +1548,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToStudentDashboardView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1493,7 +1566,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToStudentFavView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1510,26 +1583,8 @@ extension NavigatorStateExtension on _i35.NavigationService {
     );
   }
 
-  Future<dynamic> navigateToStudentProfileView({
-    _i33.Key? key,
-    int? routerId,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transition,
-  }) async {
-    return navigateTo<dynamic>(
-      Routes.studentProfileView,
-      arguments: StudentProfileViewArguments(key: key),
-      id: routerId,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
-      transition: transition,
-    );
-  }
-
   Future<dynamic> navigateToBottomNaviView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1547,7 +1602,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToPrivecyandpolicyView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1565,7 +1620,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToTermsandcondView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1583,7 +1638,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToClassroomCreateView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1601,7 +1656,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToTeacherDashboardView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1619,7 +1674,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToTeacherTrackerView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1637,7 +1692,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToTeacherProfileView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1655,7 +1710,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToTeacherBottomTabView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1673,7 +1728,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToClassroomdetailView({
-    _i33.Key? key,
+    _i35.Key? key,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -1692,7 +1747,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToCreateLessonView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String classid,
     int? routerId,
     bool preventDuplicates = true,
@@ -1711,9 +1766,9 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToLessonDetailView({
-    _i33.Key? key,
+    _i35.Key? key,
     required Map<String, dynamic> classroom,
-    required _i34.LessonData lessons,
+    required _i36.LessonData lessons,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1735,7 +1790,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToCreateQuizView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String classid,
     required String lessonid,
     required String lessontitle,
@@ -1761,7 +1816,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToStudentClassroomDetaiView({
-    _i33.Key? key,
+    _i35.Key? key,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -1783,8 +1838,8 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToStdLessondetailView({
-    _i33.Key? key,
-    required _i34.LessonData lesson,
+    _i35.Key? key,
+    required _i36.LessonData lesson,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -1807,8 +1862,8 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToStdSelectLessonView({
-    _i33.Key? key,
-    required _i34.LessonData lesson,
+    _i35.Key? key,
+    required _i36.LessonData lesson,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -1831,7 +1886,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> navigateToQuizAttemptView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String classId,
     required String lessonId,
     required String lessonTitle,
@@ -1856,8 +1911,62 @@ extension NavigatorStateExtension on _i35.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToStdProfileView({
+    _i35.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.stdProfileView,
+      arguments: StdProfileViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToChangePasswordView({
+    _i35.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.changePasswordView,
+      arguments: ChangePasswordViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToFeedbackView({
+    _i35.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.feedbackView,
+      arguments: FeedbackViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithSplachView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1875,7 +1984,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithOnbordingView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1893,7 +2002,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithRoleSelection({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1911,7 +2020,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithAuthView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1929,7 +2038,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithSignupemailview({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1947,7 +2056,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithLoginView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1965,7 +2074,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithSignupPasswordView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String email,
     int? routerId,
     bool preventDuplicates = true,
@@ -1984,7 +2093,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithPersonalizationView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2002,7 +2111,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithTeacherHomeView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2020,7 +2129,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithClassroomcodeView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2038,7 +2147,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithForpassView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2056,7 +2165,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithStudentHomeView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2074,7 +2183,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithStudentDashboardView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2092,7 +2201,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithStudentFavView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2109,26 +2218,8 @@ extension NavigatorStateExtension on _i35.NavigationService {
     );
   }
 
-  Future<dynamic> replaceWithStudentProfileView({
-    _i33.Key? key,
-    int? routerId,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transition,
-  }) async {
-    return replaceWith<dynamic>(
-      Routes.studentProfileView,
-      arguments: StudentProfileViewArguments(key: key),
-      id: routerId,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
-      transition: transition,
-    );
-  }
-
   Future<dynamic> replaceWithBottomNaviView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2146,7 +2237,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithPrivecyandpolicyView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2164,7 +2255,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithTermsandcondView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2182,7 +2273,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithClassroomCreateView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2200,7 +2291,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithTeacherDashboardView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2218,7 +2309,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithTeacherTrackerView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2236,7 +2327,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithTeacherProfileView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2254,7 +2345,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithTeacherBottomTabView({
-    _i33.Key? key,
+    _i35.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2272,7 +2363,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithClassroomdetailView({
-    _i33.Key? key,
+    _i35.Key? key,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -2291,7 +2382,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithCreateLessonView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String classid,
     int? routerId,
     bool preventDuplicates = true,
@@ -2310,9 +2401,9 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithLessonDetailView({
-    _i33.Key? key,
+    _i35.Key? key,
     required Map<String, dynamic> classroom,
-    required _i34.LessonData lessons,
+    required _i36.LessonData lessons,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -2334,7 +2425,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithCreateQuizView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String classid,
     required String lessonid,
     required String lessontitle,
@@ -2360,7 +2451,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithStudentClassroomDetaiView({
-    _i33.Key? key,
+    _i35.Key? key,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -2382,8 +2473,8 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithStdLessondetailView({
-    _i33.Key? key,
-    required _i34.LessonData lesson,
+    _i35.Key? key,
+    required _i36.LessonData lesson,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -2406,8 +2497,8 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithStdSelectLessonView({
-    _i33.Key? key,
-    required _i34.LessonData lesson,
+    _i35.Key? key,
+    required _i36.LessonData lesson,
     required Map<String, dynamic> classroom,
     int? routerId,
     bool preventDuplicates = true,
@@ -2430,7 +2521,7 @@ extension NavigatorStateExtension on _i35.NavigationService {
   }
 
   Future<dynamic> replaceWithQuizAttemptView({
-    _i33.Key? key,
+    _i35.Key? key,
     required String classId,
     required String lessonId,
     required String lessonTitle,
@@ -2448,6 +2539,60 @@ extension NavigatorStateExtension on _i35.NavigationService {
         lessonId: lessonId,
         lessonTitle: lessonTitle,
       ),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithStdProfileView({
+    _i35.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.stdProfileView,
+      arguments: StdProfileViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithChangePasswordView({
+    _i35.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.changePasswordView,
+      arguments: ChangePasswordViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithFeedbackView({
+    _i35.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.feedbackView,
+      arguments: FeedbackViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

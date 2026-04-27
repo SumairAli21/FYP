@@ -1,3 +1,4 @@
+import 'package:englify_app/UI/views/feedback/feedback_view.dart';
 import 'package:englify_app/UI/views/student_flow/bottom_navigation/bottom_navi_view.dart';
 import 'package:englify_app/UI/views/Role_selection/role_selection.dart';
 import 'package:englify_app/UI/views/auth/auth_view.dart';
@@ -11,6 +12,8 @@ import 'package:englify_app/UI/views/privecy&policy/privecyandpolicy_view.dart';
 import 'package:englify_app/UI/views/signup/signup_email_view.dart';
 import 'package:englify_app/UI/views/signup/signup_password_view.dart';
 import 'package:englify_app/UI/views/splach/splach_view.dart';
+import 'package:englify_app/UI/views/changepassword/changepassword_view.dart';
+import 'package:englify_app/UI/views/student_flow/profile/std_profile_view.dart';
 import 'package:englify_app/UI/views/student_flow/quiz_attempt/quiz_attempt_view.dart';
 import 'package:englify_app/UI/views/student_flow/select_lesson/std_select_lesson_view.dart';
 import 'package:englify_app/UI/views/student_flow/std_lesson_detail/std_lessondetail_view.dart';
@@ -19,7 +22,6 @@ import 'package:englify_app/UI/views/student_flow/student_classroom_detail/stude
 import 'package:englify_app/UI/views/student_flow/student_classroom_detail/student_classroom_detail_viewmodel.dart';
 import 'package:englify_app/UI/views/student_flow/student_dashboard/student_dashboard_view.dart';
 import 'package:englify_app/UI/views/student_flow/student_fav/student_fav_view.dart';
-import 'package:englify_app/UI/views/student_flow/student_profile/student_profile_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/classroom_create/classroom_create_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/classroom_detail/classroomdetail_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/create_lessons/create_lesson_view.dart';
@@ -37,8 +39,9 @@ import 'package:englify_app/services/create_lesson_service.dart';
 import 'package:englify_app/services/favourite_service.dart';
 import 'package:englify_app/services/file_viewer_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
-import 'package:englify_app/services/online_DB_service.dart';
+import 'package:englify_app/services/classroom_service.dart';
 import 'package:englify_app/services/pints_service.dart';
+import 'package:englify_app/services/profile_service.dart';
 import 'package:englify_app/services/quiz_service.dart';
 import 'package:englify_app/services/storage_service.dart';
 import 'package:englify_app/services/user_service.dart';
@@ -61,7 +64,6 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: StudentHomeView),
     MaterialRoute(page: StudentDashboardView),
     MaterialRoute(page: StudentFavView),
-    MaterialRoute(page: StudentProfileView),
     MaterialRoute(page: BottomNaviView),
     MaterialRoute(page: PrivecyandpolicyView),
     MaterialRoute(page: TermsandcondView),
@@ -77,7 +79,10 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: StudentClassroomDetaiView),
     MaterialRoute(page: StdLessondetailView),
     MaterialRoute(page: StdSelectLessonView),
-    MaterialRoute(page: QuizAttemptView)
+    MaterialRoute(page: QuizAttemptView),
+    MaterialRoute(page: StdProfileView),
+    MaterialRoute(page: ChangePasswordView),
+    MaterialRoute(page: FeedbackView)
     
   
     
@@ -95,7 +100,8 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: FileViewerService),
     LazySingleton(classType: QuizService),
     LazySingleton(classType: PointsService),
-    LazySingleton(classType: FavouriteService)
+    LazySingleton(classType: FavouriteService),
+    LazySingleton(classType: ProfileService)
   ],
 )
 class App {}

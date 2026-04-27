@@ -300,16 +300,20 @@ class QuizAttemptView extends StatelessWidget {
                                     onPressed: model.selectedOptionIndex == null
                                         ? null
                                         : () => model.onContinue(context),
-                                    child: const Text(
-                                      'CONTINUE',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white,
-                                        letterSpacing: 1.5,
-                                        fontFamily: 'button',
-                                      ),
-                                    ),
+                                    // ── Continue button
+child: Text(
+  // Last question hai aur answer reveal ho chuka → SUBMIT
+  model.isLastQuestion && model.isAnswerRevealed
+      ? 'SUBMIT'
+      : 'CONTINUE',
+  style: const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w800,
+    color: Colors.white,
+    letterSpacing: 1.5,
+    fontFamily: 'button',
+  ),
+),
                                   ),
                                 ),
                               ),

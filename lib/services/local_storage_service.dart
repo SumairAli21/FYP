@@ -44,7 +44,7 @@ class LocalStorageService {
     await pref.setBool(_isloginKey, true);
   }
 
-  // future need
+  
   Future<void> isloginfalse() async {
     final pref = await SharedPreferences.getInstance();
     await pref.setBool(_isloginKey, false);
@@ -68,6 +68,10 @@ class LocalStorageService {
     await pref.clear();
   }
 
+Future<void> clearusername() async {
+  final pref = await SharedPreferences.getInstance();
+  await pref.remove(_usernamekey);
+}
   // isclassroom join
   static const classroomKey = "isclassroom_join";
 
@@ -81,7 +85,7 @@ class LocalStorageService {
     return pref.getBool(classroomKey) ?? false;
   }
 
-  // ✅ NEW METHOD - Clear classroom join status
+  
   Future<void> clearclassroomjoin() async {
     final pref = await SharedPreferences.getInstance();
     await pref.remove(classroomKey);

@@ -1,55 +1,68 @@
-import 'package:englify_app/UI/views/teacher_flow/teacher_profile/teacher_profile_viewmodel.dart';
+import 'package:englify_app/UI/views/student_flow/profile/std_profile_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class TeacherProfileView extends StatelessWidget {
-  const TeacherProfileView({super.key});
+class StdProfileView extends StatelessWidget {
+  const StdProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<TeacherProfileViewmodel>.reactive(
-      viewModelBuilder: () => TeacherProfileViewmodel(),
-      onViewModelReady: (model)=> model.init(),
+    return ViewModelBuilder<ProfileViewmodel>.reactive(
+      viewModelBuilder: () => ProfileViewmodel(),
+      onViewModelReady: (model) => model.init(),
       builder: (context, model, child) {
         return Scaffold(
           body: Stack(
             children: [
+              // ── Background
               Positioned.fill(
-                child: Image.asset('assets/images/dies_logo.png',
-                    fit: BoxFit.cover),
+                child: Image.asset(
+                  'assets/images/dies_logo.png',
+                  fit: BoxFit.cover,
+                ),
               ),
               Positioned.fill(
                 child: Container(color: Colors.black.withOpacity(0.15)),
               ),
+
               SafeArea(
                 child: model.isBusy
                     ? const Center(
-                        child: CircularProgressIndicator(color: Colors.white))
+                        child: CircularProgressIndicator(color: Colors.white),
+                      )
                     : Column(
                         children: [
-                          // Top bar
+                          // ── Top bar
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 12),
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text('Profile',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w800,
-                                      fontFamily: 'heading',
-                                    )),
+                                const Text(
+                                  'Profile',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w800,
+                                    fontFamily: 'heading',
+                                  ),
+                                ),
                                 GestureDetector(
                                   onTap: model.onSettings,
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
                                     decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle),
-                                    child: const Icon(Icons.settings_outlined,
-                                        color: Color(0xFF2F6BFF), size: 22),
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.settings_outlined,
+                                      color: Color(0xFF2F6BFF),
+                                      size: 22,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -58,12 +71,13 @@ class TeacherProfileView extends StatelessWidget {
 
                           Expanded(
                             child: SingleChildScrollView(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
                               physics: const BouncingScrollPhysics(),
                               child: Column(
                                 children: [
-                                  // Profile Card
+                                  // ── Profile Card
                                   Container(
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
@@ -86,47 +100,64 @@ class TeacherProfileView extends StatelessWidget {
                                             children: [
                                               CircleAvatar(
                                                 radius: 42,
-                                                backgroundColor: Colors.grey[200],
+                                                backgroundColor:
+                                                    Colors.grey[200],
                                                 backgroundImage:
-                                                    model.profileImageUrl != null
-                                                        ? NetworkImage(
-                                                            model.profileImageUrl!)
-                                                        : null,
-                                                child: model.profileImageUrl == null
-                                                    ? Icon(Icons.person,
+                                                    model.profileImageUrl !=
+                                                        null
+                                                    ? NetworkImage(
+                                                        model.profileImageUrl!,
+                                                      )
+                                                    : null,
+                                                child:
+                                                    model.profileImageUrl ==
+                                                        null
+                                                    ? Icon(
+                                                        Icons.person,
                                                         size: 36,
-                                                        color: Colors.grey[400])
+                                                        color: Colors.grey[400],
+                                                      )
                                                     : null,
                                               ),
+                                              // Upload indicator
                                               if (model.isUploadingImage)
                                                 Positioned.fill(
                                                   child: CircleAvatar(
                                                     radius: 36,
-                                                    backgroundColor: Colors.black
+                                                    backgroundColor: Colors
+                                                        .black
                                                         .withOpacity(0.4),
                                                     child: const SizedBox(
                                                       width: 20,
                                                       height: 20,
                                                       child:
                                                           CircularProgressIndicator(
-                                                              color: Colors.white,
-                                                              strokeWidth: 2),
+                                                            color: Colors.white,
+                                                            strokeWidth: 2,
+                                                          ),
                                                     ),
                                                   ),
                                                 ),
+                                              // Camera icon
                                               Positioned(
                                                 bottom: 0,
                                                 right: 0,
                                                 child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(4),
-                                                  decoration: const BoxDecoration(
-                                                      color: Color(0xFF2F6BFF),
-                                                      shape: BoxShape.circle),
+                                                  padding: const EdgeInsets.all(
+                                                    4,
+                                                  ),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                        color: Color(
+                                                          0xFF2F6BFF,
+                                                        ),
+                                                        shape: BoxShape.circle,
+                                                      ),
                                                   child: const Icon(
-                                                      Icons.camera_alt,
-                                                      color: Colors.white,
-                                                      size: 12),
+                                                    Icons.camera_alt,
+                                                    color: Colors.white,
+                                                    size: 12,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -134,52 +165,34 @@ class TeacherProfileView extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 14),
 
+                                        // User info
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              // Username — tap to edit
-                                              GestureDetector(
-                                                onTap: () =>
-                                                    _showUsernameDialog(
-                                                        context, model),
-                                                child: Row(
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(
-                                                        model.username,
-                                                        style: const TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          color: Colors.black87,
-                                                        ),
-                                                        overflow:
-                                                            TextOverflow.ellipsis,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 4),
-                                                    const Icon(Icons.edit,
-                                                        size: 14,
-                                                        color: Color(0xFF2F6BFF)),
-                                                  ],
+                                              Text(
+                                                model.username,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.black87,
                                                 ),
                                               ),
-                                              const SizedBox(height: 4),
-
-                                              // Location — tap to edit
                                               GestureDetector(
                                                 onTap: () =>
                                                     _showLocationDialog(
-                                                        context, model),
+                                                      context,
+                                                      model,
+                                                    ),
                                                 child: Row(
                                                   children: [
                                                     Icon(
-                                                        Icons
-                                                            .location_on_outlined,
-                                                        size: 13,
-                                                        color: Colors.grey[500]),
+                                                      Icons
+                                                          .location_on_outlined,
+                                                      size: 13,
+                                                      color: Colors.grey[500],
+                                                    ),
                                                     const SizedBox(width: 2),
                                                     Text(
                                                       model.location.isEmpty
@@ -187,18 +200,91 @@ class TeacherProfileView extends StatelessWidget {
                                                           : model.location,
                                                       style: TextStyle(
                                                         fontSize: 13,
-                                                        color: model
-                                                                .location.isEmpty
+                                                        color:
+                                                            model
+                                                                .location
+                                                                .isEmpty
                                                             ? Colors.blue
                                                             : Colors.grey[600],
                                                       ),
                                                     ),
                                                     if (model.location.isEmpty)
-                                                      const Icon(Icons.edit,
-                                                          size: 12,
-                                                          color: Colors.blue),
+                                                      Icon(
+                                                        Icons.edit,
+                                                        size: 12,
+                                                        color: Colors.blue,
+                                                      ),
                                                   ],
                                                 ),
+                                              ),
+                                              const SizedBox(height: 6),
+                                              Row(
+                                                children: [
+                                                  // Level badge
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 3,
+                                                        ),
+                                                    decoration: BoxDecoration(
+                                                      color: const Color(
+                                                        0xFF2F6BFF,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            10,
+                                                          ),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.bar_chart,
+                                                          color: Colors.white,
+                                                          size: 13,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 3,
+                                                        ),
+                                                        Text(
+                                                          model.levelText,
+                                                          style:
+                                                              const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 8),
+
+                                                  // Points badge
+                                                  Row(
+                                                    children: [
+                                                      Image.asset(
+                                                        'assets/images/coins.png',
+                                                        height: 16,
+                                                        width: 16,
+                                                      ),
+                                                      const SizedBox(width: 3),
+                                                      Text(
+                                                        model.pointsText,
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color:
+                                                              Colors.grey[700],
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
@@ -208,20 +294,21 @@ class TeacherProfileView extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 16),
 
-                                  // Settings Card — score/level wali cheez nahi hai
+                                  // ── Settings Card
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white.withOpacity(0.92),
                                       borderRadius: BorderRadius.circular(20),
                                       boxShadow: [
                                         BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.06),
-                                            blurRadius: 10),
+                                          color: Colors.black.withOpacity(0.06),
+                                          blurRadius: 10,
+                                        ),
                                       ],
                                     ),
                                     child: Column(
                                       children: [
+                                        // Sound
                                         _buildToggleItem(
                                           icon: Icons.volume_up_outlined,
                                           iconColor: Colors.blue,
@@ -230,6 +317,8 @@ class TeacherProfileView extends StatelessWidget {
                                           onChanged: (_) => model.toggleSound(),
                                         ),
                                         _divider(),
+
+                                        // Notification
                                         _buildToggleItem(
                                           icon: Icons.notifications_outlined,
                                           iconColor: Colors.orange,
@@ -239,6 +328,8 @@ class TeacherProfileView extends StatelessWidget {
                                               model.toggleNotification(),
                                         ),
                                         _divider(),
+
+                                        // Rules
                                         _buildNavItem(
                                           icon: Icons.menu_book_outlined,
                                           iconColor: Colors.green,
@@ -246,6 +337,8 @@ class TeacherProfileView extends StatelessWidget {
                                           onTap: model.onRules,
                                         ),
                                         _divider(),
+
+                                        // Feedback
                                         _buildNavItem(
                                           icon: Icons.feedback_outlined,
                                           iconColor: Colors.teal,
@@ -253,6 +346,8 @@ class TeacherProfileView extends StatelessWidget {
                                           onTap: model.onFeedback,
                                         ),
                                         _divider(),
+
+                                        // Terms of Service
                                         _buildNavItem(
                                           icon: Icons.description_outlined,
                                           iconColor: Colors.indigo,
@@ -260,6 +355,8 @@ class TeacherProfileView extends StatelessWidget {
                                           onTap: model.onTerms,
                                         ),
                                         _divider(),
+
+                                        // Privacy Policy
                                         _buildNavItem(
                                           icon: Icons.privacy_tip_outlined,
                                           iconColor: Colors.purple,
@@ -267,6 +364,8 @@ class TeacherProfileView extends StatelessWidget {
                                           onTap: model.onPrivacy,
                                         ),
                                         _divider(),
+
+                                        // Change Password
                                         _buildNavItem(
                                           icon: Icons.lock_outline,
                                           iconColor: model.isGoogleAccount
@@ -285,7 +384,7 @@ class TeacherProfileView extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 16),
 
-                                  // Logout
+                                  // ── Delete / Logout button
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white.withOpacity(0.92),
@@ -312,127 +411,6 @@ class TeacherProfileView extends StatelessWidget {
           ),
         );
       },
-
-    );
-  }
-
-  void _showUsernameDialog(
-      BuildContext context, TeacherProfileViewmodel model) {
-    final controller = TextEditingController(text: model.username);
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Edit Name'),
-        content: TextField(
-          cursorColor: Colors.black,
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: 'Enter your name',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child:
-                const Text('Cancel', style: TextStyle(color: Colors.grey)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2F6BFF),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              model.updateUsername(controller.text.trim());
-            },
-            child: const Text('Save',
-                style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ── Location Dialog
-  void _showLocationDialog(
-      BuildContext context, TeacherProfileViewmodel model) {
-    final controller = TextEditingController(text: model.location);
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Add Location'),
-        content: TextField(
-          cursorColor: Colors.black,
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: 'e.g. Karachi, Pakistan',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child:
-                const Text('Cancel', style: TextStyle(color: Colors.grey)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2F6BFF),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              model.updateLocation(controller.text.trim());
-            },
-            child: const Text('Save',
-                style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ── Logout Dialog
-  void _showLogoutDialog(
-      BuildContext context, TeacherProfileViewmodel model) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout',
-            style: TextStyle(fontWeight: FontWeight.w700)),
-        content: const Text('Are you sure you want to logout?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child:
-                const Text('Cancel', style: TextStyle(color: Colors.grey)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-              model.logout(context);
-            },
-            child: const Text('Logout',
-                style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
     );
   }
 
@@ -457,17 +435,25 @@ class TeacherProfileView extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-              child: Text(label,
-                  style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87))),
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
+          ),
           Transform.scale(
             scale: 0.8,
             child: Switch(
               value: value,
               onChanged: onChanged,
+
+              // white thumb
               thumbColor: MaterialStateProperty.all(Colors.white),
+
+              // custom track color
               trackColor: MaterialStateProperty.resolveWith((states) {
                 if (states.contains(MaterialState.selected)) {
                   return const Color(0xFF2F6BFF);
@@ -481,6 +467,7 @@ class TeacherProfileView extends StatelessWidget {
     );
   }
 
+  // ── Nav item
   Widget _buildNavItem({
     required IconData icon,
     required Color iconColor,
@@ -508,15 +495,19 @@ class TeacherProfileView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: labelColor ?? Colors.black87)),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: labelColor ?? Colors.black87,
+                    ),
+                  ),
                   if (subtitle != null)
-                    Text(subtitle,
-                        style: TextStyle(
-                            fontSize: 11, color: Colors.grey[500])),
+                    Text(
+                      subtitle,
+                      style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                    ),
                 ],
               ),
             ),
@@ -529,7 +520,80 @@ class TeacherProfileView extends StatelessWidget {
   }
 
   Widget _divider() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Divider(height: 1, color: Colors.grey[200]),
-      );
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: Divider(height: 1, color: Colors.grey[200]),
+  );
+
+  void _showLocationDialog(BuildContext context, ProfileViewmodel model) {
+    final controller = TextEditingController(text: model.location);
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Add Location'),
+        content: TextField(
+          cursorColor: Colors.black,
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: 'e.g. Karachi, Pakistan',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF2F6BFF),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              model.updateLocation(controller.text.trim());
+            },
+            child: const Text('Save', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Logout dialog
+  void _showLogoutDialog(BuildContext context, ProfileViewmodel model) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          'Logout',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
+        content: const Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              model.logout(context);
+            },
+            child: const Text('Logout', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
 }

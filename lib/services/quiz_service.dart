@@ -4,9 +4,34 @@ import 'package:englify_app/models/quiz_model.dart';
 class QuizService {
   final _firestore = FirebaseFirestore.instance;
 
-  /// 🔹 CREATE QUIZ (Teacher Side)
+  // ✅ CHECK EXISTING QUIZ
+  Future<bool> hasQuizForLesson({
+    required String classId,
+    required String lessonId,
+  }) async {
+    final snapshot = await _firestore
+        .collection('classes')
+        .doc(classId)
+        .collection('lessons')
+        .doc(lessonId)
+        .collection('quizzes')
+        .limit(1)
+        .get();
+
+    return snapshot.docs.isNotEmpty;
+  }
+
+  // ✅ CREATE QUIZ (PROTECTED)
   Future<void> createQuiz(QuizModel quiz) async {
-    // Structure: classes → classId → lessons → lessonId → quizzes → quizId
+    final exists = await hasQuizForLesson(
+      classId: quiz.classId,
+      lessonId: quiz.lessonId,
+    );
+
+    if (exists) {
+      throw Exception("Quiz already exists");
+    }
+
     await _firestore
         .collection('classes')
         .doc(quiz.classId)
@@ -16,34 +41,28 @@ class QuizService {
         .add(quiz.toMap());
   }
 
-  /// 🔹 GET QUIZ QUESTIONS (Student Side)
+  // ✅ GET QUIZ (Student)
   Future<List<QuizQuestion>> getQuizQuestions({
     required String classId,
     required String lessonId,
   }) async {
-    try {
-      final snapshot = await _firestore
-          .collection('classes')
-          .doc(classId)
-          .collection('lessons')
-          .doc(lessonId)
-          .collection('quizzes')
-          .orderBy('createdAt', descending: false)
-          .limit(1)
-          .get();
+    final snapshot = await _firestore
+        .collection('classes')
+        .doc(classId)
+        .collection('lessons')
+        .doc(lessonId)
+        .collection('quizzes')
+        .limit(1)
+        .get();
 
-      if (snapshot.docs.isEmpty) return [];
+    if (snapshot.docs.isEmpty) return [];
 
-      final data = snapshot.docs.first.data();
+    final data = snapshot.docs.first.data();
 
-      final questionsData = data['questions'] as List<dynamic>;
+    final questions = data['questions'] as List<dynamic>;
 
-      return questionsData
-          .map((q) => QuizQuestion.fromMap(q as Map<String, dynamic>))
-          .toList();
-    } catch (e) {
-      print('Failed to fetch quiz questions: $e');
-      return [];
-    }
+    return questions
+        .map((q) => QuizQuestion.fromMap(q))
+        .toList();
   }
 }

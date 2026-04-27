@@ -7,15 +7,11 @@ class TeacherBottomTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("🔥🔥🔥 TEACHER BOTTOM TAB VIEW BUILD 🔥🔥🔥");
     return ViewModelBuilder<TeacherBottomTabViewmodel>.reactive(
       viewModelBuilder: () => TeacherBottomTabViewmodel(),
       disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
-        body: IndexedStack(
-          index: model.currentindex,
-          children: model.pages,
-        ),
+        body: IndexedStack(index: model.currentindex, children: model.pages),
         bottomNavigationBar: Container(
           height: 70,
           decoration: BoxDecoration(
@@ -50,9 +46,9 @@ class TeacherBottomTabView extends StatelessWidget {
               _buildNavItem(
                 context: context,
                 model: model,
-                icon: Icons.track_changes_outlined,
-                activeIcon: Icons.track_changes,
-                label: 'Tracking',
+                icon: Icons.grade_outlined,
+                activeIcon: Icons.grade,
+                label: 'Grades',
                 index: 2,
               ),
               _buildNavItem(

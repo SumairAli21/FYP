@@ -184,7 +184,7 @@ class TeacherHomeView extends StatelessWidget {
                 // ================= FLOATING ADD BUTTON =================
                 Positioned(
                   right: 24,
-                  bottom: 100, // bottom tabs ke upar
+                  bottom: 70, // bottom tabs ke upar
                   child: GestureDetector(
                     onTap: model.oncreateclassroom,
                     child: Container(

@@ -17,10 +17,7 @@ class AuthView extends StatelessWidget {
             children: [
               // Background Image
               Positioned.fill(
-                child: Image.asset(
-                  "assets/images/auth.png",
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset("assets/images/auth.png", fit: BoxFit.cover),
               ),
 
               // Gradient Overlay
@@ -41,12 +38,9 @@ class AuthView extends StatelessWidget {
 
               // Logo
               Positioned(
-                top: size.height * 0.0001,
+                top: size.height * 0.06,
                 left: 5,
-                child: Image.asset(
-                  "assets/images/applogo.png",
-                  height: 225,
-                ),
+                child: Image.asset("assets/images/applogo.png", height: 65),
               ),
 
               // Buttons Section
@@ -86,15 +80,13 @@ class AuthView extends StatelessWidget {
                               ),
                               const SizedBox(width: 12),
                             ] else ...[
-                              Icon(
-                                Icons.apple,
-                                size: 30,
-                                color: Colors.white,
-                              ),
+                              Icon(Icons.apple, size: 30, color: Colors.white),
                               const SizedBox(width: 12),
                             ],
                             Text(
-                              model.isBusy ? "Signing in..." : "Continue with Apple",
+                              model.isBusy
+                                  ? "Signing in..."
+                                  : "Continue with Apple",
                               style: TextStyle(
                                 fontFamily: "button",
                                 fontSize: 16,
@@ -145,7 +137,9 @@ class AuthView extends StatelessWidget {
                               const SizedBox(width: 12),
                             ],
                             Text(
-                              model.isBusy ? "Signing in..." : "Continue with Gmail",
+                              model.isBusy
+                                  ? "Signing in..."
+                                  : "Continue with Gmail",
                               style: TextStyle(
                                 fontFamily: "button",
                                 fontSize: 16,
@@ -164,7 +158,9 @@ class AuthView extends StatelessWidget {
                       width: double.infinity,
                       height: 52,
                       child: ElevatedButton(
-                        onPressed: model.isBusy ? null : model.continuewithemail,
+                        onPressed: model.isBusy
+                            ? null
+                            : model.continuewithemail,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           elevation: 0,
@@ -175,11 +171,7 @@ class AuthView extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.email,
-                              size: 30,
-                              color: Colors.black,
-                            ),
+                            Icon(Icons.email, size: 30, color: Colors.black),
                             const SizedBox(width: 12),
                             Text(
                               "Continue with Email",
@@ -256,7 +248,9 @@ class AuthView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                          onPressed: model.isBusy ? null : model.onnavigatetoprivecy,
+                          onPressed: model.isBusy
+                              ? null
+                              : model.onnavigatetoprivecy,
                           style: TextButton.styleFrom(
                             textStyle: TextStyle(
                               decoration: TextDecoration.underline,
@@ -276,13 +270,12 @@ class AuthView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 4),
-                        Text(
-                          "and",
-                          style: TextStyle(color: Colors.white70),
-                        ),
+                        Text("and", style: TextStyle(color: Colors.white70)),
                         SizedBox(width: 4),
                         TextButton(
-                          onPressed: model.isBusy ? null : model.onnavigatetoterms,
+                          onPressed: model.isBusy
+                              ? null
+                              : model.onnavigatetoterms,
                           style: TextButton.styleFrom(
                             textStyle: TextStyle(
                               decoration: TextDecoration.underline,

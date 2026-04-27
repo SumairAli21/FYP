@@ -18,7 +18,7 @@ class OnbordingViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // ✅ Go to next page
+  
   void nextpage() {
     if (currentindex < 2) {
       currentindex++;

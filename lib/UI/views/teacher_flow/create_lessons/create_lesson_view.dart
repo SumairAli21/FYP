@@ -13,9 +13,8 @@ class CreateLessonView extends StatelessWidget {
     return ViewModelBuilder<CreateLeassonViewmodel>.reactive(
       viewModelBuilder: () => CreateLeassonViewmodel(classid: classid),
       builder: (context, model, child) {
-       
-       if(!model.isBusy && model.generatedlessonid!= null){
-         WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!model.isBusy && model.generatedlessonid != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -28,7 +27,7 @@ class CreateLessonView extends StatelessWidget {
               ),
             );
           });
-       }
+        }
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -223,23 +222,31 @@ class CreateLessonView extends StatelessWidget {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.2),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                            width: 1.2,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                              color: Color(0xFF2F6BFF), width: 1.6),
+                            color: Color(0xFF2F6BFF),
+                            width: 1.6,
+                          ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                              color: Colors.redAccent, width: 1.2),
+                            color: Colors.redAccent,
+                            width: 1.2,
+                          ),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                              color: Colors.redAccent, width: 1.6),
+                            color: Colors.redAccent,
+                            width: 1.6,
+                          ),
                         ),
                       ),
                     ),
@@ -247,7 +254,7 @@ class CreateLessonView extends StatelessWidget {
 
                     // ✅ Class Description (optional)
                     const Text(
-                      "Class Description",
+                      "Lesson Description",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -272,13 +279,17 @@ class CreateLessonView extends StatelessWidget {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.2),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                            width: 1.2,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                              color: Color(0xFF2F6BFF), width: 1.6),
+                            color: Color(0xFF2F6BFF),
+                            width: 1.6,
+                          ),
                         ),
                       ),
                     ),
@@ -320,14 +331,17 @@ class CreateLessonView extends StatelessWidget {
                         child: model.selectedcontentfile != null
                             ? Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 12),
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
                                 child: Row(
                                   children: [
                                     Container(
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF2F6BFF)
-                                            .withOpacity(0.1),
+                                        color: const Color(
+                                          0xFF2F6BFF,
+                                        ).withOpacity(0.1),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: const Icon(

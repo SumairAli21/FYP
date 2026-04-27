@@ -2,73 +2,151 @@ import 'package:englify_app/app/app.locator.dart';
 import 'package:englify_app/app/app.router.dart';
 import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
-import 'package:englify_app/services/online_DB_service.dart';
+import 'package:englify_app/services/classroom_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SplachViewModel extends BaseViewModel {
-  final _localstorage = locator<LocalStorageService>();
-  final _navigationservice = locator<NavigationService>();
-  final _authservice = locator<AuthService>();
-  final _classroomservice = locator<classroomservice>();
 
-  Future<void> runsetuplogic() async {
-    await Future.delayed(Duration(seconds: 3));
+ final _localstorage=
+ locator<LocalStorageService>();
 
-    final isfirstlaunch = await _localstorage.isfirstlaunch();
+ final _navigationservice=
+ locator<NavigationService>();
 
-    if (isfirstlaunch) {
-      _navigationservice.replaceWithOnbordingView();
-      return;
-    }
+ final _authservice=
+ locator<AuthService>();
 
-    final role = await _localstorage.getuserrole();
-    if (role == null) {
-      _navigationservice.replaceWithRoleSelection();
-      return;
-    }
+ final _classroomservice=
+ locator<classroomservice>();
 
-    final login = await _localstorage.getislogin();
-    if (!login) {
-      _navigationservice.replaceWithAuthView();
-      return;
-    }
 
-    // Teacher flow
-    if (role == "teacher") {
-      _navigationservice.replaceWithTeacherBottomTabView();
-      return;
-    }
+ Future<void> runsetuplogic() async {
 
-    // ✅ STUDENT FLOW - Check from DATABASE, not local storage
-    final user = _authservice.currentuser;
-    if (user != null) {
-      try {
-        // Check if student has joined any classroom from DATABASE
-        final classes = await _classroomservice
-            .getstudentclasses(user.uid)
-            .first;
+ await Future.delayed(
+ Duration(seconds:3)
+ );
 
-        if (classes.docs.isNotEmpty) {
-          // ✅ User has joined classroom - sync local storage and go to home
-          await _localstorage.setclassroomjointrue();
-          _navigationservice.replaceWithBottomNaviView();
-          return;
-        } else {
-          // ✅ User has NOT joined any classroom - clear local storage if exists
-          await _localstorage.clearclassroomjoin();
-          _navigationservice.replaceWithPersonalizationView();
-          return;
-        }
-      } catch (e) {
-        // Error checking database - fallback to personalization
-        print("Error checking classroom: $e");
-        _navigationservice.replaceWithPersonalizationView();
-        return;
-      }
-    }
 
-    // Fallback
-    _navigationservice.replaceWithPersonalizationView();
-  }
+ final isfirstlaunch=
+ await _localstorage
+ .isfirstlaunch();
+
+ if(isfirstlaunch){
+
+ _navigationservice
+ .replaceWithOnbordingView();
+
+ return;
+
+ }
+
+
+
+ final role=
+ await _localstorage
+ .getuserrole();
+
+ if(role==null){
+
+ _navigationservice
+ .replaceWithRoleSelection();
+
+ return;
+
+ }
+
+
+
+ final login=
+ await _localstorage
+ .getislogin();
+
+ if(!login){
+
+ _navigationservice
+ .replaceWithAuthView();
+
+ return;
+
+ }
+
+
+
+ // TEACHER FLOW
+ if(role=="teacher"){
+
+ _navigationservice
+ .replaceWithTeacherBottomTabView();
+
+ return;
+
+ }
+
+
+
+ // STUDENT FLOW
+ final user=
+ _authservice.currentuser;
+
+
+ if(user!=null){
+
+ try{
+
+ final hasClasses=
+ await _classroomservice
+ .hasStudentJoinedAnyClass(
+ user.uid
+ );
+
+
+ if(hasClasses){
+
+ await _localstorage
+ .setclassroomjointrue();
+
+ _navigationservice
+ .replaceWithBottomNaviView();
+
+ return;
+
+ }
+
+ else{
+
+ await _localstorage
+ .clearclassroomjoin();
+
+ _navigationservice
+ .replaceWithPersonalizationView();
+
+ return;
+
+ }
+
+ }
+
+ catch(e){
+
+ print(
+ "Error checking classes: $e"
+ );
+
+ _navigationservice
+ .replaceWithPersonalizationView();
+
+ return;
+
+ }
+
+ }
+
+
+ // fallback
+ _navigationservice
+ .replaceWithPersonalizationView();
+
+ }
+
 }

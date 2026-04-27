@@ -3,7 +3,7 @@ import 'package:englify_app/app/app.locator.dart';
 import 'package:englify_app/app/app.router.dart';
 import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/firestore_keys.dart';
-import 'package:englify_app/services/online_DB_service.dart';
+import 'package:englify_app/services/classroom_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

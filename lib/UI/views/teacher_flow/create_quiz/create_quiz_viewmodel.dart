@@ -22,9 +22,25 @@ class CreateQuizViewmodel extends BaseViewModel {
   final ScrollController scrollController = ScrollController();
   final List<QuestionForm> questions = [QuestionForm()];
 
+   bool quizAlreadyCreated = false;
+
+  bool get canPublish => !quizAlreadyCreated && !isBusy;
+
   static const int maxQuestions = 20;
   static const int maxOptions = 4;
   static const int minOptions = 2;
+
+
+    Future<void> init() async {
+    setBusy(true);
+
+    quizAlreadyCreated = await _quizService.hasQuizForLesson(
+      classId: classId,
+      lessonId: lessonId,
+    );
+
+    setBusy(false);
+  }
 
   bool get _allQuestionsFilled {
     for (final q in questions) {
@@ -116,6 +132,12 @@ class CreateQuizViewmodel extends BaseViewModel {
   }
 
   Future<void> publishQuiz(BuildContext context) async {
+    // ✅ BLOCK IF ALREADY EXISTS
+    if (quizAlreadyCreated) {
+      _showSnack(context, "Quiz already created for this lesson");
+      return;
+    }
+
     final error = _validate();
     if (error != null) {
       _showSnack(context, error);
@@ -125,54 +147,42 @@ class CreateQuizViewmodel extends BaseViewModel {
     setBusy(true);
 
     try {
-      final quizQuestions = questions
-          .where((q) => q.isRequired)
-          .map((q) => QuizQuestion(
-                questionText: q.questionController.text.trim(),
-                isRequired: q.isRequired,
-                options: q.options
-                    .map((o) => QuizOption(
-                          text: o.controller.text.trim(),
-                          isCorrect: o.isCorrect,
-                        ))
-                    .toList(),
-              ))
-          .toList();
-
-      final finalQuestions = quizQuestions.isEmpty
-          ? questions
-              .map((q) => QuizQuestion(
-                    questionText: q.questionController.text.trim(),
-                    isRequired: q.isRequired,
-                    options: q.options
-                        .map((o) => QuizOption(
-                              text: o.controller.text.trim(),
-                              isCorrect: o.isCorrect,
-                            ))
-                        .toList(),
-                  ))
-              .toList()
-          : quizQuestions;
-
       final quiz = QuizModel(
         classId: classId,
         lessonId: lessonId,
         lessonTitle: lessonTitle,
         createdAt: DateTime.now(),
-        questions: finalQuestions,
+        questions: questions
+            .map((q) => QuizQuestion(
+                  questionText: q.questionController.text.trim(),
+                  isRequired: q.isRequired,
+                  options: q.options
+                      .map((o) => QuizOption(
+                            text: o.controller.text.trim(),
+                            isCorrect: o.isCorrect,
+                          ))
+                      .toList(),
+                ))
+            .toList(),
       );
 
       await _quizService.createQuiz(quiz);
+
+      // ✅ LOCK AFTER CREATE
+      quizAlreadyCreated = true;
+
       setBusy(false);
+      notifyListeners();
 
       if (context.mounted) {
         _showSuccessDialog(context);
       }
     } catch (e) {
       setBusy(false);
-      _showSnack(context, 'Failed to save quiz: $e');
+      _showSnack(context, 'Failed: $e');
     }
   }
+
 
   void _showSuccessDialog(BuildContext context) {
     showDialog(

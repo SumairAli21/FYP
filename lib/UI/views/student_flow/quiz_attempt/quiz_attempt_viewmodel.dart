@@ -70,7 +70,7 @@ class QuizAttemptViewmodel extends BaseViewModel {
   }
 
   // ── Continue button press
-  void onContinue(BuildContext context) {
+  void onContinue(BuildContext context) async{
     if (selectedOptionIndex == null) return;
 
     if (!isAnswerRevealed) {
@@ -85,17 +85,21 @@ class QuizAttemptViewmodel extends BaseViewModel {
       }
       notifyListeners();
     } else {
-      // ── Second press: next question or result
-      if (isLastQuestion) {
-        _showResultScreen(context);
-      } else {
-        currentIndex++;
-        selectedOptionIndex = null;
-        isAnswerRevealed = false;
-        feedbackMessage = '';
-        notifyListeners();
-      }
-    }
+  // ── Second press: next question or result
+  if (isLastQuestion) {
+    setBusy(true);         // ← loading show karo submit pe
+    notifyListeners();
+    await _showResultScreen(context);
+    setBusy(false);
+    notifyListeners();
+  } else {
+    currentIndex++;
+    selectedOptionIndex = null;
+    isAnswerRevealed = false;
+    feedbackMessage = '';
+    notifyListeners();
+  }
+}
   }
 
   String _getCorrectFeedback() {

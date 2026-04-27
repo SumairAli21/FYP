@@ -84,7 +84,7 @@ class ClassroomCreateView extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     
-                    // ✅ IMAGE PICKER (REQUIRED)
+                  
                     Row(
                       children: [
                         Text(
@@ -247,41 +247,6 @@ class ClassroomCreateView extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
                     
-                    // Description
-                    Text(
-                      "Class Description",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      cursorColor: Colors.black,
-                      controller: model.descriptioncontroller,
-                      maxLines: 5,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        hintText: "Enter your description here",
-                        hintStyle: TextStyle(color: Colors.black38),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Colors.grey, width: 1.2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: Color(0xFF2F6BFF), width: 1.6),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 15),
                     
                     // Student Count
                     Row(
