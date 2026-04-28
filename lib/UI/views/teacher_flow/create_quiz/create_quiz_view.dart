@@ -202,7 +202,7 @@ Widget _buildQuestionCard(
   final height = MediaQuery.of(context).size.height;
 
   return Container(
-    height: height * 0.55,
+    height: height * 0.62,
     margin: EdgeInsets.only(bottom: 16),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -421,7 +421,117 @@ Widget _buildQuestionCard(
 )
                 ],
               ),
+              
           ),
+          SizedBox(height: 10),
+
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 10),
+  child: Row(
+    children: [
+      const Text(
+        'Timer',
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
+      ),
+
+      Spacer(),
+
+      Transform.scale(
+        scale: 0.8,
+        child: Switch(
+          value: question.timerEnabled,
+          onChanged: (_) => model.toggleTimer(qIndex),
+
+          thumbColor:
+              MaterialStateProperty.all(
+                Colors.white,
+              ),
+
+          trackColor:
+           MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(
+                MaterialState.selected,
+              )) {
+                return const Color(
+                  0xFF2F6BFF,
+                );
+              }
+
+              return Colors.grey.shade400;
+            },
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+
+if(question.timerEnabled)...[
+
+SizedBox(height:12),
+
+TextField(
+  cursorColor: Colors.black,
+
+  controller:
+      question.timerController,
+
+  keyboardType:
+      TextInputType.number,
+
+  style: const TextStyle(
+    color: Colors.black,
+  ),
+
+  decoration: InputDecoration(
+    hintText: "Seconds (15)",
+
+    hintStyle: TextStyle(
+      color: Colors.black54,
+      fontSize:14,
+    ),
+
+    filled:true,
+    fillColor: Colors.white,
+
+    enabledBorder:
+      OutlineInputBorder(
+        borderRadius:
+          BorderRadius.circular(30),
+
+        borderSide:
+         BorderSide(
+          color: Colors.black,
+          width:1.2,
+         ),
+      ),
+
+    focusedBorder:
+      OutlineInputBorder(
+        borderRadius:
+         BorderRadius.circular(30),
+
+        borderSide:
+         BorderSide(
+          color: Colors.black,
+          width:1.5,
+         ),
+      ),
+
+    contentPadding:
+      EdgeInsets.symmetric(
+        horizontal:16,
+        vertical:12,
+      ),
+  ),
+),
+
+]
         ],
       ),
     ),

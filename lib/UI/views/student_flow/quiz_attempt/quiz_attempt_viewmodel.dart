@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:englify_app/app/app.locator.dart';
 import 'package:englify_app/app/app.router.dart';
 import 'package:englify_app/models/quiz_model.dart';
@@ -21,6 +23,12 @@ class QuizAttemptViewmodel extends BaseViewModel {
     required this.lessonId,
     required this.lessonTitle,
   });
+
+Timer? quizTimer;
+
+int timeLeft=0;
+double progress=1;
+bool timedOut=false;
 
   // ── Quiz data
   List<QuizQuestion> questions = [];
@@ -47,7 +55,50 @@ class QuizAttemptViewmodel extends BaseViewModel {
     if (selectedOptionIndex == null || currentQuestion == null) return false;
     return currentQuestion!.options[selectedOptionIndex!].isCorrect;
   }
+void startQuestionTimer(){
 
+quizTimer?.cancel();
+
+final q=currentQuestion;
+
+if(q==null || !q.timerEnabled){
+ timeLeft=0;
+ progress=1;
+ notifyListeners();
+ return;
+}
+
+timeLeft=q.timerSeconds;
+progress=1;
+timedOut=false;
+
+notifyListeners();
+
+quizTimer=
+Timer.periodic(
+Duration(seconds:1),
+(timer){
+
+ if(timeLeft>0){
+   timeLeft--;
+
+   progress=
+     timeLeft/
+     q.timerSeconds;
+
+   notifyListeners();
+ }
+
+ if(timeLeft==0){
+
+ timer.cancel();
+
+ _handleTimeOut();
+
+ }
+
+});
+}
   // ── Load quiz from Firestore
   Future<void> init() async {
     setBusy(true);
@@ -56,12 +107,50 @@ class QuizAttemptViewmodel extends BaseViewModel {
         classId: classId,
         lessonId: lessonId,
       );
+      if(questions.isNotEmpty){
+ startQuestionTimer();
+}
     } catch (e) {
       print('Failed to load quiz: $e');
     }
     setBusy(false);
   }
+void _handleTimeOut(){
 
+if(isAnswerRevealed) return;
+
+timedOut=true;
+
+selectedOptionIndex=null;
+
+isAnswerRevealed=true;
+
+feedbackMessage=
+"Time Up ⏰ 0 points";
+
+notifyListeners();
+
+Future.delayed(
+Duration(seconds:2),
+(){
+
+ if(isLastQuestion){
+   notifyListeners();
+   return;
+ }
+
+ currentIndex++;
+
+ selectedOptionIndex=null;
+ isAnswerRevealed=false;
+ feedbackMessage='';
+
+ startQuestionTimer();
+
+ notifyListeners();
+
+});
+}
   // ── Select option
   void selectOption(int index) {
     if (isAnswerRevealed) return; // already revealed — nahi badal sakte
@@ -94,10 +183,15 @@ class QuizAttemptViewmodel extends BaseViewModel {
     notifyListeners();
   } else {
     currentIndex++;
-    selectedOptionIndex = null;
-    isAnswerRevealed = false;
-    feedbackMessage = '';
-    notifyListeners();
+
+selectedOptionIndex = null;
+isAnswerRevealed = false;
+feedbackMessage = '';
+
+// NEW
+startQuestionTimer();
+
+notifyListeners();
   }
 }
   }
@@ -115,15 +209,18 @@ class QuizAttemptViewmodel extends BaseViewModel {
   }
 
   // ── Show result screen
-  Future<void> _showResultScreen(BuildContext context) async {
-    // Save points to Firestore
-    await _pointsService.savequizresult(
-      lessonId: lessonId,
-      classId: classId,
-      score: earnedPoints,
-      totalPoints: totalPoints,
-    );
+  Future<void> _showResultScreen(
+BuildContext context
+) async {
 
+quizTimer?.cancel(); // stop timer
+
+await _pointsService.savequizresult(
+ lessonId: lessonId,
+ classId: classId,
+ score: earnedPoints,
+ totalPoints: totalPoints,
+);
     if (context.mounted) {
       _showResultDialog(context);
     }
@@ -261,4 +358,11 @@ class QuizAttemptViewmodel extends BaseViewModel {
 }
 
   void onBack() => _navigationService.back();
+
+  
+  @override
+void dispose() {
+  quizTimer?.cancel();
+  super.dispose();
+}
 }

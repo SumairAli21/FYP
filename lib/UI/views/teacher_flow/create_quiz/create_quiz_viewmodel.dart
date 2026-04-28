@@ -42,6 +42,17 @@ class CreateQuizViewmodel extends BaseViewModel {
     setBusy(false);
   }
 
+  void toggleTimer(int qIndex){
+ questions[qIndex].timerEnabled =
+   !questions[qIndex].timerEnabled;
+
+ if(questions[qIndex].timerController.text.isEmpty){
+   questions[qIndex].timerController.text="15";
+ }
+
+ notifyListeners();
+}
+
   bool get _allQuestionsFilled {
     for (final q in questions) {
       if (q.questionController.text.trim().isEmpty) return false;
@@ -113,75 +124,131 @@ class CreateQuizViewmodel extends BaseViewModel {
     notifyListeners();
   }
 
-  String? _validate() {
-    for (int i = 0; i < questions.length; i++) {
-      final q = questions[i];
-      if (q.questionController.text.trim().isEmpty) {
-        return 'Question ${i + 1} text is empty';
-      }
-      for (int j = 0; j < q.options.length; j++) {
-        if (q.options[j].controller.text.trim().isEmpty) {
-          return 'Question ${i + 1} - Option ${j + 1} is empty';
-        }
-      }
-      if (!q.options.any((o) => o.isCorrect)) {
-        return 'Please select a correct answer for Question ${i + 1}';
+ String? _validate() {
+
+  for (int i = 0; i < questions.length; i++) {
+
+    final q = questions[i];
+
+    if (q.questionController.text.trim().isEmpty) {
+      return 'Question ${i + 1} text is empty';
+    }
+
+    for (int j = 0; j < q.options.length; j++) {
+      if (q.options[j].controller.text.trim().isEmpty) {
+        return 'Question ${i + 1} - Option ${j + 1} is empty';
       }
     }
-    return null;
+
+    if (!q.options.any((o) => o.isCorrect)) {
+      return 'Please select a correct answer for Question ${i + 1}';
+    }
+
+  
+    if (q.timerEnabled) {
+
+      if (q.timerController.text.trim().isEmpty) {
+        return 'Enter timer seconds for Question ${i + 1}';
+      }
+
+      final seconds =
+          int.tryParse(q.timerController.text.trim());
+
+      if (seconds == null) {
+        return 'Invalid timer for Question ${i + 1}';
+      }
+
+      if (seconds < 5) {
+        return 'Minimum timer is 5 seconds (Question ${i + 1})';
+      }
+
+      if (seconds > 120) {
+        return 'Maximum timer is 120 seconds (Question ${i + 1})';
+      }
+    }
+
   }
+
+  return null;
+}
 
   Future<void> publishQuiz(BuildContext context) async {
-    // ✅ BLOCK IF ALREADY EXISTS
-    if (quizAlreadyCreated) {
-      _showSnack(context, "Quiz already created for this lesson");
-      return;
-    }
 
-    final error = _validate();
-    if (error != null) {
-      _showSnack(context, error);
-      return;
-    }
-
-    setBusy(true);
-
-    try {
-      final quiz = QuizModel(
-        classId: classId,
-        lessonId: lessonId,
-        lessonTitle: lessonTitle,
-        createdAt: DateTime.now(),
-        questions: questions
-            .map((q) => QuizQuestion(
-                  questionText: q.questionController.text.trim(),
-                  isRequired: q.isRequired,
-                  options: q.options
-                      .map((o) => QuizOption(
-                            text: o.controller.text.trim(),
-                            isCorrect: o.isCorrect,
-                          ))
-                      .toList(),
-                ))
-            .toList(),
-      );
-
-      await _quizService.createQuiz(quiz);
-
-      // ✅ LOCK AFTER CREATE
-      quizAlreadyCreated = true;
-
-      setBusy(false);
-      notifyListeners();
-
-      if (context.mounted) {
-        _showSuccessDialog(context);
-      }
-    } catch (e) {
-      setBusy(false);
-      _showSnack(context, 'Failed: $e');
-    }
+  if (quizAlreadyCreated) {
+    _showSnack(
+      context,
+      "Quiz already created for this lesson",
+    );
+    return;
   }
+
+  final error = _validate();
+
+  if (error != null) {
+    _showSnack(context, error);
+    return;
+  }
+
+  setBusy(true);
+
+  try {
+
+    final quiz = QuizModel(
+      classId: classId,
+      lessonId: lessonId,
+      lessonTitle: lessonTitle,
+      createdAt: DateTime.now(),
+
+      questions: questions.map(
+        (q) => QuizQuestion(
+
+          questionText:
+              q.questionController.text.trim(),
+
+          isRequired: q.isRequired,
+
+          // ✅ NEW TIMER FIELDS
+          timerEnabled: q.timerEnabled,
+
+          timerSeconds:
+              int.tryParse(
+                q.timerController.text.trim(),
+              ) ?? 15,
+
+          options: q.options.map(
+            (o)=> QuizOption(
+              text: o.controller.text.trim(),
+              isCorrect: o.isCorrect,
+            ),
+          ).toList(),
+
+        ),
+      ).toList(),
+    );
+
+
+    await _quizService.createQuiz(quiz);
+
+    quizAlreadyCreated = true;
+
+    setBusy(false);
+    notifyListeners();
+
+    if (context.mounted) {
+      _showSuccessDialog(context);
+    }
+
+  } catch (e) {
+
+    setBusy(false);
+
+    _showSnack(
+      context,
+      'Failed: $e',
+    );
+  }
+}
+  
 
 
   void _showSuccessDialog(BuildContext context) {
@@ -274,12 +341,24 @@ class CreateQuizViewmodel extends BaseViewModel {
 // ── Form helper classes
 class QuestionForm {
   final questionController = TextEditingController();
+
   bool isRequired = false;
-  List<OptionForm> options = [OptionForm(), OptionForm()];
+
+  // NEW TIMER
+  bool timerEnabled = false;
+  final timerController = TextEditingController(text: "15");
+
+  List<OptionForm> options = [
+    OptionForm(),
+    OptionForm(),
+  ];
 
   void dispose() {
     questionController.dispose();
-    for (final o in options) o.dispose();
+    timerController.dispose();
+    for (final o in options) {
+      o.dispose();
+    }
   }
 }
 

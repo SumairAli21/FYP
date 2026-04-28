@@ -21,7 +21,7 @@ class CreateLessonService {
     String? imageurl,
     String? contenturl,
   }) async {
-    // ✅ Get auto lesson number before saving
+    
     final lessonNumber = await _getNextLessonNumber(classid);
 
     final Map<String, dynamic> lessondata = {

@@ -130,7 +130,54 @@ class QuizAttemptView extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              if (model.currentQuestion?.timerEnabled == true)
+Padding(
+  padding: const EdgeInsets.symmetric(
+    horizontal: 16,
+    vertical: 8,
+  ),
 
+  child: Stack(
+    children: [
+
+      ClipRRect(
+        borderRadius:
+            BorderRadius.circular(30),
+
+        child: LinearProgressIndicator(
+          value: model.progress,
+          minHeight: 24,
+
+          backgroundColor:
+              Colors.white.withOpacity(.25),
+
+          valueColor:
+              AlwaysStoppedAnimation(
+                model.progress > .50
+                  ? const Color(0xFF2F6BFF)
+                  : model.progress > .20
+                    ? Colors.orange
+                    : Colors.red,
+              ),
+        ),
+      ),
+
+      Positioned.fill(
+        child: Center(
+          child: Text(
+            "${model.timeLeft}s",
+
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+
+    ],
+  ),
+),
                               // ── Feedback bar
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),

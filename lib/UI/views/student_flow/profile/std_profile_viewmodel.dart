@@ -108,11 +108,13 @@ class ProfileViewmodel extends BaseViewModel {
   }
 
   // ── Navigation
-  void onRules() {} // abi khaali
+  void onRules() {
+    _navigationService.navigateToRulesView();
+  }
 
   void onFeedback() {
     _navigationService.navigateToFeedbackView();
-  } 
+  }
 
   void onTerms() {
     _navigationService.navigateToTermsandcondView();

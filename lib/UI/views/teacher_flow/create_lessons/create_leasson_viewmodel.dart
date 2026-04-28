@@ -36,9 +36,26 @@ class CreateLeassonViewmodel extends BaseViewModel {
   String? selectedfilename;
   String? selectedfileexe;
 
+  List lessons = [];
+bool isLoadingLessons = false;
+
   void onback() {
     _navigationservice.back();
   }
+
+  Future<void> init() async {
+  isLoadingLessons = true;
+  notifyListeners();
+
+  try {
+    lessons = await _lessonservice.getlesssonsdata(classid);
+  } catch (e) {
+    print("❌ Failed to load lessons: $e");
+  }
+
+  isLoadingLessons = false;
+  notifyListeners();
+}
 
   Future<void> pickimage() async {
     try {
@@ -184,6 +201,8 @@ class CreateLeassonViewmodel extends BaseViewModel {
       );
 
       generatedlessonid = lessonId;
+
+      await init();
       setBusy(false);
       notifyListeners();
     } catch (e) {

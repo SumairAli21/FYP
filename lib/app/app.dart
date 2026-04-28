@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/feedback/feedback_view.dart';
+import 'package:englify_app/UI/views/rules/rules_view.dart';
 import 'package:englify_app/UI/views/student_flow/bottom_navigation/bottom_navi_view.dart';
 import 'package:englify_app/UI/views/Role_selection/role_selection.dart';
 import 'package:englify_app/UI/views/auth/auth_view.dart';
@@ -82,7 +83,8 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: QuizAttemptView),
     MaterialRoute(page: StdProfileView),
     MaterialRoute(page: ChangePasswordView),
-    MaterialRoute(page: FeedbackView)
+    MaterialRoute(page: FeedbackView),
+    MaterialRoute(page: RulesView)
     
   
     

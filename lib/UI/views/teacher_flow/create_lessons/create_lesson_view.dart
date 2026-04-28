@@ -12,6 +12,7 @@ class CreateLessonView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CreateLeassonViewmodel>.reactive(
       viewModelBuilder: () => CreateLeassonViewmodel(classid: classid),
+      onViewModelReady: (model)=> model.init(),
       builder: (context, model, child) {
         if (!model.isBusy && model.generatedlessonid != null) {
           WidgetsBinding.instance.addPostFrameCallback((_) {

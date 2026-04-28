@@ -90,7 +90,10 @@ class TeacherProfileViewmodel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onRules() {}
+  void onRules() {
+    _navigationService.navigateToRulesView();
+  }
+
   void onFeedback() {
     _navigationService.navigateToFeedbackView();
   }
