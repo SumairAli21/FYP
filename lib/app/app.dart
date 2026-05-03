@@ -28,6 +28,8 @@ import 'package:englify_app/UI/views/teacher_flow/classroom_detail/classroomdeta
 import 'package:englify_app/UI/views/teacher_flow/create_lessons/create_lesson_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/create_quiz/create_quiz_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/lesson_detail/lesson_detail_view.dart';
+import 'package:englify_app/UI/views/teacher_flow/std_detail/std_details_view.dart';
+import 'package:englify_app/UI/views/teacher_flow/std_list/std_list_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/teacher_bottom_tabs/teacher_bottom_tab_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/teacher_dashboard/teacher_dashboard_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/teacher_home/teacher_home_view.dart';
@@ -37,6 +39,7 @@ import 'package:englify_app/UI/views/terms&condition/terms&cond_view.dart';
 import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/cloudniry_service.dart';
 import 'package:englify_app/services/create_lesson_service.dart';
+import 'package:englify_app/services/dashboard_service.dart';
 import 'package:englify_app/services/favourite_service.dart';
 import 'package:englify_app/services/file_viewer_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
@@ -84,7 +87,9 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: StdProfileView),
     MaterialRoute(page: ChangePasswordView),
     MaterialRoute(page: FeedbackView),
-    MaterialRoute(page: RulesView)
+    MaterialRoute(page: RulesView),
+    MaterialRoute(page: StudentsListView),
+    MaterialRoute(page: StudentDetailView),
     
   
     
@@ -103,7 +108,8 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: QuizService),
     LazySingleton(classType: PointsService),
     LazySingleton(classType: FavouriteService),
-    LazySingleton(classType: ProfileService)
+    LazySingleton(classType: ProfileService),
+    LazySingleton(classType: DashboardService)
   ],
 )
 class App {}

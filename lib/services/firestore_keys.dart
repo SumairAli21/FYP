@@ -10,7 +10,7 @@ class FirestoreKeys {
   // ===== Class fields =====
   static const String className = 'name';
   static const String classDescription = 'description';
-  static const String classCode = 'code';
+  static const String classCode = 'classCode';
   static const String teacherId = 'teacherId';
   static const String createdAt = 'createdAt';
    static const String imageUrl = 'imageUrl';

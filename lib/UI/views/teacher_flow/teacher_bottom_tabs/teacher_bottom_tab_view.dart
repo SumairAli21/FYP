@@ -27,20 +27,21 @@ class TeacherBottomTabView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(
-                context: context,
-                model: model,
-                icon: Icons.school_outlined,
-                activeIcon: Icons.school,
-                label: 'Classes',
-                index: 0,
-              ),
+              
               _buildNavItem(
                 context: context,
                 model: model,
                 icon: Icons.bar_chart_outlined,
                 activeIcon: Icons.bar_chart,
                 label: 'Dashboard',
+                index: 0,
+              ),
+              _buildNavItem(
+                context: context,
+                model: model,
+                icon: Icons.school_outlined,
+                activeIcon: Icons.school,
+                label: 'Classes',
                 index: 1,
               ),
               _buildNavItem(

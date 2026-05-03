@@ -8,9 +8,9 @@ import 'package:stacked/stacked.dart';
 class TeacherBottomTabViewmodel extends BaseViewModel {
   int _currrentindex = 0;
 
-  List<Widget> get pages => const [
-        TeacherHomeView(),
+  List<Widget> get pages =>  [
         TeacherDashboardView(),
+        TeacherHomeView(),
         TeacherTrackerView(),
         TeacherProfileView(),
       ];

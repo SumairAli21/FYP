@@ -16,7 +16,10 @@ class ClassroomdetailViewmodel extends BaseViewModel {
 
   String get classId => classroom['id'] ?? '';
   String get className => classroom[FirestoreKeys.className] ?? '';
-  String get classCode => classroom[FirestoreKeys.classCode] ?? '';
+  String get classCode => 
+    classroom[FirestoreKeys.classCode] ?? 
+    classroom['code'] ??  // purane documents ke liye
+    '';
   String get description => classroom[FirestoreKeys.classDescription] ?? '';
   int get currentStudents => classroom[FirestoreKeys.currentStudentCount] ?? 0;
   int get maxStudents => classroom[FirestoreKeys.maxStudents] ?? 0;

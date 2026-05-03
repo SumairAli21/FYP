@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:englify_app/app/app.locator.dart';
 import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/cloudniry_service.dart';
@@ -14,13 +13,9 @@ class ProfileService {
   // ── Upload profile image using existing CloudinaryService
   Future<String?> uploadProfileImage(File imageFile) async {
     try {
-      final user = await _authservice.currentuser;
+      final user = _authservice.currentuser;
       if (user == null) return null;
 
-      final timestamp =
-          DateTime.now().millisecondsSinceEpoch.toString();
-
-      // Reuse same pattern as classroom/lesson uploads
       final url = await _cloudinary.uploadProfilePicture(
         imageFile: imageFile,
         userId: user.uid,
@@ -34,19 +29,23 @@ class ProfileService {
   }
 
   // ── Save profile to Firestore
+  // FIX: added `name` parameter so PersonalizationViewModel can persist it.
+  //      Teacher dashboard reads users/{id}['name'] — this is the source of truth.
   Future<void> saveProfile({
     String? imageUrl,
     String? location,
-  
+    String? name, // ← NEW
   }) async {
     try {
-      final user = await _authservice.currentuser;
+      final user = _authservice.currentuser;
       if (user == null) return;
 
       final Map<String, dynamic> data = {};
       if (imageUrl != null) data['profileImageUrl'] = imageUrl;
       if (location != null) data['location'] = location;
+      if (name != null) data['name'] = name; // ← NEW
 
+      if (data.isEmpty) return;
 
       await _firestore
           .collection(FirestoreKeys.users)
@@ -60,7 +59,7 @@ class ProfileService {
   // ── Fetch profile
   Future<Map<String, dynamic>?> getProfile() async {
     try {
-      final user = await _authservice.currentuser;
+      final user = _authservice.currentuser;
       if (user == null) return null;
 
       final doc = await _firestore
@@ -77,7 +76,7 @@ class ProfileService {
 
   // ── Check Google account
   Future<bool> isGoogleAccount() async {
-    final user = await _authservice.currentuser;
+    final user = _authservice.currentuser;
     if (user == null) return false;
     return user.providerData
         .any((info) => info.providerId == 'google.com');
@@ -95,7 +94,7 @@ class ProfileService {
   // ── Total quiz attempts
   Future<int> getTotalQuizAttempts() async {
     try {
-      final user = await _authservice.currentuser;
+      final user = _authservice.currentuser;
       if (user == null) return 0;
 
       final snapshot = await _firestore

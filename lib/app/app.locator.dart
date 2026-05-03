@@ -14,6 +14,7 @@ import '../services/auth_service.dart';
 import '../services/classroom_service.dart';
 import '../services/cloudniry_service.dart';
 import '../services/create_lesson_service.dart';
+import '../services/dashboard_service.dart';
 import '../services/favourite_service.dart';
 import '../services/file_viewer_service.dart';
 import '../services/local_storage_service.dart';
@@ -49,4 +50,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => PointsService());
   locator.registerLazySingleton(() => FavouriteService());
   locator.registerLazySingleton(() => ProfileService());
+  locator.registerLazySingleton(() => DashboardService());
 }
