@@ -1,6 +1,7 @@
 import 'package:englify_app/UI/views/teacher_flow/create_lessons/create_leasson_viewmodel.dart';
 import 'package:englify_app/UI/widgets/custom_lesson_sucess_dialog.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -36,8 +37,9 @@ class CreateLessonView extends StatelessWidget {
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
+                padding: EdgeInsets.symmetric(horizontal: context.hPad),
+                child: ResponsiveContainer(
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -47,8 +49,8 @@ class CreateLessonView extends StatelessWidget {
                       children: [
                         Image.asset(
                           'assets/images/applogo_blue.png',
-                          height: 150,
-                          width: 200,
+                          height: context.rs(150),
+                          width: context.rs(200),
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -65,45 +67,47 @@ class CreateLessonView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: context.rs(20)),
+                    Text(
                       "Create Lesson",
                       style: TextStyle(
                         fontFamily: "heading",
-                        fontSize: 30,
+                        fontSize: context.rf(30),
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    const Text(
+                    SizedBox(height: context.rs(8)),
+                    Text(
                       "Set up a space for your students to learn and grow together.",
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
+                      style: TextStyle(
+                          fontSize: context.rf(14), color: Colors.black54),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: context.rs(20)),
 
                     // ✅ LESSON CARD IMAGE PICKER - same as classroom image picker
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           "Lesson Image",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
                         ),
                         Text(
                           "*",
-                          style: TextStyle(fontSize: 16, color: Colors.red),
+                          style: TextStyle(
+                              fontSize: context.rf(16), color: Colors.red),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     GestureDetector(
                       onTap: model.pickimage,
                       child: Container(
-                        height: 200,
+                        height: context.rs(200),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: model.selectedImage != null
@@ -135,15 +139,15 @@ class CreateLessonView extends StatelessWidget {
                                     child: GestureDetector(
                                       onTap: model.removeimage,
                                       child: Container(
-                                        padding: const EdgeInsets.all(6),
+                                        padding: EdgeInsets.all(context.rs(6)),
                                         decoration: const BoxDecoration(
                                           color: Colors.red,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.close,
                                           color: Colors.white,
-                                          size: 20,
+                                          size: context.rs(20),
                                         ),
                                       ),
                                     ),
@@ -155,16 +159,16 @@ class CreateLessonView extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.add_photo_alternate,
-                                    size: 60,
+                                    size: context.rs(60),
                                     color: model.imageerror != null
                                         ? Colors.red
                                         : Colors.grey,
                                   ),
-                                  const SizedBox(height: 8),
+                                  SizedBox(height: context.rs(8)),
                                   Text(
                                     "Tap to add lesson image",
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: context.rf(14),
                                       color: model.imageerror != null
                                           ? Colors.red
                                           : Colors.black54,
@@ -172,11 +176,12 @@ class CreateLessonView extends StatelessWidget {
                                   ),
                                   if (model.imageerror != null)
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 8),
+                                      padding:
+                                          EdgeInsets.only(top: context.rs(8)),
                                       child: Text(
                                         model.imageerror!,
-                                        style: const TextStyle(
-                                          fontSize: 12,
+                                        style: TextStyle(
+                                          fontSize: context.rf(12),
                                           color: Colors.red,
                                         ),
                                       ),
@@ -185,26 +190,27 @@ class CreateLessonView extends StatelessWidget {
                               ),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: context.rs(15)),
 
                     // ✅ Lesson Name
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           "Lesson Name",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
                         ),
                         Text(
                           "*",
-                          style: TextStyle(fontSize: 16, color: Colors.red),
+                          style: TextStyle(
+                              fontSize: context.rf(16), color: Colors.red),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     TextField(
                       cursorColor: Colors.black,
                       controller: model.lessonnamecontroller,
@@ -251,18 +257,18 @@ class CreateLessonView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: context.rs(15)),
 
                     // ✅ Class Description (optional)
-                    const Text(
+                    Text(
                       "Lesson Description",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: context.rf(16),
                         fontWeight: FontWeight.w500,
                         color: Colors.black54,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     TextField(
                       cursorColor: Colors.black,
                       controller: model.descriptioncontroller,
@@ -294,30 +300,31 @@ class CreateLessonView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: context.rs(15)),
 
                     // ✅ Lesson Content file upload
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           "Lesson Content",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
                         ),
                         Text(
                           "*",
-                          style: TextStyle(fontSize: 16, color: Colors.red),
+                          style: TextStyle(
+                              fontSize: context.rf(16), color: Colors.red),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     GestureDetector(
                       onTap: model.pickContentFile,
                       child: Container(
-                        height: 120,
+                        height: context.rs(120),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: const Color(0xFFF5F5F5),
@@ -338,20 +345,20 @@ class CreateLessonView extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.all(10),
+                                      padding: EdgeInsets.all(context.rs(10)),
                                       decoration: BoxDecoration(
                                         color: const Color(
                                           0xFF2F6BFF,
                                         ).withOpacity(0.1),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.insert_drive_file,
-                                        color: Color(0xFF2F6BFF),
-                                        size: 30,
+                                        color: const Color(0xFF2F6BFF),
+                                        size: context.rs(30),
                                       ),
                                     ),
-                                    const SizedBox(width: 12),
+                                    SizedBox(width: context.rs(12)),
                                     Expanded(
                                       child: Column(
                                         mainAxisAlignment:
@@ -361,19 +368,19 @@ class CreateLessonView extends StatelessWidget {
                                         children: [
                                           Text(
                                             model.selectedfilename ?? '',
-                                            style: const TextStyle(
-                                              fontSize: 14,
+                                            style: TextStyle(
+                                              fontSize: context.rf(14),
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black87,
                                             ),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          const SizedBox(height: 4),
-                                          const Text(
+                                          SizedBox(height: context.rs(4)),
+                                          Text(
                                             "Tap to change file",
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: context.rf(12),
                                               color: Colors.black38,
                                             ),
                                           ),
@@ -383,15 +390,15 @@ class CreateLessonView extends StatelessWidget {
                                     GestureDetector(
                                       onTap: model.removecontentfile,
                                       child: Container(
-                                        padding: const EdgeInsets.all(6),
+                                        padding: EdgeInsets.all(context.rs(6)),
                                         decoration: const BoxDecoration(
                                           color: Colors.red,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.close,
                                           color: Colors.white,
-                                          size: 18,
+                                          size: context.rs(18),
                                         ),
                                       ),
                                     ),
@@ -403,16 +410,16 @@ class CreateLessonView extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.upload_file,
-                                    size: 40,
+                                    size: context.rs(40),
                                     color: model.contenterror != null
                                         ? Colors.red
                                         : Colors.grey,
                                   ),
-                                  const SizedBox(height: 8),
+                                  SizedBox(height: context.rs(8)),
                                   Text(
                                     "Write & upload your content here",
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: context.rf(14),
                                       color: model.contenterror != null
                                           ? Colors.red
                                           : Colors.black54,
@@ -420,11 +427,12 @@ class CreateLessonView extends StatelessWidget {
                                   ),
                                   if (model.contenterror != null)
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 4),
+                                      padding:
+                                          EdgeInsets.only(top: context.rs(4)),
                                       child: Text(
                                         model.contenterror!,
-                                        style: const TextStyle(
-                                          fontSize: 12,
+                                        style: TextStyle(
+                                          fontSize: context.rf(12),
                                           color: Colors.red,
                                         ),
                                       ),
@@ -433,7 +441,7 @@ class CreateLessonView extends StatelessWidget {
                               ),
                       ),
                     ),
-                    const SizedBox(height: 100),
+                    SizedBox(height: context.rs(100)),
 
                     // ✅ Publish button
                     AppButton(
@@ -441,8 +449,9 @@ class CreateLessonView extends StatelessWidget {
                       onTap: model.onpublishlesson,
                       isLoading: model.isBusy,
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: context.rs(30)),
                   ],
+                  ),
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/teacher_flow/teacher_dashboard/teacher_dashboad_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:math' as math;
@@ -8,6 +9,8 @@ class TeacherDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = context.isLandscape;
+
     return ViewModelBuilder<TeacherDashboadViewmodel>.reactive(
       viewModelBuilder: () => TeacherDashboadViewmodel(),
       onViewModelReady: (model) => model.init(),
@@ -15,7 +18,6 @@ class TeacherDashboardView extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: [
-              // Background
               Positioned.fill(
                 child: Image.asset(
                   'assets/images/dies_logo.png',
@@ -23,33 +25,49 @@ class TeacherDashboardView extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                child: Container(color: Colors.black.withOpacity(0.25)),
+                child:
+                    Container(color: Colors.black.withOpacity(0.25)),
               ),
-
               SafeArea(
                 child: model.isBusy
                     ? const Center(
-                        child: CircularProgressIndicator(color: Colors.white))
+                        child: CircularProgressIndicator(
+                            color: Colors.white))
                     : SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: isLandscape ? 8 : 12,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // ── Top bar
-                            _buildTopBar(model),
-                            const SizedBox(height: 20),
-
-                            // ── 4 stat cards (2x2 grid)
-                            _buildStatsGrid(context, model),
-                            const SizedBox(height: 20),
-
-                            // ── Top Performing Class
-                            _buildTopClassCard(model),
-                            const SizedBox(height: 20),
-
-                            // ── Activity Summary
-                            _buildActivitySummary(model),
+                            _buildTopBar(model, isLandscape),
+                            SizedBox(height: isLandscape ? 12 : 20),
+                            _buildStatsGrid(context, model, isLandscape),
+                            SizedBox(height: isLandscape ? 12 : 20),
+                            // landscape mein side by side
+                            isLandscape
+                                ? Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          child: _buildTopClassCard(
+                                              model, isLandscape)),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                          child: _buildActivitySummary(
+                                              model)),
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      _buildTopClassCard(
+                                          model, isLandscape),
+                                      const SizedBox(height: 20),
+                                      _buildActivitySummary(model),
+                                    ],
+                                  ),
                             const SizedBox(height: 24),
                           ],
                         ),
@@ -62,28 +80,29 @@ class TeacherDashboardView extends StatelessWidget {
     );
   }
 
-  // ── Top bar: Welcome left, Calendar right ────
-  Widget _buildTopBar(TeacherDashboadViewmodel model) {
+  Widget _buildTopBar(
+      TeacherDashboadViewmodel model, bool isLandscape) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Left: fixed greeting (no teacher name)
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
                 Text(
                   'Welcome back! ',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'heading',
-                    fontSize: 26,
+                    fontSize: isLandscape ? 20 : 26,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                Text('👋', style: TextStyle(fontSize: 26)),
+                Text('👋',
+                    style: TextStyle(
+                        fontSize: isLandscape ? 20 : 26)),
               ],
             ),
             const SizedBox(height: 4),
@@ -97,8 +116,6 @@ class TeacherDashboardView extends StatelessWidget {
             ),
           ],
         ),
-
-        // Right: calendar icon in white circle
         Container(
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
@@ -115,16 +132,15 @@ class TeacherDashboardView extends StatelessWidget {
     );
   }
 
-  // ── 2×2 Stats Grid ──────────────────────────
-  Widget _buildStatsGrid(
-      BuildContext context, TeacherDashboadViewmodel model) {
+  Widget _buildStatsGrid(BuildContext context,
+      TeacherDashboadViewmodel model, bool isLandscape) {
     return GridView.count(
-      crossAxisCount: 2,
+      crossAxisCount: isLandscape ? 4 : 2, // ✅ landscape mein 4 columns
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
-      childAspectRatio: 1.3,
+      childAspectRatio: isLandscape ? 1.4 : 1.3,
       children: [
         _StatCard(
           icon: Icons.class_rounded,
@@ -158,8 +174,8 @@ class TeacherDashboardView extends StatelessWidget {
     );
   }
 
-  // ── Top Performing Class Card ────────────────
-  Widget _buildTopClassCard(TeacherDashboadViewmodel model) {
+  Widget _buildTopClassCard(
+      TeacherDashboadViewmodel model, bool isLandscape) {
     final topClass = model.topClass;
     final score = topClass?.averageScore ?? 0.0;
 
@@ -222,7 +238,6 @@ class TeacherDashboardView extends StatelessWidget {
     );
   }
 
-  // ── Activity Summary ─────────────────────────
   Widget _buildActivitySummary(TeacherDashboadViewmodel model) {
     return Container(
       width: double.infinity,
@@ -244,16 +259,17 @@ class TeacherDashboardView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          _summaryRow('• Total Students', '${model.totalStudents}'),
-          const SizedBox(height: 6),
-          _summaryRow('• Total Classrooms', '${model.totalClassrooms}'),
+          _summaryRow(
+              '• Total Students', '${model.totalStudents}'),
           const SizedBox(height: 6),
           _summaryRow(
-              '• Avg Attendance',
+              '• Total Classrooms', '${model.totalClassrooms}'),
+          const SizedBox(height: 6),
+          _summaryRow('• Avg Attendance',
               '${model.avgAttendance.toStringAsFixed(0)}%'),
           const SizedBox(height: 6),
-          _summaryRow(
-              '• Top Performing Class', model.topClass?.className ?? '—'),
+          _summaryRow('• Top Performing Class',
+              model.topClass?.className ?? '—'),
         ],
       ),
     );
@@ -264,7 +280,8 @@ class TeacherDashboardView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label,
-            style: const TextStyle(color: Colors.white70, fontSize: 13)),
+            style:
+                const TextStyle(color: Colors.white70, fontSize: 13)),
         Text(value,
             style: const TextStyle(
                 color: Colors.white,
@@ -275,7 +292,6 @@ class TeacherDashboardView extends StatelessWidget {
   }
 }
 
-// ── Stat Card Widget ─────────────────────────
 class _StatCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
@@ -311,7 +327,7 @@ class _StatCard extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 14),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Column(
@@ -319,8 +335,8 @@ class _StatCard extends StatelessWidget {
             children: [
               showBadge
                   ? _buildBadgeIcon()
-                  : Icon(icon, color: iconColor, size: 36),
-              const SizedBox(height: 10),
+                  : Icon(icon, color: iconColor, size: 32),
+              const SizedBox(height: 8),
               Text(
                 value,
                 style: const TextStyle(
@@ -365,7 +381,6 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// ── Pie Chart (simple arc) ───────────────────
 class _PieChart extends StatelessWidget {
   final double percentage;
   const _PieChart({required this.percentage});

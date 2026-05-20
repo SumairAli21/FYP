@@ -1,176 +1,225 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:englify_app/UI/views/student_flow/student_classroom_detail/student_classroom_detail_viewmodel.dart';
 import 'package:englify_app/UI/widgets/custom_lesson_card.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:stacked/stacked.dart';
 
 class StudentClassroomDetaiView extends StatelessWidget {
   final Map<String, dynamic> classroom;
-  StudentClassroomDetaiView({super.key, required this.classroom});
+  const StudentClassroomDetaiView({super.key, required this.classroom});
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = context.isLandscape;
+    final isTablet = context.isTablet;
+
+    final gridCrossCount = isTablet
+        ? (isLandscape ? 4 : 3)
+        : (isLandscape ? 3 : 2);
+    final gridAspectRatio = isTablet
+        ? (isLandscape ? 1.2 : 0.85)
+        : (isLandscape ? 1.1 : 0.78);
+    final hPadding = isTablet ? 24.0 : 16.0;
+
     return ViewModelBuilder<StudentClassroomDetailViewmodel>.reactive(
-      viewModelBuilder: () => StudentClassroomDetailViewmodel(classroom),
+      viewModelBuilder: () =>
+          StudentClassroomDetailViewmodel(classroom),
       onViewModelReady: (model) => model.loadlesson(),
       builder: (context, model, child) {
         return Scaffold(
           body: Stack(
             children: [
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image:  DecorationImage(
-                    image: AssetImage("assets/images/dies_logo.png"),
-                    fit: BoxFit.cover
-                    )
+              Positioned.fill(
+                child: Image.asset(
+                  "assets/images/dies_logo.png",
+                  fit: BoxFit.cover,
                 ),
               ),
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.grey.withOpacity(0.1),
-                      Colors.grey.withOpacity(0.1),
-                    ]
-                    )
-                ),
+              Positioned.fill(
+                child: Container(
+                    color: Colors.grey.withOpacity(0.1)),
               ),
               SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 15,),
-                      Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: hPadding,
+                        vertical: isLandscape ? 6 : 12,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          GestureDetector(
-                            onTap: model.onback,
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(Icons.arrow_back,  color: Colors.black,),
-                            ),
-                          ),
-                          SizedBox(width: 110,),
-                          Center(
-                            child: Text(
-                              model.className,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 5,),
-                      Container(
-                        height: 2,
-                        width: double.infinity,
-                        color: Color.fromARGB(38, 255, 255, 255),
-                      ),
-                      SizedBox(height: 20,),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(28),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 8,
-                            )
-                          ]
-                        ),
-                        child: TextField(
-                          controller: model.serachcontroller,
-                          cursorColor: Colors.black,
-                          onChanged: model.onsearchchanged,
-                          decoration: InputDecoration(
-                            hintText: "search lesson",
-                            prefixIcon: Icon(Icons.search, color: Colors.grey[400],),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(28),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16,vertical: 12)
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      Expanded(
-                        child: model.isBusy ? 
-                        Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        )
-                        : model.lessons.isEmpty ?
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                model.serachcontroller.text.isNotEmpty ?
-                                Icons.search_off
-                                :Icons.menu_book_outlined,
-                                size: 64,
-                                color: Colors.white70,
+                          SizedBox(height: isLandscape ? 4 : 15),
 
-                              ),
-                              SizedBox(height: 16,),
-                              Text(
-                                model.serachcontroller.text.isNotEmpty ?
-                                "No Lesson Found"
-                                : "No Lessons Available Yet",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 16
+                          // Header
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: model.onback,
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(Icons.arrow_back,
+                                      color: Colors.black),
                                 ),
                               ),
-                              if(model.serachcontroller.text.isNotEmpty)
-                              TextButton(onPressed: model.clearseach, child: Text(
-                                "Clear Search",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20
+                              Expanded(
+                                child: Center(
+                                  child: Text(
+                                    model.className,
+                                    style: TextStyle(
+                                      fontSize: isTablet ? 20 : 18,
+                                      color: Colors.white,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ))
+                              ),
+                              const SizedBox(width: 40),
                             ],
                           ),
-                        )
-                        : GridView.builder(
-                          padding: EdgeInsets.only(bottom: 10),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 12,
-                            childAspectRatio: 0.78
-                            ), 
-                            itemCount: model.lessons.length,
-                          itemBuilder: (Context,Index){
-                            final lesson = model.lessons[Index];
-                            return LessonCard(lessonName: lesson.title, lessonId: lesson.id, onTap: () => model.gotolessondetail(lesson),imageUrl: lesson.imageUrl,);
-                          }
-                          )
-                        )
-                    ],
-                  ),
-                  )
-                )
+
+                          const SizedBox(height: 5),
+                          Container(
+                            height: 2,
+                            width: double.infinity,
+                            color: const Color.fromARGB(38, 255, 255, 255),
+                          ),
+                          SizedBox(height: isLandscape ? 8 : 16),
+
+                          // Search
+                          SizedBox(
+                            height: isLandscape
+                                ? (isTablet ? 50 : 42)
+                                : (isTablet ? 56 : 48),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(28),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color:
+                                        Colors.black.withOpacity(0.1),
+                                    blurRadius: 8,
+                                  ),
+                                ],
+                              ),
+                              child: TextField(
+                                controller: model.serachcontroller,
+                                cursorColor: Colors.black,
+                                onChanged: model.onsearchchanged,
+                                decoration: InputDecoration(
+                                  hintText: "Search Lesson",
+                                  prefixIcon: Icon(Icons.search,
+                                      color: Colors.grey[400]),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(28),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: isLandscape ? 8 : 16),
+                        ],
+                      ),
+                    ),
+
+                    // Grid
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: hPadding),
+                        child: model.isBusy
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white))
+                            : model.lessons.isEmpty
+                                ? Center(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            model.serachcontroller.text
+                                                    .isNotEmpty
+                                                ? Icons.search_off
+                                                : Icons.menu_book_outlined,
+                                            size: isTablet ? 80 : 64,
+                                            color: Colors.white70,
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Text(
+                                            model.serachcontroller.text
+                                                    .isNotEmpty
+                                                ? "No Lesson Found"
+                                                : "No Lessons Available Yet",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize:
+                                                  isTablet ? 18 : 16,
+                                            ),
+                                          ),
+                                          if (model.serachcontroller.text
+                                              .isNotEmpty)
+                                            TextButton(
+                                              onPressed:
+                                                  model.clearseach,
+                                              child: const Text(
+                                                "Clear Search",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight:
+                                                      FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : GridView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    padding: EdgeInsets.only(
+                                        bottom:
+                                            isLandscape ? 16 : 24),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: gridCrossCount,
+                                      crossAxisSpacing:
+                                          isTablet ? 16 : 12,
+                                      mainAxisSpacing: isTablet ? 16 : 12,
+                                      childAspectRatio: gridAspectRatio,
+                                    ),
+                                    itemCount: model.lessons.length,
+                                    itemBuilder: (context, index) {
+                                      final lesson =
+                                          model.lessons[index];
+                                      return LessonCard(
+                                        lessonName: lesson.title,
+                                        lessonId: lesson.id,
+                                        onTap: () => model
+                                            .gotolessondetail(lesson),
+                                        imageUrl: lesson.imageUrl,
+                                      );
+                                    },
+                                  ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         );

@@ -18,10 +18,12 @@ import '../services/dashboard_service.dart';
 import '../services/favourite_service.dart';
 import '../services/file_viewer_service.dart';
 import '../services/local_storage_service.dart';
+import '../services/notification_service.dart';
 import '../services/pints_service.dart';
 import '../services/profile_service.dart';
 import '../services/quiz_service.dart';
 import '../services/storage_service.dart';
+import '../services/tracker_service.dart';
 import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
@@ -51,4 +53,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => FavouriteService());
   locator.registerLazySingleton(() => ProfileService());
   locator.registerLazySingleton(() => DashboardService());
+  locator.registerLazySingleton(() => NotificationService());
+  locator.registerLazySingleton(() => TrackerService());
 }

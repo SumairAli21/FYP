@@ -1,3 +1,5 @@
+import 'package:englify_app/app/app.locator.dart';
+import 'package:englify_app/services/notification_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -99,6 +101,10 @@ class AuthService {
   // Sign Out
   Future<void> signOut() async {
     try {
+      // Remove this device's FCM token before sign-out so the Firestore write
+      // still satisfies security rules and the user stops receiving pushes
+      // here. This call never throws, so logout always proceeds.
+      await locator<NotificationService>().clearTokenForCurrentUser();
       await _googleSignIn.signOut();
       await _auth.signOut();
       print("✅ User signed out");

@@ -32,4 +32,10 @@ class FirestoreKeys {
   static const String lessonDescription = 'description';
   static const String lessonContentUrl = 'contentUrl';
   static const String lessonImageUrl = 'imageurl';
+
+  // ===== Notifications / FCM =====
+  static const String fcmTokens = 'fcmTokens';
+  static const String token = 'token';
+  static const String platform = 'platform';
+  static const String updatedAt = 'updatedAt';
 }

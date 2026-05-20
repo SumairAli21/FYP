@@ -2,6 +2,7 @@ import 'package:englify_app/UI/views/signup/signup_password_view_model.dart';
 import 'package:englify_app/UI/widgets/reusable_condition_tile.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
 import 'package:englify_app/UI/widgets/reusable_pass_txtfeild.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -11,7 +12,6 @@ class SignupPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return ViewModelBuilder<SignupPasswordViewModel>.reactive(
       viewModelBuilder: () => SignupPasswordViewModel(email:email),
       onModelReady: (model) => model.init(),
@@ -22,12 +22,13 @@ class SignupPasswordView extends StatelessWidget {
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
+                padding: EdgeInsets.symmetric(horizontal: context.rs(24)),
+                child: ResponsiveContainer(
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: context.rs(20)),
                     Row(
                       children: [
                         IconButton(
@@ -37,36 +38,38 @@ class SignupPasswordView extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(width: size.width * 0.09),
-                        Center(
+                        Expanded(
                           child: Text(
                             "Sign up with Email",
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: context.rf(22),
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
                             ),
                           ),
                         ),
+                        SizedBox(width: context.rs(48)),
                       ],
                     ),
-                    SizedBox(height: size.height * 0.10),
+                    SizedBox(height: context.heightPercent(10)),
                     Text(
                       "Password",
                       style: TextStyle(
                         fontFamily: "buton",
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: context.rs(5)),
                     ReusablePassTxtfeild(
                       isobscue: model.isobscure,
                       onchnage: model.onchangepass,
                       passcontroller: model.passwordcontroller,
                       toggle: model.togglevisibality,
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: context.rs(12)),
                     ReusableConditionTile(
                       isvalid: model.hasminilenght,
                       txt: "At least 8 cherecters",
@@ -83,9 +86,9 @@ class SignupPasswordView extends StatelessWidget {
                       isvalid: model.hasnumber,
                       txt: "At least 1 number",
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: context.rs(25)),
                     AppButton(title: "Create account", onTap: model.oncreate,),
-                    SizedBox(height: 17),
+                    SizedBox(height: context.rs(17)),
                     Column(
                       children: [
                         Wrap(
@@ -95,7 +98,7 @@ class SignupPasswordView extends StatelessWidget {
                               'By creating an account, you agree to the ',
                               style: TextStyle(
                                 fontFamily: "button",
-                                fontSize: 12,
+                                fontSize: context.rf(12),
                                 color: Colors.white60,
                               ),
                             ),
@@ -110,7 +113,7 @@ class SignupPasswordView extends StatelessWidget {
                                 'Terms of Service',
                                 style: TextStyle(
                                   fontFamily: "button",
-                                  fontSize: 12,
+                                  fontSize: context.rf(12),
                                   color: Colors.white,
                                 ),
                               ),
@@ -124,7 +127,7 @@ class SignupPasswordView extends StatelessWidget {
                               'and ',
                               style: TextStyle(
                                 fontFamily: "button",
-                                fontSize: 12,
+                                fontSize: context.rf(12),
                                 color: Colors.white60,
                               ),
                             ),
@@ -139,7 +142,7 @@ class SignupPasswordView extends StatelessWidget {
                                 'Privacy Policy',
                                 style: TextStyle(
                                   fontFamily: "button",
-                                  fontSize: 12,
+                                  fontSize: context.rf(12),
                                   color: Colors.white,
                                 ),
                               ),
@@ -149,6 +152,7 @@ class SignupPasswordView extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
                 ),
               ),
             ),

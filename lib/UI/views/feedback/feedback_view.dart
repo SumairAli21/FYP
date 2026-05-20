@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/feedback/feedback_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -32,28 +33,30 @@ class FeedbackView extends StatelessWidget {
                   children: [
                     // Top bar
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 14),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: context.rs(20),
+                          vertical: context.rs(14)),
                       child: Row(
                         children: [
                           GestureDetector(
                             onTap: model.onBack,
                             child: Container(
-                              padding: const EdgeInsets.all(8),
+                              padding: EdgeInsets.all(context.rs(8)),
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(Icons.arrow_back,
-                                  color: Color(0xFF2F6BFF), size: 20),
+                              child: Icon(Icons.arrow_back,
+                                  color: const Color(0xFF2F6BFF),
+                                  size: context.rs(20)),
                             ),
                           ),
-                          const SizedBox(width: 14),
-                          const Text(
+                          SizedBox(width: context.rs(14)),
+                          Text(
                             'Feedback',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 24,
+                              fontSize: context.rf(24),
                               fontWeight: FontWeight.w800,
                               fontFamily: 'heading',
                             ),
@@ -64,15 +67,16 @@ class FeedbackView extends StatelessWidget {
 
                     Expanded(
                       child: SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: context.rs(20)),
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
-                            const SizedBox(height: 8),
+                            SizedBox(height: context.rs(8)),
 
                             // Main card
                             Container(
-                              padding: const EdgeInsets.all(20),
+                              padding: EdgeInsets.all(context.rs(20)),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.93),
                                 borderRadius: BorderRadius.circular(24),
@@ -88,34 +92,34 @@ class FeedbackView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // Header
-                                  const Text(
+                                  Text(
                                     'Share your thoughts 💬',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: context.rf(18),
                                       fontWeight: FontWeight.w800,
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  SizedBox(height: context.rs(4)),
                                   Text(
                                     'Your feedback helps us improve Englify!',
                                     style: TextStyle(
-                                      fontSize: 13,
+                                      fontSize: context.rf(13),
                                       color: Colors.grey[600],
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: context.rs(20)),
 
                                   // Rating
-                                  const Text(
+                                  Text(
                                     'Rate your experience',
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: context.rf(14),
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
+                                  SizedBox(height: context.rs(10)),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.center,
@@ -125,9 +129,8 @@ class FeedbackView extends StatelessWidget {
                                         onTap: () =>
                                             model.setRating(star),
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 6),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: context.rs(6)),
                                           child: Icon(
                                             model.selectedRating >= star
                                                 ? Icons.star_rounded
@@ -136,39 +139,41 @@ class FeedbackView extends StatelessWidget {
                                                     star
                                                 ? const Color(0xFFFFD700)
                                                 : Colors.grey[400],
-                                            size: 38,
+                                            size: context.rs(38),
                                           ),
                                         ),
                                       );
                                     }),
                                   ),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: context.rs(20)),
 
                                   // Name field
-                                  _buildLabel('Your Name *'),
-                                  const SizedBox(height: 6),
+                                  _buildLabel(context, 'Your Name *'),
+                                  SizedBox(height: context.rs(6)),
                                   _buildTextField(
+                                    context: context,
                                     controller: model.nameController,
                                     hint: 'Enter your name',
                                     icon: Icons.person_outline,
                                   ),
-                                  const SizedBox(height: 14),
+                                  SizedBox(height: context.rs(14)),
 
                                   // Email field
-                                  _buildLabel('Your Email (optional)'),
-                                  const SizedBox(height: 6),
+                                  _buildLabel(context, 'Your Email (optional)'),
+                                  SizedBox(height: context.rs(6)),
                                   _buildTextField(
+                                    context: context,
                                     controller: model.emailController,
                                     hint: 'Enter your email',
                                     icon: Icons.email_outlined,
                                     keyboardType:
                                         TextInputType.emailAddress,
                                   ),
-                                  const SizedBox(height: 14),
+                                  SizedBox(height: context.rs(14)),
 
                                   // Message field
-                                  _buildLabel('Your Feedback *'),
-                                  const SizedBox(height: 6),
+                                  _buildLabel(context, 'Your Feedback *'),
+                                  SizedBox(height: context.rs(6)),
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.grey[50],
@@ -185,19 +190,19 @@ class FeedbackView extends StatelessWidget {
                                             'Tell us what you think...',
                                         hintStyle: TextStyle(
                                             color: Colors.grey[400],
-                                            fontSize: 14),
+                                            fontSize: context.rf(14)),
                                         border: InputBorder.none,
                                         contentPadding:
-                                            const EdgeInsets.all(14),
+                                            EdgeInsets.all(context.rs(14)),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 24),
+                                  SizedBox(height: context.rs(24)),
 
                                   // Submit button
                                   SizedBox(
                                     width: double.infinity,
-                                    height: 52,
+                                    height: context.rs(52),
                                     child: ElevatedButton(
                                       onPressed: model.isBusy
                                           ? null
@@ -212,20 +217,20 @@ class FeedbackView extends StatelessWidget {
                                         elevation: 0,
                                       ),
                                       child: model.isBusy
-                                          ? const SizedBox(
-                                              width: 22,
-                                              height: 22,
+                                          ? SizedBox(
+                                              width: context.rs(22),
+                                              height: context.rs(22),
                                               child:
-                                                  CircularProgressIndicator(
+                                                  const CircularProgressIndicator(
                                                 color: Colors.white,
                                                 strokeWidth: 2,
                                               ),
                                             )
-                                          : const Text(
+                                          : Text(
                                               'Submit Feedback',
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 16,
+                                                fontSize: context.rf(16),
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
@@ -234,7 +239,7 @@ class FeedbackView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 30),
+                            SizedBox(height: context.rs(30)),
                           ],
                         ),
                       ),
@@ -248,11 +253,11 @@ class FeedbackView extends StatelessWidget {
 }      );
   }
 
-   Widget _buildLabel(String text) {
+   Widget _buildLabel(BuildContext context, String text) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 14,
+      style: TextStyle(
+        fontSize: context.rf(14),
         fontWeight: FontWeight.w600,
         color: Colors.black87,
       ),
@@ -260,6 +265,7 @@ class FeedbackView extends StatelessWidget {
   }
 
   Widget _buildTextField({
+    required BuildContext context,
     required TextEditingController controller,
     required String hint,
     required IconData icon,
@@ -277,11 +283,12 @@ class FeedbackView extends StatelessWidget {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
-          prefixIcon: Icon(icon, color: Colors.grey[400], size: 20),
+          hintStyle:
+              TextStyle(color: Colors.grey[400], fontSize: context.rf(14)),
+          prefixIcon: Icon(icon, color: Colors.grey[400], size: context.rs(20)),
           border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.rs(14), vertical: context.rs(14)),
         ),
       ),
     );

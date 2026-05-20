@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/student_flow/profile/std_profile_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -34,18 +35,18 @@ class StdProfileView extends StatelessWidget {
                         children: [
                           // ── Top bar
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: context.rs(20),
+                              vertical: context.rs(12),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   'Profile',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 24,
+                                    fontSize: context.rf(24),
                                     fontWeight: FontWeight.w800,
                                     fontFamily: 'heading',
                                   ),
@@ -53,15 +54,15 @@ class StdProfileView extends StatelessWidget {
                                 GestureDetector(
                                   onTap: model.onSettings,
                                   child: Container(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: EdgeInsets.all(context.rs(8)),
                                     decoration: const BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.settings_outlined,
-                                      color: Color(0xFF2F6BFF),
-                                      size: 22,
+                                      color: const Color(0xFF2F6BFF),
+                                      size: context.rs(22),
                                     ),
                                   ),
                                 ),
@@ -71,15 +72,15 @@ class StdProfileView extends StatelessWidget {
 
                           Expanded(
                             child: SingleChildScrollView(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: context.rs(20),
                               ),
                               physics: const BouncingScrollPhysics(),
                               child: Column(
                                 children: [
                                   // ── Profile Card
                                   Container(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: EdgeInsets.all(context.rs(10)),
                                     decoration: BoxDecoration(
                                       color: Colors.white.withOpacity(0.92),
                                       borderRadius: BorderRadius.circular(20),
@@ -99,7 +100,7 @@ class StdProfileView extends StatelessWidget {
                                           child: Stack(
                                             children: [
                                               CircleAvatar(
-                                                radius: 42,
+                                                radius: context.rs(42),
                                                 backgroundColor:
                                                     Colors.grey[200],
                                                 backgroundImage:
@@ -114,7 +115,7 @@ class StdProfileView extends StatelessWidget {
                                                         null
                                                     ? Icon(
                                                         Icons.person,
-                                                        size: 36,
+                                                        size: context.rs(36),
                                                         color: Colors.grey[400],
                                                       )
                                                     : null,
@@ -123,15 +124,15 @@ class StdProfileView extends StatelessWidget {
                                               if (model.isUploadingImage)
                                                 Positioned.fill(
                                                   child: CircleAvatar(
-                                                    radius: 36,
+                                                    radius: context.rs(36),
                                                     backgroundColor: Colors
                                                         .black
                                                         .withOpacity(0.4),
-                                                    child: const SizedBox(
-                                                      width: 20,
-                                                      height: 20,
+                                                    child: SizedBox(
+                                                      width: context.rs(20),
+                                                      height: context.rs(20),
                                                       child:
-                                                          CircularProgressIndicator(
+                                                          const CircularProgressIndicator(
                                                             color: Colors.white,
                                                             strokeWidth: 2,
                                                           ),
@@ -143,8 +144,8 @@ class StdProfileView extends StatelessWidget {
                                                 bottom: 0,
                                                 right: 0,
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(
-                                                    4,
+                                                  padding: EdgeInsets.all(
+                                                    context.rs(4),
                                                   ),
                                                   decoration:
                                                       const BoxDecoration(
@@ -153,17 +154,17 @@ class StdProfileView extends StatelessWidget {
                                                         ),
                                                         shape: BoxShape.circle,
                                                       ),
-                                                  child: const Icon(
+                                                  child: Icon(
                                                     Icons.camera_alt,
                                                     color: Colors.white,
-                                                    size: 12,
+                                                    size: context.rs(12),
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        const SizedBox(width: 14),
+                                        SizedBox(width: context.rs(14)),
 
                                         // User info
                                         Expanded(
@@ -173,8 +174,10 @@ class StdProfileView extends StatelessWidget {
                                             children: [
                                               Text(
                                                 model.username,
-                                                style: const TextStyle(
-                                                  fontSize: 18,
+                                                overflow:
+                                                    TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: context.rf(18),
                                                   fontWeight: FontWeight.w700,
                                                   color: Colors.black87,
                                                 ),
@@ -190,42 +193,51 @@ class StdProfileView extends StatelessWidget {
                                                     Icon(
                                                       Icons
                                                           .location_on_outlined,
-                                                      size: 13,
+                                                      size: context.rs(13),
                                                       color: Colors.grey[500],
                                                     ),
-                                                    const SizedBox(width: 2),
-                                                    Text(
-                                                      model.location.isEmpty
-                                                          ? 'Add location'
-                                                          : model.location,
-                                                      style: TextStyle(
-                                                        fontSize: 13,
-                                                        color:
-                                                            model
-                                                                .location
-                                                                .isEmpty
-                                                            ? Colors.blue
-                                                            : Colors.grey[600],
+                                                    SizedBox(
+                                                        width: context.rs(2)),
+                                                    Flexible(
+                                                      child: Text(
+                                                        model.location.isEmpty
+                                                            ? 'Add location'
+                                                            : model.location,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              context.rf(13),
+                                                          color:
+                                                              model
+                                                                  .location
+                                                                  .isEmpty
+                                                              ? Colors.blue
+                                                              : Colors
+                                                                  .grey[600],
+                                                        ),
                                                       ),
                                                     ),
                                                     if (model.location.isEmpty)
                                                       Icon(
                                                         Icons.edit,
-                                                        size: 12,
+                                                        size: context.rs(12),
                                                         color: Colors.blue,
                                                       ),
                                                   ],
                                                 ),
                                               ),
-                                              const SizedBox(height: 6),
+                                              SizedBox(height: context.rs(6)),
                                               Row(
                                                 children: [
                                                   // Level badge
                                                   Container(
                                                     padding:
-                                                        const EdgeInsets.symmetric(
-                                                          horizontal: 8,
-                                                          vertical: 3,
+                                                        EdgeInsets.symmetric(
+                                                          horizontal:
+                                                              context.rs(8),
+                                                          vertical:
+                                                              context.rs(3),
                                                         ),
                                                     decoration: BoxDecoration(
                                                       color: const Color(
@@ -238,21 +250,22 @@ class StdProfileView extends StatelessWidget {
                                                     ),
                                                     child: Row(
                                                       children: [
-                                                        const Icon(
+                                                        Icon(
                                                           Icons.bar_chart,
                                                           color: Colors.white,
-                                                          size: 13,
+                                                          size: context.rs(13),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 3,
+                                                        SizedBox(
+                                                          width: context.rs(3),
                                                         ),
                                                         Text(
                                                           model.levelText,
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 12,
+                                                                fontSize:
+                                                                    context
+                                                                        .rf(12),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -261,21 +274,25 @@ class StdProfileView extends StatelessWidget {
                                                       ],
                                                     ),
                                                   ),
-                                                  const SizedBox(width: 8),
+                                                  SizedBox(
+                                                      width: context.rs(8)),
 
                                                   // Points badge
                                                   Row(
                                                     children: [
                                                       Image.asset(
                                                         'assets/images/coins.png',
-                                                        height: 16,
-                                                        width: 16,
+                                                        height: context.rs(16),
+                                                        width: context.rs(16),
                                                       ),
-                                                      const SizedBox(width: 3),
+                                                      SizedBox(
+                                                          width:
+                                                              context.rs(3)),
                                                       Text(
                                                         model.pointsText,
                                                         style: TextStyle(
-                                                          fontSize: 12,
+                                                          fontSize:
+                                                              context.rf(12),
                                                           color:
                                                               Colors.grey[700],
                                                           fontWeight:
@@ -292,7 +309,7 @@ class StdProfileView extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(height: 16),
+                                  SizedBox(height: context.rs(16)),
 
                                   // ── Settings Card
                                   Container(
@@ -310,6 +327,7 @@ class StdProfileView extends StatelessWidget {
                                       children: [
                                         // Sound
                                         _buildToggleItem(
+                                          context: context,
                                           icon: Icons.volume_up_outlined,
                                           iconColor: Colors.blue,
                                           label: 'Sound',
@@ -320,6 +338,7 @@ class StdProfileView extends StatelessWidget {
 
                                         // Notification
                                         _buildToggleItem(
+                                          context: context,
                                           icon: Icons.notifications_outlined,
                                           iconColor: Colors.orange,
                                           label: 'Notification',
@@ -331,6 +350,7 @@ class StdProfileView extends StatelessWidget {
 
                                         // Rules
                                         _buildNavItem(
+                                          context: context,
                                           icon: Icons.menu_book_outlined,
                                           iconColor: Colors.green,
                                           label: 'Rules',
@@ -340,6 +360,7 @@ class StdProfileView extends StatelessWidget {
 
                                         // Feedback
                                         _buildNavItem(
+                                          context: context,
                                           icon: Icons.feedback_outlined,
                                           iconColor: Colors.teal,
                                           label: 'Feedback',
@@ -349,6 +370,7 @@ class StdProfileView extends StatelessWidget {
 
                                         // Terms of Service
                                         _buildNavItem(
+                                          context: context,
                                           icon: Icons.description_outlined,
                                           iconColor: Colors.indigo,
                                           label: 'Terms of Service',
@@ -358,6 +380,7 @@ class StdProfileView extends StatelessWidget {
 
                                         // Privacy Policy
                                         _buildNavItem(
+                                          context: context,
                                           icon: Icons.privacy_tip_outlined,
                                           iconColor: Colors.purple,
                                           label: 'Privacy Policy',
@@ -367,6 +390,7 @@ class StdProfileView extends StatelessWidget {
 
                                         // Change Password
                                         _buildNavItem(
+                                          context: context,
                                           icon: Icons.lock_outline,
                                           iconColor: model.isGoogleAccount
                                               ? Colors.grey
@@ -382,7 +406,7 @@ class StdProfileView extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(height: 16),
+                                  SizedBox(height: context.rs(16)),
 
                                   // ── Delete / Logout button
                                   Container(
@@ -391,6 +415,7 @@ class StdProfileView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: _buildNavItem(
+                                      context: context,
                                       icon: Icons.logout,
                                       iconColor: Colors.red,
                                       label: 'Logout',
@@ -399,7 +424,7 @@ class StdProfileView extends StatelessWidget {
                                           _showLogoutDialog(context, model),
                                     ),
                                   ),
-                                  const SizedBox(height: 30),
+                                  SizedBox(height: context.rs(30)),
                                 ],
                               ),
                             ),
@@ -415,6 +440,7 @@ class StdProfileView extends StatelessWidget {
   }
 
   Widget _buildToggleItem({
+    required BuildContext context,
     required IconData icon,
     required Color iconColor,
     required String label,
@@ -422,23 +448,24 @@ class StdProfileView extends StatelessWidget {
     required Function(bool) onChanged,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: EdgeInsets.symmetric(
+          horizontal: context.rs(16), vertical: context.rs(4)),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.all(context.rs(6)),
             decoration: BoxDecoration(
               color: iconColor.withOpacity(0.12),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: iconColor, size: 20),
+            child: Icon(icon, color: iconColor, size: context.rs(20)),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: context.rs(12)),
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(
-                fontSize: 15,
+              style: TextStyle(
+                fontSize: context.rf(15),
                 fontWeight: FontWeight.w500,
                 color: Colors.black87,
               ),
@@ -469,6 +496,7 @@ class StdProfileView extends StatelessWidget {
 
   // ── Nav item
   Widget _buildNavItem({
+    required BuildContext context,
     required IconData icon,
     required Color iconColor,
     required String label,
@@ -479,18 +507,19 @@ class StdProfileView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: EdgeInsets.symmetric(
+            horizontal: context.rs(16), vertical: context.rs(12)),
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: EdgeInsets.all(context.rs(6)),
               decoration: BoxDecoration(
                 color: iconColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 20),
+              child: Icon(icon, color: iconColor, size: context.rs(20)),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: context.rs(12)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -498,7 +527,7 @@ class StdProfileView extends StatelessWidget {
                   Text(
                     label,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: context.rf(15),
                       fontWeight: FontWeight.w500,
                       color: labelColor ?? Colors.black87,
                     ),
@@ -506,13 +535,15 @@ class StdProfileView extends StatelessWidget {
                   if (subtitle != null)
                     Text(
                       subtitle,
-                      style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                      style: TextStyle(
+                          fontSize: context.rf(11), color: Colors.grey[500]),
                     ),
                 ],
               ),
             ),
             if (onTap != null && labelColor == null)
-              Icon(Icons.chevron_right, color: Colors.grey[400], size: 20),
+              Icon(Icons.chevron_right,
+                  color: Colors.grey[400], size: context.rs(20)),
           ],
         ),
       ),
@@ -532,12 +563,20 @@ class StdProfileView extends StatelessWidget {
       builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text('Add Location'),
-        content: TextField(
-          cursorColor: Colors.black,
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: 'e.g. Karachi, Pakistan',
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                cursorColor: Colors.black,
+                controller: controller,
+                decoration: InputDecoration(
+                  hintText: 'e.g. Karachi, Pakistan',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+            ],
           ),
         ),
         actions: [
@@ -573,7 +612,9 @@ class StdProfileView extends StatelessWidget {
           'Logout',
           style: TextStyle(fontWeight: FontWeight.w700),
         ),
-        content: const Text('Are you sure you want to logout?'),
+        content: const SingleChildScrollView(
+          child: Text('Are you sure you want to logout?'),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

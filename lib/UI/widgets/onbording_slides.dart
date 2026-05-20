@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class OnbordingSlides extends StatelessWidget {
@@ -23,20 +24,20 @@ class OnbordingSlides extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isLandscape = size.width > size.height;
+    final size = context.screenSize;
+    final isLandscape = context.isLandscape;
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: isLandscape
-            ? _buildLandscapeLayout(size)
-            : _buildPortraitLayout(size),
+            ? _buildLandscapeLayout(context, size)
+            : _buildPortraitLayout(context, size),
       ),
     );
   }
 
-  Widget _buildPortraitLayout(Size size) {
+  Widget _buildPortraitLayout(BuildContext context, Size size) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,14 +53,14 @@ class OnbordingSlides extends StatelessWidget {
             ),
             // Skip Button
             Positioned(
-              top: 16,
-              right: 16,
+              top: context.rs(16),
+              right: context.rs(16),
               child: GestureDetector(
                 onTap: onskip,
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    vertical: 6,
-                    horizontal: 14,
+                    vertical: context.rs(6),
+                    horizontal: context.rs(14),
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.25),
@@ -68,7 +69,7 @@ class OnbordingSlides extends StatelessWidget {
                   child: Text(
                     "Skip",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: context.rf(14),
                       color: Colors.white,
                       fontFamily: "button",
                     ),
@@ -82,7 +83,8 @@ class OnbordingSlides extends StatelessWidget {
         // Content Section
         Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            padding: EdgeInsets.symmetric(
+                horizontal: context.rs(20), vertical: context.rs(16)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -91,19 +93,19 @@ class OnbordingSlides extends StatelessWidget {
                   title.toUpperCase(),
                   style: TextStyle(
                     fontFamily: "heading",
-                    fontSize: 24,
+                    fontSize: context.rf(24),
                     fontWeight: FontWeight.w900,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: context.rs(12)),
 
                 // Subtitle
                 Text(
                   subtitle,
                   style: TextStyle(
                     fontFamily: "button",
-                    fontSize: 14,
+                    fontSize: context.rf(14),
                     color: Colors.white70,
                     height: 1.5,
                   ),
@@ -112,8 +114,8 @@ class OnbordingSlides extends StatelessWidget {
                 Spacer(),
 
                 // ✅ Page Indicators
-                _buildPageIndicators(),
-                SizedBox(height: 16),
+                _buildPageIndicators(context),
+                SizedBox(height: context.rs(16)),
 
                 // Continue Button
                 AppButton(
@@ -122,7 +124,7 @@ class OnbordingSlides extends StatelessWidget {
                       : "Continue",
                   onTap: oncontinue,
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: context.rs(8)),
               ],
             ),
           ),
@@ -131,7 +133,7 @@ class OnbordingSlides extends StatelessWidget {
     );
   }
 
-  Widget _buildLandscapeLayout(Size size) {
+  Widget _buildLandscapeLayout(BuildContext context, Size size) {
     return Row(
       children: [
         // Image Section
@@ -147,14 +149,14 @@ class OnbordingSlides extends StatelessWidget {
               ),
               // Skip Button
               Positioned(
-                top: 16,
-                right: 16,
+                top: context.rs(16),
+                right: context.rs(16),
                 child: GestureDetector(
                   onTap: onskip,
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                      vertical: 6,
-                      horizontal: 14,
+                      vertical: context.rs(6),
+                      horizontal: context.rs(14),
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.25),
@@ -163,7 +165,7 @@ class OnbordingSlides extends StatelessWidget {
                     child: Text(
                       "Skip",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.white,
                         fontFamily: "button",
                       ),
@@ -179,7 +181,7 @@ class OnbordingSlides extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Padding(
-            padding: EdgeInsets.all(24),
+            padding: EdgeInsets.all(context.rs(24)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -188,26 +190,26 @@ class OnbordingSlides extends StatelessWidget {
                   title.toUpperCase(),
                   style: TextStyle(
                     fontFamily: "heading",
-                    fontSize: 20,
+                    fontSize: context.rf(20),
                     fontWeight: FontWeight.w900,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: context.rs(12)),
                 Text(
                   subtitle,
                   style: TextStyle(
                     fontFamily: "button",
-                    fontSize: 13,
+                    fontSize: context.rf(13),
                     color: Colors.white70,
                     height: 1.5,
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: context.rs(24)),
 
                 // ✅ Page Indicators
-                _buildPageIndicators(),
-                SizedBox(height: 16),
+                _buildPageIndicators(context),
+                SizedBox(height: context.rs(16)),
 
                 AppButton(
                   title: currentIndex == totalPages - 1
@@ -224,14 +226,14 @@ class OnbordingSlides extends StatelessWidget {
   }
 
   // ✅ Page Indicator Dots
-  Widget _buildPageIndicators() {
+  Widget _buildPageIndicators(BuildContext context) {
     return Row(
       children: List.generate(
         totalPages,
         (index) => Container(
-          margin: EdgeInsets.only(right: 8),
-          width: currentIndex == index ? 24 : 8,
-          height: 8,
+          margin: EdgeInsets.only(right: context.rs(8)),
+          width: currentIndex == index ? context.rs(24) : context.rs(8),
+          height: context.rs(8),
           decoration: BoxDecoration(
             color: currentIndex == index
                 ? Color(0xFF2F6BFF)

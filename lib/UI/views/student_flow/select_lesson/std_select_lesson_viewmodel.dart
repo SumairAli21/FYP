@@ -18,7 +18,6 @@ class StdSelectLessonViewmodel extends BaseViewModel {
       "Lesson ${lesson.lessonNumber.toString().padLeft(2, "0")}";
   String get imageurl => lesson.imageUrl ?? '';
 
-  // ── Points
   int? quizscore;
 
   String get scoretext {
@@ -26,7 +25,7 @@ class StdSelectLessonViewmodel extends BaseViewModel {
     return '$quizscore/100';
   }
 
-  bool get isQuizAttempted => quizscore != null && quizscore! >= 100;
+bool get isQuizAttempted => quizscore != null;
 
   Future<void> init() async {
     setBusy(true);
@@ -34,21 +33,30 @@ class StdSelectLessonViewmodel extends BaseViewModel {
     setBusy(false);
   }
 
-  void gotolessondetail() {
-    _navigationservice.navigateToStdLessondetailView(
+  // ✅ Lesson detail se wapas aane par points refresh
+  Future<void> gotolessondetail() async {
+    await _navigationservice.navigateToStdLessondetailView(
       lesson: lesson,
       classroom: classrom,
     );
+    await _refreshpoints();
   }
 
-  void onBack() => _navigationservice.back();
-
-  void gotoattemptQuiz() {
-    if (isQuizAttempted) return; // 100/100 pe block
-    _navigationservice.navigateToQuizAttemptView(
+  // ✅ Quiz attempt se wapas aane par points refresh
+  Future<void> gotoattemptQuiz() async {
+    if (isQuizAttempted) return;
+    await _navigationservice.navigateToQuizAttemptView(
       classId: classrom['id'] ?? '',
       lessonId: lesson.id,
       lessonTitle: lesson.title,
     );
+    await _refreshpoints();
   }
+
+  Future<void> _refreshpoints() async {
+    quizscore = await _pointsservice.getquizpoints(lesson.id);
+    notifyListeners();
+  }
+
+  void onBack() => _navigationservice.back();
 }

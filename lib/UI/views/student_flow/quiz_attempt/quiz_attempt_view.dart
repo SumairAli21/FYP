@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/student_flow/quiz_attempt/quiz_attempt_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -16,8 +17,7 @@ class QuizAttemptView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isLandscape = size.width > size.height;
+    final isLandscape = context.isLandscape;
 
     return ViewModelBuilder<QuizAttemptViewmodel>.reactive(
       viewModelBuilder: () => QuizAttemptViewmodel(
@@ -50,24 +50,29 @@ class QuizAttemptView extends StatelessWidget {
                       )
                     : model.questions.isEmpty
                         ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.quiz_outlined,
-                                    color: Colors.white70, size: 64),
-                                const SizedBox(height: 16),
-                                const Text(
-                                  'No quiz available for this lesson',
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 16),
-                                ),
-                                const SizedBox(height: 20),
-                                TextButton(
-                                  onPressed: model.onBack,
-                                  child: const Text('Go Back',
-                                      style: TextStyle(color: Colors.white)),
-                                ),
-                              ],
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.quiz_outlined,
+                                      color: Colors.white70,
+                                      size: context.rs(64)),
+                                  SizedBox(height: context.rs(16)),
+                                  Text(
+                                    'No quiz available for this lesson',
+                                    style: TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: context.rf(16)),
+                                  ),
+                                  SizedBox(height: context.rs(20)),
+                                  TextButton(
+                                    onPressed: model.onBack,
+                                    child: const Text('Go Back',
+                                        style: TextStyle(color: Colors.white)),
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         : Column(
@@ -77,15 +82,18 @@ class QuizAttemptView extends StatelessWidget {
                               // ── Top bar
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: isLandscape ? 6 : 12,
+                                  horizontal: context.rs(16),
+                                  vertical: isLandscape
+                                      ? context.rs(6)
+                                      : context.rs(12),
                                 ),
                                 child: Row(
                                   children: [
                                     // Points badge
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 5),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: context.rs(10),
+                                          vertical: context.rs(5)),
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(20),
@@ -94,16 +102,16 @@ class QuizAttemptView extends StatelessWidget {
                                         children: [
                                           Image.asset(
                                             'assets/images/coins.png',
-                                            height: 18,
-                                            width: 18,
+                                            height: context.rs(18),
+                                            width: context.rs(18),
                                           ),
-                                          const SizedBox(width: 4),
+                                          SizedBox(width: context.rs(4)),
                                           Text(
                                             '${model.earnedPoints}/${model.totalPoints}',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700,
-                                              fontSize: 13,
+                                              fontSize: context.rf(13),
                                             ),
                                           ),
                                         ],
@@ -115,15 +123,15 @@ class QuizAttemptView extends StatelessWidget {
                                     GestureDetector(
                                       onTap: () {}, // bad mein implement
                                       child: Container(
-                                        padding: const EdgeInsets.all(8),
+                                        padding: EdgeInsets.all(context.rs(8)),
                                         decoration: const BoxDecoration(
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.info_outline,
-                                          color: Color(0xFF2F6BFF),
-                                          size: 22,
+                                          color: const Color(0xFF2F6BFF),
+                                          size: context.rs(22),
                                         ),
                                       ),
                                     ),
@@ -132,9 +140,9 @@ class QuizAttemptView extends StatelessWidget {
                               ),
                               if (model.currentQuestion?.timerEnabled == true)
 Padding(
-  padding: const EdgeInsets.symmetric(
-    horizontal: 16,
-    vertical: 8,
+  padding: EdgeInsets.symmetric(
+    horizontal: context.rs(16),
+    vertical: context.rs(8),
   ),
 
   child: Stack(
@@ -146,7 +154,7 @@ Padding(
 
         child: LinearProgressIndicator(
           value: model.progress,
-          minHeight: 24,
+          minHeight: context.rs(24),
 
           backgroundColor:
               Colors.white.withOpacity(.25),
@@ -181,7 +189,9 @@ Padding(
                               // ── Feedback bar
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),
-                                height: model.feedbackMessage.isEmpty ? 0 : 40,
+                                height: model.feedbackMessage.isEmpty
+                                    ? 0
+                                    : context.rs(40),
                                 width: double.infinity,
                                 color: model.isAnswerRevealed
                                     ? (model.isCorrectAnswer
@@ -193,10 +203,10 @@ Padding(
                                     : Center(
                                         child: Text(
                                           model.feedbackMessage,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 14,
+                                            fontSize: context.rf(14),
                                           ),
                                         ),
                                       ),
@@ -206,38 +216,42 @@ Padding(
                               Expanded(
                                 child: SingleChildScrollView(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: isLandscape ? 40 : 20,
-                                    vertical: 16,
+                                    horizontal: isLandscape
+                                        ? context.rs(40)
+                                        : context.rs(20),
+                                    vertical: context.rs(16),
                                   ),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       // Question type label
-                                      const Text(
+                                      Text(
                                         'CHOOSE THE CORRECT ANSWER',
                                         style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: context.rf(18),
                                           fontWeight: FontWeight.w900,
                                           color: Colors.white,
                                           fontFamily: 'heading',
                                           letterSpacing: 0.5,
                                         ),
                                       ),
-                                      const SizedBox(height: 8),
+                                      SizedBox(height: context.rs(8)),
 
                                       // Question text
                                       Text(
                                         model.currentQuestion?.questionText ??
                                             '',
                                         style: TextStyle(
-                                          fontSize: isLandscape ? 16 : 18,
+                                          fontSize: isLandscape
+                                              ? context.rf(16)
+                                              : context.rf(18),
                                           color:
                                               Colors.white.withOpacity(0.85),
                                           height: 1.4,
                                         ),
                                       ),
-                                      const SizedBox(height: 20),
+                                      SizedBox(height: context.rs(20)),
 
                                       // ── Options
                                       ...List.generate(
@@ -286,12 +300,12 @@ Padding(
                                             child: AnimatedContainer(
                                               duration: const Duration(
                                                   milliseconds: 300),
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 12),
+                                              margin: EdgeInsets.only(
+                                                  bottom: context.rs(12)),
                                               padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 16,
-                                                vertical: 14,
+                                                  EdgeInsets.symmetric(
+                                                horizontal: context.rs(16),
+                                                vertical: context.rs(14),
                                               ),
                                               decoration: BoxDecoration(
                                                 color: bgColor,
@@ -305,7 +319,7 @@ Padding(
                                               child: Text(
                                                 option.text,
                                                 style: TextStyle(
-                                                  fontSize: 15,
+                                                  fontSize: context.rf(15),
                                                   color: textColor,
                                                   fontWeight: isSelected
                                                       ? FontWeight.w600
@@ -324,14 +338,14 @@ Padding(
                               // ── Continue button
                               Padding(
                                 padding: EdgeInsets.fromLTRB(
-                                  20,
+                                  context.rs(20),
                                   0,
-                                  20,
-                                  isLandscape ? 12 : 24,
+                                  context.rs(20),
+                                  isLandscape ? context.rs(12) : context.rs(24),
                                 ),
                                 child: SizedBox(
                                   width: double.infinity,
-                                  height: isLandscape ? 42 : 52,
+                                  height: isLandscape ? context.rs(42) : context.rs(52),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:
@@ -353,8 +367,8 @@ child: Text(
   model.isLastQuestion && model.isAnswerRevealed
       ? 'SUBMIT'
       : 'CONTINUE',
-  style: const TextStyle(
-    fontSize: 16,
+  style: TextStyle(
+    fontSize: context.rf(16),
     fontWeight: FontWeight.w800,
     color: Colors.white,
     letterSpacing: 1.5,

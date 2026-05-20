@@ -1,6 +1,7 @@
 import 'package:englify_app/UI/views/teacher_flow/lesson_detail/lesson_detail_viewmodel.dart';
 import 'package:englify_app/UI/widgets/pdf_page_viewer.dart';
 import 'package:englify_app/models/lesson_data_model.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,8 +13,7 @@ class LessonDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final isLandscape = context.isLandscape;
 
     return ViewModelBuilder<LessonDetailViewmodel>.reactive(
       viewModelBuilder: () =>
@@ -67,8 +67,9 @@ class LessonDetailView extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     '${model.className} - ${model.classCode}',
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 18),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: context.rf(18)),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -90,8 +91,8 @@ class LessonDetailView extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
                               model.lessonNumberText,
-                              style: const TextStyle(
-                                fontSize: 14,
+                              style: TextStyle(
+                                fontSize: context.rf(14),
                                 color: Colors.white54,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -104,7 +105,7 @@ class LessonDetailView extends StatelessWidget {
                             child: Text(
                               'Introduction to ${lessons.title}',
                               style: TextStyle(
-                                fontSize: isLandscape ? 16 : 22,
+                                fontSize: context.rf(isLandscape ? 16 : 22),
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,
                               ),
@@ -120,7 +121,7 @@ class LessonDetailView extends StatelessWidget {
                               child: Text(
                                 lessons.description,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: context.rf(14),
                                   color: Colors.white.withOpacity(0.7),
                                   height: 1.5,
                                 ),
@@ -137,41 +138,45 @@ class LessonDetailView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 6),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: context.rs(12),
+                                      vertical: context.rs(6)),
                                   decoration: BoxDecoration(
                                     color: Colors.blue,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: const Row(
+                                  child: Row(
                                     children: [
                                       Icon(Icons.menu_book,
-                                          color: Colors.white, size: 16),
-                                      SizedBox(width: 6),
+                                          color: Colors.white,
+                                          size: context.rs(16)),
+                                      SizedBox(width: context.rs(6)),
                                       Text("Grammar Basics",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 12)),
+                                              fontSize: context.rf(12))),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: context.rs(10)),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 6),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: context.rs(12),
+                                      vertical: context.rs(6)),
                                   decoration: BoxDecoration(
                                     color: Colors.white.withOpacity(0.9),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: const Row(
+                                  child: Row(
                                     children: [
                                       Icon(Icons.edit_note,
-                                          color: Colors.black, size: 16),
-                                      SizedBox(width: 6),
+                                          color: Colors.black,
+                                          size: context.rs(16)),
+                                      SizedBox(width: context.rs(6)),
                                       Text("Mini Exercises",
                                           style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 12)),
+                                              fontSize: context.rf(12))),
                                     ],
                                   ),
                                 ),
@@ -206,7 +211,7 @@ class LessonDetailView extends StatelessWidget {
                       ),
                       child: SizedBox(
                         width: double.infinity,
-                        height: 52,
+                        height: context.rs(52),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF2F6BFF),
@@ -215,10 +220,10 @@ class LessonDetailView extends StatelessWidget {
                             ),
                           ),
                           onPressed: model.oncratequiz,
-                          child: const Text(
+                          child: Text(
                             "Create Quiz",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: context.rf(16),
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
                             ),
@@ -267,8 +272,8 @@ class LessonDetailView extends StatelessWidget {
 
     return Text(
       lessons.contentUrl ?? '',
-      style: const TextStyle(
-        fontSize: 15,
+      style: TextStyle(
+        fontSize: context.rf(15),
         height: 1.6,
         color: Colors.white,
       ),

@@ -25,7 +25,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void onforgate() {
-    _navigationservice.navigateToForpassView();
+    _navigationservice.navigateToForgotPasswordView();
   }
 
   void onsignout() {

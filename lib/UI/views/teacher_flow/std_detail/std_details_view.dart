@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/teacher_flow/std_detail/std_detail_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,6 +15,8 @@ class StudentDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = context.isLandscape;
+
     return ViewModelBuilder<StudentDetailViewModel>.reactive(
       viewModelBuilder: () => StudentDetailViewModel(
         teacherId: teacherId,
@@ -24,7 +27,6 @@ class StudentDetailView extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: [
-              // Background
               Positioned.fill(
                 child: Image.asset(
                   'assets/images/dies_logo.png',
@@ -34,21 +36,23 @@ class StudentDetailView extends StatelessWidget {
               Positioned.fill(
                 child: Container(color: Colors.black.withOpacity(.25)),
               ),
-
               SafeArea(
                 child: model.isBusy
                     ? const Center(
-                        child: CircularProgressIndicator(color: Colors.white))
+                        child:
+                            CircularProgressIndicator(color: Colors.white))
                     : model.student == null
                         ? const Center(
                             child: Text("No Data Found",
                                 style: TextStyle(color: Colors.white)))
                         : SingleChildScrollView(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: isLandscape ? 8 : 12,
+                            ),
                             child: Column(
                               children: [
-                                // ── Header
+                                // Header
                                 Row(
                                   children: [
                                     GestureDetector(
@@ -63,13 +67,13 @@ class StudentDetailView extends StatelessWidget {
                                             color: Colors.black),
                                       ),
                                     ),
-                                    const Expanded(
+                                    Expanded(
                                       child: Center(
                                         child: Text(
                                           "Student Profile",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 20),
+                                              fontSize: context.rf(20)),
                                         ),
                                       ),
                                     ),
@@ -77,9 +81,9 @@ class StudentDetailView extends StatelessWidget {
                                   ],
                                 ),
 
-                                const SizedBox(height: 20),
+                                SizedBox(height: isLandscape ? 12 : 20),
 
-                                // ── Profile Card
+                                // Profile Card — landscape mein row layout
                                 Container(
                                   padding: const EdgeInsets.all(16),
                                   decoration: BoxDecoration(
@@ -88,10 +92,10 @@ class StudentDetailView extends StatelessWidget {
                                   ),
                                   child: Row(
                                     children: [
-                                      // ✅ radius 42
                                       CircleAvatar(
-                                        radius: 42,
-                                        backgroundColor: Colors.grey.shade200,
+                                        radius: isLandscape ? 32 : 42,
+                                        backgroundColor:
+                                            Colors.grey.shade200,
                                         backgroundImage: model.student!
                                                 .profileImage.isNotEmpty
                                             ? NetworkImage(
@@ -99,13 +103,11 @@ class StudentDetailView extends StatelessWidget {
                                             : null,
                                         child: model.student!.profileImage
                                                 .isEmpty
-                                            ? const Icon(Icons.person,
-                                                size: 36)
+                                            ? Icon(Icons.person,
+                                                size: isLandscape ? 28 : 36)
                                             : null,
                                       ),
-
                                       const SizedBox(width: 14),
-
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment:
@@ -113,8 +115,9 @@ class StudentDetailView extends StatelessWidget {
                                           children: [
                                             Text(
                                               model.student!.name,
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    isLandscape ? 16 : 20,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -129,17 +132,15 @@ class StudentDetailView extends StatelessWidget {
                                             const SizedBox(height: 8),
                                             Row(
                                               children: [
-                                                // ✅ Level with bar chart icon
                                                 _InfoChip(
-                                                  icon:
-                                                      Icons.bar_chart_rounded,
-                                                  color:
-                                                      const Color(0xFF2F6BFF),
+                                                  icon: Icons
+                                                      .bar_chart_rounded,
+                                                  color: const Color(
+                                                      0xFF2F6BFF),
                                                   label:
                                                       "Lvl ${model.student!.level}",
                                                 ),
                                                 const SizedBox(width: 10),
-                                                // ✅ Points with coins image
                                                 _CoinsChip(
                                                     points: model
                                                         .student!.totalPoints),
@@ -152,19 +153,19 @@ class StudentDetailView extends StatelessWidget {
                                   ),
                                 ),
 
-                                const SizedBox(height: 18),
+                                SizedBox(height: isLandscape ? 12 : 18),
 
-                                // ── Stats Grid — each card has its own icon
+                                // Stats Grid — landscape mein 4 columns
                                 GridView.count(
                                   shrinkWrap: true,
                                   physics:
                                       const NeverScrollableScrollPhysics(),
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 14,
-                                  crossAxisSpacing: 14,
-                                  childAspectRatio: 1.1,
+                                  crossAxisCount: isLandscape ? 4 : 2,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                  childAspectRatio:
+                                      isLandscape ? 1.3 : 1.1,
                                   children: [
-                                    // Lessons Done
                                     _StatCard(
                                       value:
                                           "${model.student!.completedLessons}/${model.student!.totalLessons}",
@@ -172,7 +173,6 @@ class StudentDetailView extends StatelessWidget {
                                       icon: Icons.menu_book_rounded,
                                       iconColor: const Color(0xFF7C3AED),
                                     ),
-                                    // Performance
                                     _StatCard(
                                       value:
                                           "${model.student!.performance.toStringAsFixed(0)}%",
@@ -180,7 +180,6 @@ class StudentDetailView extends StatelessWidget {
                                       icon: Icons.star_rounded,
                                       iconColor: const Color(0xFF16A34A),
                                     ),
-                                    // Attendance
                                     _StatCard(
                                       value:
                                           "${model.student!.attendancePercent.toStringAsFixed(0)}%",
@@ -188,7 +187,6 @@ class StudentDetailView extends StatelessWidget {
                                       icon: Icons.group_rounded,
                                       iconColor: const Color(0xFF9B59B6),
                                     ),
-                                    // Avg Score
                                     _StatCard(
                                       value:
                                           "${model.student!.averageScore.toStringAsFixed(0)}%",
@@ -214,9 +212,9 @@ class StudentDetailView extends StatelessWidget {
                                   ],
                                 ),
 
-                                const SizedBox(height: 18),
+                                SizedBox(height: isLandscape ? 12 : 18),
 
-                                // ── Activity Summary
+                                // Activity Summary
                                 Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(18),
@@ -228,12 +226,12 @@ class StudentDetailView extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "ACTIVITY SUMMARY",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18,
+                                          fontSize: context.rf(18),
                                         ),
                                       ),
                                       const SizedBox(height: 12),
@@ -259,9 +257,9 @@ class StudentDetailView extends StatelessWidget {
                                   ),
                                 ),
 
-                                const SizedBox(height: 28),
+                                SizedBox(height: isLandscape ? 16 : 28),
 
-                                // ── Back button
+                                // Back button
                                 SizedBox(
                                   width: double.infinity,
                                   height: 52,
@@ -275,12 +273,12 @@ class StudentDetailView extends StatelessWidget {
                                             BorderRadius.circular(12),
                                       ),
                                     ),
-                                    child: const Text(
+                                    child: Text(
                                       "BACK TO DASHBOARD",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'heading',
-                                        fontSize: 18,
+                                        fontSize: context.rf(18),
                                         fontWeight: FontWeight.w800,
                                         letterSpacing: 1,
                                       ),
@@ -300,7 +298,6 @@ class StudentDetailView extends StatelessWidget {
     );
   }
 
-  // ── Summary row with icon
   Widget _summaryRow(IconData icon, String title, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -309,10 +306,9 @@ class StudentDetailView extends StatelessWidget {
           Icon(icon, color: Colors.white70, size: 16),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(color: Colors.white70, fontSize: 13),
-            ),
+            child: Text(title,
+                style:
+                    const TextStyle(color: Colors.white70, fontSize: 13)),
           ),
           Text(
             value,
@@ -328,13 +324,12 @@ class StudentDetailView extends StatelessWidget {
   }
 }
 
-// ── Stat Card with icon on top
 class _StatCard extends StatelessWidget {
   final String value;
   final String label;
   final IconData? icon;
   final Color? iconColor;
-  final Widget? iconWidget; // for custom widget like A+ badge
+  final Widget? iconWidget;
 
   const _StatCard({
     required this.value,
@@ -361,29 +356,27 @@ class _StatCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Icon or custom widget
           if (iconWidget != null)
             iconWidget!
           else if (icon != null)
-            Icon(icon, color: iconColor, size: 30),
-
+            Icon(icon, color: iconColor, size: 28),
           const SizedBox(height: 8),
-
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
           ),
         ],
       ),
@@ -391,7 +384,6 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// ── Info chip (level etc.)
 class _InfoChip extends StatelessWidget {
   final IconData icon;
   final Color color;
@@ -415,7 +407,6 @@ class _InfoChip extends StatelessWidget {
   }
 }
 
-// ✅ Coins chip with image asset
 class _CoinsChip extends StatelessWidget {
   final int points;
   const _CoinsChip({required this.points});
@@ -424,16 +415,10 @@ class _CoinsChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset(
-          'assets/images/coins.png',
-          height: 16,
-          width: 16,
-        ),
+        Image.asset('assets/images/coins.png', height: 16, width: 16),
         const SizedBox(width: 4),
-        Text(
-          '$points Points',
-          style: const TextStyle(fontSize: 12),
-        ),
+        Text('$points Points',
+            style: const TextStyle(fontSize: 12)),
       ],
     );
   }

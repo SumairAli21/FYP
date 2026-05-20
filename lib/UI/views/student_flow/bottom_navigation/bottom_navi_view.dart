@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/student_flow/bottom_navigation/bottom_navi_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -17,7 +18,7 @@ class BottomNaviView extends StatelessWidget {
           children: model.pages,
         ),
         bottomNavigationBar: Container(
-          height: 70,
+          height: context.rs(70),
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -89,7 +90,8 @@ class BottomNaviView extends StatelessWidget {
         highlightColor: Colors.transparent,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          padding: EdgeInsets.symmetric(
+              vertical: context.rs(8), horizontal: context.rs(12)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -97,16 +99,16 @@ class BottomNaviView extends StatelessWidget {
               Icon(
                 isSelected ? activeIcon : icon,
                 color: isSelected ? const Color(0xFF4C6FFF) : Colors.grey[400],
-                size: 26,
+                size: context.rs(26),
               ),
               if (isSelected) ...[
-                const SizedBox(height: 4),
+                SizedBox(height: context.rs(4)),
                 Text(
                   label,
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: context.rf(12),
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4C6FFF),
+                    color: const Color(0xFF4C6FFF),
                   ),
                 ),
               ],

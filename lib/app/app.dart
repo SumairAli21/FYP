@@ -35,6 +35,8 @@ import 'package:englify_app/UI/views/teacher_flow/teacher_dashboard/teacher_dash
 import 'package:englify_app/UI/views/teacher_flow/teacher_home/teacher_home_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/teacher_profile/teacher_profile_view.dart';
 import 'package:englify_app/UI/views/teacher_flow/teacher_tracker/teacher_tracker_view.dart';
+import 'package:englify_app/UI/views/teacher_flow/teacher_tracker/student_quiz_record_view.dart';
+import 'package:englify_app/UI/views/teacher_flow/teacher_tracker/quiz_attempt_detail_view.dart';
 import 'package:englify_app/UI/views/terms&condition/terms&cond_view.dart';
 import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/cloudniry_service.dart';
@@ -44,6 +46,8 @@ import 'package:englify_app/services/favourite_service.dart';
 import 'package:englify_app/services/file_viewer_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
 import 'package:englify_app/services/classroom_service.dart';
+import 'package:englify_app/services/notification_service.dart';
+import 'package:englify_app/services/tracker_service.dart';
 import 'package:englify_app/services/pints_service.dart';
 import 'package:englify_app/services/profile_service.dart';
 import 'package:englify_app/services/quiz_service.dart';
@@ -64,7 +68,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: PersonalizationView),
     MaterialRoute(page: TeacherHomeView),
     MaterialRoute(page: ClassroomcodeView),
-    MaterialRoute(page: ForpassView),
+    MaterialRoute(page: ForgotPasswordView),
     MaterialRoute(page: StudentHomeView),
     MaterialRoute(page: StudentDashboardView),
     MaterialRoute(page: StudentFavView),
@@ -90,6 +94,8 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: RulesView),
     MaterialRoute(page: StudentsListView),
     MaterialRoute(page: StudentDetailView),
+    MaterialRoute(page: StudentQuizRecordView),
+    MaterialRoute(page: QuizAttemptDetailView),
     
   
     
@@ -109,7 +115,9 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: PointsService),
     LazySingleton(classType: FavouriteService),
     LazySingleton(classType: ProfileService),
-    LazySingleton(classType: DashboardService)
+    LazySingleton(classType: DashboardService),
+    LazySingleton(classType: NotificationService),
+    LazySingleton(classType: TrackerService),
   ],
 )
 class App {}

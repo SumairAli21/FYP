@@ -17,6 +17,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+
+        // Required by flutter_local_notifications (uses java.time APIs).
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -52,4 +55,10 @@ dependencies {
 
     // 🗂️ Firebase Firestore (Teacher ↔ Student data)
     implementation("com.google.firebase:firebase-firestore")
+
+    // 🔔 Firebase Cloud Messaging (push notifications)
+    implementation("com.google.firebase:firebase-messaging")
+
+    // Desugaring runtime for flutter_local_notifications.
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

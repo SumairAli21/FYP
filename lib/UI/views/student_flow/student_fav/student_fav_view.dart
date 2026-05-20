@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/student_flow/student_fav/student_fav_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,24 +27,24 @@ class StudentFavView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
+                    SizedBox(height: context.rs(10),),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 14),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: context.rs(20), vertical: context.rs(14)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Favorite Topics',
                             style: TextStyle(
-                              fontSize: 26,
+                              fontSize: context.rf(26),
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                               fontFamily: 'heading',
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.all(10),
+                            padding: EdgeInsets.all(context.rs(10)),
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
@@ -51,7 +52,7 @@ class StudentFavView extends StatelessWidget {
                             child: const Icon(
                               Icons.notifications,
                               color: Color(0xFF2F6BFF),
-                              
+
                             ),
                           ),
                         ],
@@ -60,7 +61,7 @@ class StudentFavView extends StatelessWidget {
 
                     // ── Search bar
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: context.rs(20)),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -78,20 +79,20 @@ class StudentFavView extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: 'Search topics',
                             hintStyle: TextStyle(
-                                color: Colors.grey[400], fontSize: 14),
+                                color: Colors.grey[400], fontSize: context.rf(14)),
                             prefixIcon: Icon(Icons.search,
                                 color: Colors.grey[400]),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(28),
                               borderSide: BorderSide.none,
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 14),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: context.rs(16), vertical: context.rs(14)),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: context.rs(16)),
 
                     // ── List
                     Expanded(
@@ -102,32 +103,35 @@ class StudentFavView extends StatelessWidget {
                             )
                           : model.filteredFavourites.isEmpty
                               ? Center(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.bookmark_border,
-                                          size: 64,
-                                          color: Colors.grey[400]),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        model.searchController.text
-                                                .isNotEmpty
-                                            ? 'No topics found'
-                                            : 'No favourites yet.\nBookmark a lesson to see it here!',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey[500],
-                                          height: 1.5,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.bookmark_border,
+                                            size: context.rs(64),
+                                            color: Colors.grey[400]),
+                                        SizedBox(height: context.rs(16)),
+                                        Text(
+                                          model.searchController.text
+                                                  .isNotEmpty
+                                              ? 'No topics found'
+                                              : 'No favourites yet.\nBookmark a lesson to see it here!',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: context.rf(16),
+                                            color: Colors.grey[500],
+                                            height: 1.5,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 )
                               : ListView.builder(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: context.rs(20)),
                                   itemCount:
                                       model.filteredFavourites.length,
                                   itemBuilder: (context, index) {
@@ -194,8 +198,8 @@ class StudentFavView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(12),
+        margin: EdgeInsets.only(bottom: context.rs(12)),
+        padding: EdgeInsets.all(context.rs(12)),
         decoration: BoxDecoration(
           color: _highlightColor == Colors.transparent
               ? Colors.white
@@ -217,14 +221,14 @@ class StudentFavView extends StatelessWidget {
               child: imageUrl != null && imageUrl.isNotEmpty
                   ? Image.network(
                       imageUrl,
-                      width: 70,
-                      height: 70,
+                      width: context.rs(70),
+                      height: context.rs(70),
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _placeholder(),
+                      errorBuilder: (_, __, ___) => _placeholder(context),
                     )
-                  : _placeholder(),
+                  : _placeholder(context),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: context.rs(12)),
 
             // ── Info
             Expanded(
@@ -233,19 +237,19 @@ class StudentFavView extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: context.rf(15),
                       fontWeight: FontWeight.w700,
                       color: Colors.black87,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: context.rs(4)),
                   Text(
                     className,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: context.rf(13),
                       color: Colors.grey[600],
                       height: 1.4,
                     ),
@@ -253,11 +257,11 @@ class StudentFavView extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (dateText.isNotEmpty) ...[
-                    const SizedBox(height: 6),
+                    SizedBox(height: context.rs(6)),
                     Text(
                       dateText,
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: context.rf(11),
                         color: Colors.grey[400],
                       ),
                     ),
@@ -270,7 +274,7 @@ class StudentFavView extends StatelessWidget {
             Icon(
               Icons.bookmark,
               color: const Color(0xFFFFD700),
-              size: 22,
+              size: context.rs(22),
             ),
           ],
         ),
@@ -278,16 +282,16 @@ class StudentFavView extends StatelessWidget {
     );
   }
 
-  Widget _placeholder() {
+  Widget _placeholder(BuildContext context) {
     return Container(
-      width: 70,
-      height: 70,
+      width: context.rs(70),
+      height: context.rs(70),
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(12),
       ),
       child: Icon(Icons.image_not_supported,
-          color: Colors.grey[400], size: 28),
+          color: Colors.grey[400], size: context.rs(28)),
     );
   }
 

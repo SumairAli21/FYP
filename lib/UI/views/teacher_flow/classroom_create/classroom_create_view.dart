@@ -1,6 +1,7 @@
 import 'package:englify_app/UI/views/teacher_flow/classroom_create/classroom_create_viewmodel.dart';
 import 'package:englify_app/UI/widgets/classroomcreate_dialog.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -36,8 +37,9 @@ class ClassroomCreateView extends StatelessWidget {
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
+                padding: EdgeInsets.symmetric(horizontal: context.hPad),
+                child: ResponsiveContainer(
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -46,8 +48,8 @@ class ClassroomCreateView extends StatelessWidget {
                       children: [
                         Image.asset(
                           'assets/images/applogo_blue.png',
-                          height: 150,
-                          width: 200,
+                          height: context.rs(150),
+                          width: context.rs(200),
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -64,33 +66,33 @@ class ClassroomCreateView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: context.rs(20)),
                     Text(
                       "Create a new classroom",
                       style: TextStyle(
                         fontFamily: "heading",
-                        fontSize: 30,
+                        fontSize: context.rf(30),
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     Text(
                       "Set up a space for your students to learn and grow together.",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.black54,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    
-                  
+                    SizedBox(height: context.rs(20)),
+
+
                     Row(
                       children: [
                         Text(
                           "Classroom Image",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
@@ -98,17 +100,17 @@ class ClassroomCreateView extends StatelessWidget {
                         Text(
                           "*",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             color: Colors.red,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     GestureDetector(
                       onTap: model.pickImage,
                       child: Container(
-                        height: 200,
+                        height: context.rs(200),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: model.selectedImage != null 
@@ -140,7 +142,7 @@ class ClassroomCreateView extends StatelessWidget {
                                     child: GestureDetector(
                                       onTap: model.removeImage,
                                       child: Container(
-                                        padding: EdgeInsets.all(6),
+                                        padding: EdgeInsets.all(context.rs(6)),
                                         decoration: BoxDecoration(
                                           color: Colors.red,
                                           shape: BoxShape.circle,
@@ -148,7 +150,7 @@ class ClassroomCreateView extends StatelessWidget {
                                         child: Icon(
                                           Icons.close,
                                           color: Colors.white,
-                                          size: 20,
+                                          size: context.rs(20),
                                         ),
                                       ),
                                     ),
@@ -160,26 +162,26 @@ class ClassroomCreateView extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.add_photo_alternate,
-                                    size: 60,
-                                    color: model.imageerror != null 
-                                        ? Colors.red 
+                                    size: context.rs(60),
+                                    color: model.imageerror != null
+                                        ? Colors.red
                                         : Colors.grey,
                                   ),
-                                  SizedBox(height: 8),
+                                  SizedBox(height: context.rs(8)),
                                   Text(
                                     "Tap to add classroom image",
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: context.rf(14),
                                       color: Colors.black54,
                                     ),
                                   ),
                                   if (model.imageerror != null)
                                     Padding(
-                                      padding: EdgeInsets.only(top: 8),
+                                      padding: EdgeInsets.only(top: context.rs(8)),
                                       child: Text(
                                         model.imageerror!,
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: context.rf(12),
                                           color: Colors.red,
                                         ),
                                       ),
@@ -188,15 +190,15 @@ class ClassroomCreateView extends StatelessWidget {
                               ),
                       ),
                     ),
-                    SizedBox(height: 15),
-                    
+                    SizedBox(height: context.rs(15)),
+
                     // Classroom Name
                     Row(
                       children: [
                         Text(
                           "Classroom Name",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
@@ -204,13 +206,13 @@ class ClassroomCreateView extends StatelessWidget {
                         Text(
                           "*",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             color: Colors.red,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     TextField(
                       cursorColor: Colors.black,
                       controller: model.classroomnamecontroller,
@@ -245,16 +247,16 @@ class ClassroomCreateView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15),
-                    
-                    
+                    SizedBox(height: context.rs(15)),
+
+
                     // Student Count
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           "How many students do you want to join",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                           ),
@@ -262,13 +264,13 @@ class ClassroomCreateView extends StatelessWidget {
                         Text(
                           "*",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: context.rf(16),
                             color: Colors.red,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     TextField(
                       cursorColor: Colors.black,
                       controller: model.studentcountcontroller,
@@ -303,13 +305,14 @@ class ClassroomCreateView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 100),
+                    SizedBox(height: context.rs(100)),
                     AppButton(
                       title: "Create classroom",
                       onTap: model.oncreateclassroom,
                       isLoading: model.isBusy,
                     ),
                   ],
+                  ),
                 ),
               ),
             ),

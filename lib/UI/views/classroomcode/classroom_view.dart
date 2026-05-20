@@ -1,5 +1,6 @@
 import 'package:englify_app/UI/views/classroomcode/classroom_view_model.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -8,9 +9,8 @@ class ClassroomcodeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isLandscape = size.width > size.height;
-    
+    final isLandscape = context.isLandscape;
+
     return ViewModelBuilder<ClassroomViewModel>.reactive(
       viewModelBuilder: () => ClassroomViewModel(),
       builder: (context, model, child) {
@@ -20,10 +20,11 @@ class ClassroomcodeView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: isLandscape ? 12 : 16,
+                  horizontal: context.rs(24),
+                  vertical: context.rs(isLandscape ? 12 : 16),
                 ),
-                child: Column(
+                child: ResponsiveContainer(
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -33,17 +34,17 @@ class ClassroomcodeView extends StatelessWidget {
                         Flexible(
                           child: Image.asset(
                             'assets/images/applogo_blue.png',
-                            height: isLandscape ? 80 : 70,
+                            height: context.rs(isLandscape ? 80 : 70),
                             fit: BoxFit.contain,
                           ),
                         ),
-                        SizedBox(width: 16),
+                        SizedBox(width: context.rs(16)),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFFE9EDEE),
                             padding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
+                              horizontal: context.rs(20),
+                              vertical: context.rs(12),
                             ),
                           ),
                           onPressed: model.onback,
@@ -57,34 +58,34 @@ class ClassroomcodeView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: isLandscape ? 16 : 24),
+                    SizedBox(height: context.rs(isLandscape ? 16 : 24)),
                     Text(
                       "The best way to learn english",
                       style: TextStyle(
                         fontFamily: "heading",
-                        fontSize: isLandscape ? 24 : 30,
+                        fontSize: context.rf(isLandscape ? 24 : 30),
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     Text(
                       "Join classroom to continue your learning journey",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.black54,
                       ),
                     ),
-                    SizedBox(height: isLandscape ? 12 : 15),
+                    SizedBox(height: context.rs(isLandscape ? 12 : 15)),
                     Text(
                       "Class code",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: context.rf(15),
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: context.rs(4)),
                     TextField(
                       cursorColor: Colors.black,
                       controller: model.classcodecontroller,
@@ -110,14 +111,15 @@ class ClassroomcodeView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: isLandscape ? 16 : 20),
+                    SizedBox(height: context.rs(isLandscape ? 16 : 20)),
                     AppButton(
                       title: 'Join',
                       onTap: model.joinclass,
                       isLoading: model.isBusy,
                     ),
-                    SizedBox(height: 20), // Bottom padding
+                    SizedBox(height: context.rs(20)), // Bottom padding
                   ],
+                ),
                 ),
               ),
             ),

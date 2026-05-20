@@ -1,5 +1,6 @@
 import 'package:englify_app/UI/views/teacher_flow/std_list/std_viewmodel.dart';
 import 'package:englify_app/services/dashboard_service.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -9,6 +10,8 @@ class StudentsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = context.isLandscape;
+
     return ViewModelBuilder<StudentsListViewmodel>.reactive(
       viewModelBuilder: () => StudentsListViewmodel(teacherId: teacherId),
       onViewModelReady: (model) => model.init(),
@@ -23,15 +26,18 @@ class StudentsListView extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                child: Container(color: Colors.black.withOpacity(0.25)),
+                child:
+                    Container(color: Colors.black.withOpacity(0.25)),
               ),
               SafeArea(
                 child: Column(
                   children: [
-                    // ── App bar
+                    // App bar
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: isLandscape ? 6 : 12,
+                      ),
                       child: Row(
                         children: [
                           GestureDetector(
@@ -46,12 +52,13 @@ class StudentsListView extends StatelessWidget {
                                   color: Colors.black, size: 20),
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             child: Center(
                               child: Text(
-                                'Profile',
+                                'Students',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                                    color: Colors.white,
+                                    fontSize: context.rf(20)),
                               ),
                             ),
                           ),
@@ -68,7 +75,7 @@ class StudentsListView extends StatelessWidget {
                       ),
                     ),
 
-                    // ── List
+                    // List
                     Expanded(
                       child: model.isBusy
                           ? const Center(
@@ -81,18 +88,42 @@ class StudentsListView extends StatelessWidget {
                                           color: Colors.white70,
                                           fontSize: 15)),
                                 )
-                              : ListView.builder(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                  itemCount: model.students.length,
-                                  itemBuilder: (context, index) {
-                                    return _StudentCard(
-                                      student: model.students[index],
-                                      onTap: () => model.onStudentTap(
-                                          model.students[index].studentId),
-                                    );
-                                  },
-                                ),
+                              : isLandscape
+                                  // ✅ landscape mein 2 column grid
+                                  ? GridView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 8),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 12,
+                                        mainAxisSpacing: 12,
+                                        childAspectRatio: 2.8,
+                                      ),
+                                      itemCount: model.students.length,
+                                      itemBuilder: (context, index) {
+                                        return _StudentCard(
+                                          student: model.students[index],
+                                          isLandscape: true,
+                                          onTap: () => model.onStudentTap(
+                                              model.students[index].studentId),
+                                        );
+                                      },
+                                    )
+                                  // portrait mein normal list
+                                  : ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 8),
+                                      itemCount: model.students.length,
+                                      itemBuilder: (context, index) {
+                                        return _StudentCard(
+                                          student: model.students[index],
+                                          isLandscape: false,
+                                          onTap: () => model.onStudentTap(
+                                              model.students[index].studentId),
+                                        );
+                                      },
+                                    ),
                     ),
                   ],
                 ),
@@ -105,20 +136,27 @@ class StudentsListView extends StatelessWidget {
   }
 }
 
-// ── Student Card ─────────────────────────────
 class _StudentCard extends StatelessWidget {
   final StudentSummary student;
   final VoidCallback onTap;
+  final bool isLandscape;
 
-  const _StudentCard({required this.student, required this.onTap});
+  const _StudentCard({
+    required this.student,
+    required this.onTap,
+    required this.isLandscape,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        margin: EdgeInsets.only(bottom: isLandscape ? 0 : 12),
+        padding: EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: isLandscape ? 10 : 14,
+        ),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.95),
           borderRadius: BorderRadius.circular(18),
@@ -131,50 +169,54 @@ class _StudentCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // ✅ radius 42
             CircleAvatar(
-              radius: 42,
+              radius: isLandscape ? 28 : 42,
               backgroundColor: Colors.grey.shade200,
               backgroundImage: student.profileImage.isNotEmpty
                   ? NetworkImage(student.profileImage)
                   : null,
               child: student.profileImage.isEmpty
-                  ? const Icon(Icons.person, color: Colors.grey, size: 36)
+                  ? Icon(Icons.person,
+                      color: Colors.grey,
+                      size: isLandscape ? 24 : 36)
                   : null,
             ),
-            const SizedBox(width: 14),
-
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     student.name,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: isLandscape ? 14 : 16,
                       fontWeight: FontWeight.w700,
                       color: Colors.black87,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 3),
+                  const SizedBox(height: 2),
                   Text(
                     student.classNames.join(', '),
-                    style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                    style: TextStyle(
+                        fontSize: 12, color: Colors.grey[600]),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      // ✅ Level chip with bar chart icon
-                      _InfoChip(
-                        icon: Icons.bar_chart_rounded,
-                        iconColor: const Color(0xFF2F6BFF),
-                        label: 'Lvl ${student.level}',
-                      ),
-                      const SizedBox(width: 12),
-                      // ✅ Points chip with coins image
-                      _CoinsChip(points: student.totalPoints),
-                    ],
-                  ),
+                  if (!isLandscape) ...[
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        _InfoChip(
+                          icon: Icons.bar_chart_rounded,
+                          iconColor: const Color(0xFF2F6BFF),
+                          label: 'Lvl ${student.level}',
+                        ),
+                        const SizedBox(width: 12),
+                        _CoinsChip(points: student.totalPoints),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -187,14 +229,15 @@ class _StudentCard extends StatelessWidget {
   }
 }
 
-// ── Level / generic icon chip ────────────────
 class _InfoChip extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String label;
 
   const _InfoChip(
-      {required this.icon, required this.iconColor, required this.label});
+      {required this.icon,
+      required this.iconColor,
+      required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -203,13 +246,13 @@ class _InfoChip extends StatelessWidget {
         Icon(icon, color: iconColor, size: 16),
         const SizedBox(width: 4),
         Text(label,
-            style: const TextStyle(fontSize: 12, color: Colors.black54)),
+            style: const TextStyle(
+                fontSize: 12, color: Colors.black54)),
       ],
     );
   }
 }
 
-// ✅ Coins chip — uses coins.png image asset
 class _CoinsChip extends StatelessWidget {
   final int points;
   const _CoinsChip({required this.points});
@@ -218,16 +261,11 @@ class _CoinsChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset(
-          'assets/images/coins.png',
-          height: 16,
-          width: 16,
-        ),
+        Image.asset('assets/images/coins.png', height: 16, width: 16),
         const SizedBox(width: 4),
-        Text(
-          '$points Points',
-          style: const TextStyle(fontSize: 12, color: Colors.black54),
-        ),
+        Text('$points Points',
+            style: const TextStyle(
+                fontSize: 12, color: Colors.black54)),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/splach/splach_view_model.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,8 +16,8 @@ class SplachView extends StatelessWidget {
           backgroundColor: Colors.black,
           body: Center(
             child: Image.asset("assets/images/applogo.png",
-            height: 250,
-            width: 250,
+            height: context.rs(250),
+            width: context.rs(250),
             ),
           ),
         );

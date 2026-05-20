@@ -35,6 +35,10 @@ bool timedOut=false;
   int currentIndex = 0;
   int earnedPoints = 0;
 
+  // ── Per-question answer log — denormalised onto the quiz result so the
+  //    teacher quiz tracker can show selected vs. correct answers.
+  final List<Map<String, dynamic>> _answerLog = [];
+
   // ── Per question state
   int? selectedOptionIndex;
   bool isAnswerRevealed = false;
@@ -128,6 +132,8 @@ isAnswerRevealed=true;
 feedbackMessage=
 "Time Up ⏰ 0 points";
 
+_recordAnswer(null);
+
 notifyListeners();
 
 Future.delayed(
@@ -172,6 +178,7 @@ Duration(seconds:2),
       } else {
         feedbackMessage = 'Wrong! answer via theory again😜';
       }
+      _recordAnswer(selectedOptionIndex);
       notifyListeners();
     } else {
   // ── Second press: next question or result
@@ -194,6 +201,21 @@ startQuestionTimer();
 notifyListeners();
   }
 }
+  }
+
+  /// Captures the outcome of the current question for the teacher tracker.
+  /// Called exactly once per question, when its answer is revealed.
+  void _recordAnswer(int? selectedIndex) {
+    final q = currentQuestion;
+    if (q == null) return;
+    final correctIndex = q.options.indexWhere((o) => o.isCorrect);
+    _answerLog.add({
+      'questionText': q.questionText,
+      'options': q.options.map((o) => o.text).toList(),
+      'selectedIndex': selectedIndex ?? -1,
+      'correctIndex': correctIndex,
+      'isCorrect': selectedIndex != null && selectedIndex == correctIndex,
+    });
   }
 
   String _getCorrectFeedback() {
@@ -220,6 +242,8 @@ await _pointsService.savequizresult(
  classId: classId,
  score: earnedPoints,
  totalPoints: totalPoints,
+ lessonTitle: lessonTitle,
+ answers: _answerLog,
 );
     if (context.mounted) {
       _showResultDialog(context);

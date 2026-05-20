@@ -1,6 +1,7 @@
 import 'package:englify_app/UI/views/student_flow/select_lesson/std_select_lesson_viewmodel.dart';
 import 'package:englify_app/UI/widgets/animated_lessoncard.dart';
 import 'package:englify_app/models/lesson_data_model.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,8 +16,7 @@ class StdSelectLessonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final islandscape = size.width > size.height;
+    final islandscape = context.isLandscape;
     return ViewModelBuilder<StdSelectLessonViewmodel>.reactive(
       viewModelBuilder: () =>
           StdSelectLessonViewmodel(lesson: lesson, classrom: classroom),
@@ -43,28 +43,28 @@ class StdSelectLessonView extends StatelessWidget {
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: islandscape ? 6 : 12,
+                    horizontal: context.rs(12),
+                    vertical: islandscape ? context.rs(6) : context.rs(12),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
+                      SizedBox(height: context.rs(10)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(
                             child: Image.asset(
                               'assets/images/applogo.png',
-                              height: islandscape ? 65 : 60,
+                              height: islandscape ? context.rs(65) : context.rs(60),
                               fit: BoxFit.contain,
                             ),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
+                              horizontal: context.rs(12),
+                              vertical: context.rs(6),
                             ),
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -76,8 +76,8 @@ class StdSelectLessonView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Container(
-                                  height: 10,
-                                  width: 20,
+                                  height: context.rs(10),
+                                  width: context.rs(20),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -86,12 +86,12 @@ class StdSelectLessonView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 3),
+                                SizedBox(width: context.rs(3)),
                                 Text(
                                   model.scoretext,
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14,
+                                    fontSize: context.rf(14),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -116,43 +116,61 @@ class StdSelectLessonView extends StatelessWidget {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: 24,
+                                        horizontal: context.rs(24),
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          _builstartquizbutton(model),
-                                          SizedBox(height: 15),
-                                          _readtheorybutton(model),
+                                          _builstartquizbutton(context, model),
+                                          SizedBox(height: context.rs(15)),
+                                          _readtheorybutton(context, model),
                                         ],
                                       ),
                                     ),
                                   ),
                                 ],
                               )
-                            : Column(
-                                children: [
-                                  Spacer(),
-                                  Center(
-                                    child: AnimatedLessonCard(
-                                      imageUrl: model.imageurl,
-                                      lessonTitle: model.lessonname,
-                                      isLandscape: islandscape,
+                            : LayoutBuilder(
+                                builder: (context, c) =>
+                                    SingleChildScrollView(
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                        minHeight: c.maxHeight),
+                                    child: IntrinsicHeight(
+                                      child: Column(
+                                        children: [
+                                          Spacer(),
+                                          Center(
+                                            child: AnimatedLessonCard(
+                                              imageUrl: model.imageurl,
+                                              lessonTitle: model.lessonname,
+                                              isLandscape: islandscape,
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                context.rs(24),
+                                                0,
+                                                context.rs(24),
+                                                context.rs(40)),
+                                            child: Column(
+                                              children: [
+                                                _builstartquizbutton(
+                                                    context, model),
+                                                SizedBox(
+                                                    height: context.rs(15)),
+                                                _readtheorybutton(
+                                                    context, model),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(24, 0, 24, 40),
-                                    child: Column(
-                                      children: [
-                                        _builstartquizbutton(model),
-                                        SizedBox(height: 15),
-                                        _readtheorybutton(model),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                       ),
                     ],
@@ -166,10 +184,11 @@ class StdSelectLessonView extends StatelessWidget {
     );
   }
 
-  Widget _builstartquizbutton(StdSelectLessonViewmodel model) {
+  Widget _builstartquizbutton(
+      BuildContext context, StdSelectLessonViewmodel model) {
     return SizedBox(
       width: double.infinity,
-      height: 52,
+      height: context.rs(52),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: model.isQuizAttempted
@@ -189,7 +208,7 @@ class StdSelectLessonView extends StatelessWidget {
               : 'START QUIZ',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: context.rf(18),
             fontFamily: 'button',
             fontWeight: FontWeight.w500,
           ),
@@ -198,10 +217,11 @@ class StdSelectLessonView extends StatelessWidget {
     );
   }
 
-  Widget _readtheorybutton(StdSelectLessonViewmodel model) {
+  Widget _readtheorybutton(
+      BuildContext context, StdSelectLessonViewmodel model) {
     return SizedBox(
       width: double.infinity,
-      height: 52,
+      height: context.rs(52),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
@@ -214,7 +234,7 @@ class StdSelectLessonView extends StatelessWidget {
         child: Text(
           'READ THEORY',
           style: TextStyle(
-            fontSize: 18,
+            fontSize: context.rf(18),
             fontFamily: 'button',
             color: Colors.black,
             fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -19,8 +20,8 @@ class ReusablePassTxtfeild extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         suffixIcon: IconButton(
-        onPressed: toggle, 
-        icon: isobscue? Icon(Icons.visibility_off, color: Colors.white70) : Icon(Icons.visibility, color: Colors.white70),
+        onPressed: toggle,
+        icon: isobscue? Icon(Icons.visibility_off, color: Colors.white70, size: context.rs(24)) : Icon(Icons.visibility, color: Colors.white70, size: context.rs(24)),
         ),
         hintText: "Enter your password",
         hintStyle: TextStyle(color: Colors.white38),

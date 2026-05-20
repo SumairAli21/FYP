@@ -11,7 +11,7 @@ class StdLessondetailViewmodel extends BaseViewModel {
   final _navigationservice = locator<NavigationService>();
   final _fileviewerservice = locator<FileViewerService>();
   final _favservice = locator<FavouriteService>();
-  final _pointsseervice = locator<PointsService>();
+  final _pointsservice = locator<PointsService>();
 
   final LessonData lesson;
   final Map<String, dynamic> classroom;
@@ -38,7 +38,7 @@ class StdLessondetailViewmodel extends BaseViewModel {
   Future<void> init() async {
     setBusy(true);
     final results = await Future.wait([
-      _pointsseervice.getquizpoints(lesson.id),
+      _pointsservice.getquizpoints(lesson.id),
       _favservice.isfav(lesson.id),
     ]);
     quizscore = results[0] as int?;
@@ -48,8 +48,6 @@ class StdLessondetailViewmodel extends BaseViewModel {
 
   Future<void> toggleFavourite() async {
     if (isTogglingFavourite) return;
-
-    // ✅ Optimistic update — pehle locally flip karo, UI turant respond kare
     isFavourite = !isFavourite;
     isTogglingFavourite = true;
     notifyListeners();
@@ -62,7 +60,6 @@ class StdLessondetailViewmodel extends BaseViewModel {
       lessonimageurl: lesson.imageUrl,
     );
 
-    // ✅ Server result se confirm karo
     isFavourite = result;
     isTogglingFavourite = false;
     notifyListeners();
@@ -112,12 +109,16 @@ class StdLessondetailViewmodel extends BaseViewModel {
     );
   }
 
-  void onAttemptQuiz() {
-    _navigationservice.navigateToQuizAttemptView(
+  // ✅ Quiz attempt ke baad wapas aane par points refresh
+  Future<void> onAttemptQuiz() async {
+    await _navigationservice.navigateToQuizAttemptView(
       classId: classroom['id'] ?? '',
       lessonId: lesson.id,
       lessonTitle: lesson.title,
     );
+    // ✅ Quiz se wapas aane par score update karo
+    quizscore = await _pointsservice.getquizpoints(lesson.id);
+    notifyListeners();
   }
 
   void onBack() => _navigationservice.back();

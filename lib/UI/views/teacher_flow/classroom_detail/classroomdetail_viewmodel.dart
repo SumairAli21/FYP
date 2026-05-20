@@ -16,10 +16,8 @@ class ClassroomdetailViewmodel extends BaseViewModel {
 
   String get classId => classroom['id'] ?? '';
   String get className => classroom[FirestoreKeys.className] ?? '';
-  String get classCode => 
-    classroom[FirestoreKeys.classCode] ?? 
-    classroom['code'] ??  // purane documents ke liye
-    '';
+  String get classCode =>
+      classroom[FirestoreKeys.classCode] ?? classroom['code'] ?? '';
   String get description => classroom[FirestoreKeys.classDescription] ?? '';
   int get currentStudents => classroom[FirestoreKeys.currentStudentCount] ?? 0;
   int get maxStudents => classroom[FirestoreKeys.maxStudents] ?? 0;
@@ -69,7 +67,10 @@ class ClassroomdetailViewmodel extends BaseViewModel {
     _navigationservice.back();
   }
 
-  void gotocreatelesson() {
-    _navigationservice.navigateToCreateLessonView(classid: classId);
+  // ✅ Create lesson ke baad result await karo — wapas aane par reload
+  Future<void> gotocreatelesson() async {
+    await _navigationservice.navigateToCreateLessonView(classid: classId);
+    // ✅ Jab create lesson se wapas aao — list refresh karo
+    await loadlessons();
   }
 }

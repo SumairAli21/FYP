@@ -1,3 +1,4 @@
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class ResualeEmailTextfeild extends StatelessWidget {
@@ -22,7 +23,7 @@ class ResualeEmailTextfeild extends StatelessWidget {
       style: TextStyle(color: Colors.white),
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.email, color: Colors.white70),
+        prefixIcon: Icon(Icons.email, color: Colors.white70, size: context.rs(24)),
         hintText: "Enter your email",
         hintStyle: TextStyle(color: Colors.white38),
         filled: true,

@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/teacher_flow/teacher_bottom_tabs/teacher_bottom_tab_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -13,7 +14,7 @@ class TeacherBottomTabView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: IndexedStack(index: model.currentindex, children: model.pages),
         bottomNavigationBar: Container(
-          height: 70,
+          height: context.rs(70),
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -86,7 +87,8 @@ class TeacherBottomTabView extends StatelessWidget {
         highlightColor: Colors.transparent,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          padding: EdgeInsets.symmetric(
+              vertical: context.rs(8), horizontal: context.rs(12)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -94,16 +96,16 @@ class TeacherBottomTabView extends StatelessWidget {
               Icon(
                 isSelected ? activeIcon : icon,
                 color: isSelected ? const Color(0xFF4C6FFF) : Colors.grey[400],
-                size: 26,
+                size: context.rs(26),
               ),
               if (isSelected) ...[
-                const SizedBox(height: 4),
+                SizedBox(height: context.rs(4)),
                 Text(
                   label,
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: context.rf(12),
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF4C6FFF),
+                    color: const Color(0xFF4C6FFF),
                   ),
                 ),
               ],

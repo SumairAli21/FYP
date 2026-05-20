@@ -1,6 +1,7 @@
 import 'package:englify_app/UI/views/teacher_flow/create_quiz/create_quiz_viewmodel.dart';
 import 'package:englify_app/UI/widgets/reusable_button_white.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,8 +19,7 @@ class CreateQuizView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final isLandscape = context.isLandscape;
 
     return ViewModelBuilder<CreateQuizViewmodel>.reactive(
       viewModelBuilder: () => CreateQuizViewmodel(
@@ -72,13 +72,13 @@ class CreateQuizView extends StatelessWidget {
                                       color: Colors.black, size: 20),
                                 ),
                               ),
-                              const SizedBox(width: 16),
-                              const Expanded(
+                              SizedBox(width: context.rs(16)),
+                              Expanded(
                                 child: Text(
                                   'Create Quiz',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: context.rf(18),
                                   ),
                                 ),
                               ),
@@ -131,10 +131,10 @@ class CreateQuizView extends StatelessWidget {
                             title: "Add New Question",
                             onTap: () => model.addQuestion(context),
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: context.rs(12)),
                           SizedBox(
                             width: double.infinity,
-                            height: 52,
+                            height: context.rs(52),
                             child: ElevatedButton(
                               onPressed: model.canPublish
                                   ? () => model.publishQuiz(context)
@@ -166,9 +166,9 @@ class CreateQuizView extends StatelessWidget {
                                     model.quizAlreadyCreated
                                         ? "Quiz Already Created ✓"
                                         : "Publish Quiz",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: context.rf(18),
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -213,8 +213,8 @@ Widget _buildQuestionCard(
           children: [
             Text(
               'Question ${qIndex + 1}',
-              style: const TextStyle(
-                fontSize: 13,
+              style: TextStyle(
+                fontSize: context.rf(13),
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -224,22 +224,22 @@ Widget _buildQuestionCard(
               GestureDetector(
                 onTap: () => model.removeQuestion(qIndex),
                 child: Container(
-                  height: 44,
-                  width: 44,
+                  height: context.rs(44),
+                  width: context.rs(44),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: Colors.white, width: 1.5),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Icon(Icons.delete_outlined,
-                        color: Colors.white, size: 26),
+                        color: Colors.white, size: context.rs(26)),
                   ),
                 ),
               ),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: context.rs(12)),
 
         // Question field
         TextField(
@@ -252,7 +252,7 @@ Widget _buildQuestionCard(
           decoration: InputDecoration(
             hintText: 'Enter your question here....',
             hintStyle:
-                const TextStyle(color: Colors.black, fontSize: 14),
+                TextStyle(color: Colors.black, fontSize: context.rf(14)),
             filled: true,
             fillColor: Colors.white,
             enabledBorder: OutlineInputBorder(
@@ -265,11 +265,11 @@ Widget _buildQuestionCard(
               borderSide:
                   const BorderSide(color: Colors.white, width: 1.5),
             ),
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16, vertical: 12),
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: context.rs(16), vertical: context.rs(12)),
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: context.rs(12)),
 
         // Options
         ListView.builder(
@@ -279,7 +279,7 @@ Widget _buildQuestionCard(
           itemBuilder: (context, oIndex) {
             final option = question.options[oIndex];
             return Padding(
-              padding: const EdgeInsets.only(bottom: 8),
+              padding: EdgeInsets.only(bottom: context.rs(8)),
               child: Row(
                 children: [
                   Expanded(
@@ -293,10 +293,10 @@ Widget _buildQuestionCard(
                           onTap: () =>
                               model.selectCorrectAnswer(qIndex, oIndex),
                           child: Padding(
-                            padding: const EdgeInsets.all(12),
+                            padding: EdgeInsets.all(context.rs(12)),
                             child: Container(
-                              height: 20,
-                              width: 20,
+                              height: context.rs(20),
+                              width: context.rs(20),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: option.isCorrect
@@ -309,8 +309,8 @@ Widget _buildQuestionCard(
                               child: option.isCorrect
                                   ? Center(
                                       child: Container(
-                                        height: 10,
-                                        width: 10,
+                                        height: context.rs(10),
+                                        width: context.rs(10),
                                         decoration: const BoxDecoration(
                                           color: Colors.green,
                                           shape: BoxShape.circle,
@@ -323,8 +323,8 @@ Widget _buildQuestionCard(
                         ),
                         hintText:
                             'Option ${String.fromCharCode(65 + oIndex)}',
-                        hintStyle: const TextStyle(
-                            color: Colors.black, fontSize: 14),
+                        hintStyle: TextStyle(
+                            color: Colors.black, fontSize: context.rf(14)),
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: OutlineInputBorder(
@@ -337,27 +337,28 @@ Widget _buildQuestionCard(
                           borderSide: const BorderSide(
                               color: Colors.white, width: 1.5),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 10),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: context.rs(14),
+                            vertical: context.rs(10)),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: context.rs(8)),
                   GestureDetector(
                     onTap: () =>
                         model.removeOption(qIndex, oIndex, context),
                     child: Container(
-                      height: 44,
-                      width: 44,
+                      height: context.rs(44),
+                      width: context.rs(44),
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(16),
                         border:
                             Border.all(color: Colors.white, width: 1.5),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Icon(Icons.delete_outlined,
-                            color: Colors.white, size: 26),
+                            color: Colors.white, size: context.rs(26)),
                       ),
                     ),
                   ),
@@ -367,20 +368,21 @@ Widget _buildQuestionCard(
           },
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: context.rs(12)),
 
         // Add option
         GestureDetector(
           onTap: () => model.addOption(qIndex, context),
           child: Row(
-            children: const [
-              Icon(Icons.add, color: Color(0xFF2F6BFF), size: 25),
-              SizedBox(width: 4),
+            children: [
+              Icon(Icons.add,
+                  color: const Color(0xFF2F6BFF), size: context.rs(25)),
+              SizedBox(width: context.rs(4)),
               Text(
                 'Add option',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 14,
+                  fontSize: context.rf(14),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -388,17 +390,17 @@ Widget _buildQuestionCard(
           ),
         ),
 
-        const SizedBox(height: 8),
+        SizedBox(height: context.rs(8)),
 
         // Required toggle
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: context.rs(10)),
           child: Row(
             children: [
-              const Text(
+              Text(
                 'Required',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: context.rf(14),
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
@@ -426,13 +428,13 @@ Widget _buildQuestionCard(
 
         // Timer toggle
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: context.rs(10)),
           child: Row(
             children: [
-              const Text(
+              Text(
                 'Timer',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: context.rf(14),
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
@@ -459,7 +461,7 @@ Widget _buildQuestionCard(
         ),
 
         if (question.timerEnabled) ...[
-          const SizedBox(height: 12),
+          SizedBox(height: context.rs(12)),
           TextField(
             cursorColor: Colors.black,
             controller: question.timerController,
@@ -467,8 +469,8 @@ Widget _buildQuestionCard(
             style: const TextStyle(color: Colors.black),
             decoration: InputDecoration(
               hintText: "Seconds (15)",
-              hintStyle: const TextStyle(
-                  color: Colors.black54, fontSize: 14),
+              hintStyle: TextStyle(
+                  color: Colors.black54, fontSize: context.rf(14)),
               filled: true,
               fillColor: Colors.white,
               enabledBorder: OutlineInputBorder(
@@ -481,8 +483,8 @@ Widget _buildQuestionCard(
                 borderSide: const BorderSide(
                     color: Colors.black, width: 1.5),
               ),
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16, vertical: 12),
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: context.rs(16), vertical: context.rs(12)),
             ),
           ),
         ],

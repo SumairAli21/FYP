@@ -1,3 +1,4 @@
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -14,11 +15,11 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = context.screenWidth;
 
     return SizedBox(
       width: width,
-      height: 52,
+      height: context.rs(52),
       child: ElevatedButton(
         onPressed: isLoading ? null : onTap,
         style: ElevatedButton.styleFrom(
@@ -32,22 +33,22 @@ class AppButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading) ...[
-              const SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
+              SizedBox(
+                height: context.rs(18),
+                width: context.rs(18),
+                child: const CircularProgressIndicator(
                   strokeWidth: 2,
                   valueColor:
                       AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: context.rs(12)),
             ],
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: "button",
-                fontSize: 18,
+                fontSize: context.rf(18),
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),

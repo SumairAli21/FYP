@@ -1,5 +1,6 @@
 import 'package:englify_app/UI/views/teacher_flow/classroom_detail/classroomdetail_viewmodel.dart';
 import 'package:englify_app/UI/widgets/custom_lesson_card.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -9,9 +10,7 @@ class ClassroomdetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final isLandscape = context.isLandscape;
 
     return ViewModelBuilder<ClassroomdetailViewmodel>.reactive(
       viewModelBuilder: () => ClassroomdetailViewmodel(classroom),
@@ -28,26 +27,23 @@ class ClassroomdetailView extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                child: Container(
-                  color: Colors.grey.withOpacity(0.1),
-                ),
+                child: Container(color: Colors.grey.withOpacity(0.1)),
               ),
 
-              // Content
+              // ✅ Content — SafeArea + Column (Positioned.fill nahi)
               SafeArea(
-                child: Positioned.fill(
-                  child: SingleChildScrollView(
-                    physics: const ClampingScrollPhysics(),
-                    child: Padding(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 16,
-                        vertical: isLandscape ? 8 : 12,
+                        vertical: isLandscape ? 6 : 12,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: isLandscape ? 8 : 15),
+                          SizedBox(height: isLandscape ? 4 : 15),
 
                           // Header Row
                           Row(
@@ -68,9 +64,9 @@ class ClassroomdetailView extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     '${model.className} - ${model.classCode}',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: context.rf(18),
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -84,9 +80,10 @@ class ClassroomdetailView extends StatelessWidget {
                           Container(
                             height: 2,
                             width: double.infinity,
-                            color: const Color.fromARGB(38, 255, 255, 255),
+                            color:
+                                const Color.fromARGB(38, 255, 255, 255),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: isLandscape ? 10 : 16),
 
                           // Search
                           Container(
@@ -106,15 +103,14 @@ class ClassroomdetailView extends StatelessWidget {
                               onChanged: model.onsearchchnage,
                               decoration: InputDecoration(
                                 hintText: "Search Lesson",
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey[400],
-                                ),
+                                prefixIcon: Icon(Icons.search,
+                                    color: Colors.grey[400]),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(28),
                                   borderSide: BorderSide.none,
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(
                                   horizontal: 16,
                                   vertical: 14,
                                 ),
@@ -122,93 +118,98 @@ class ClassroomdetailView extends StatelessWidget {
                             ),
                           ),
 
-                          const SizedBox(height: 16),
-
-                          // Grid
-                          SizedBox(
-                            height: isLandscape
-                                ? screenHeight * 1.2
-                                : screenHeight * 0.72,
-                            child: model.isBusy
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white),
-                                  )
-                                : model.lessons.isEmpty
-                                    ? Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              model.searchcontroller.text
-                                                      .isNotEmpty
-                                                  ? Icons.search_off
-                                                  : Icons.menu_book_outlined,
-                                              size: 64,
-                                              color: Colors.white70,
-                                            ),
-                                            const SizedBox(height: 16),
-                                            Text(
-                                              model.searchcontroller.text
-                                                      .isNotEmpty
-                                                  ? "No lessons found"
-                                                  : "No lessons yet.\nTap + to create one!",
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white70,
-                                              ),
-                                            ),
-                                            if (model.searchcontroller.text
-                                                .isNotEmpty)
-                                              TextButton(
-                                                onPressed: model.onclearsearch,
-                                                child: const Text(
-                                                  "Clear Search",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ),
-                                          ],
-                                        ),
-                                      )
-                                    : GridView.builder(
-                                        physics:
-                                            const AlwaysScrollableScrollPhysics(),
-                                        padding:
-                                            const EdgeInsets.only(bottom: 80),
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: isLandscape ? 3 : 2,
-                                          crossAxisSpacing: 12,
-                                          mainAxisSpacing: 12,
-                                          childAspectRatio:
-                                              isLandscape ? 1.0 : 0.78,
-                                        ),
-                                        itemCount: model.lessons.length,
-                                        itemBuilder: (context, index) {
-                                          final lesson = model.lessons[index];
-                                          return LessonCard(
-                                            lessonId: lesson.id,
-                                            lessonName: lesson.title,
-                                            imageUrl: lesson.imageUrl,
-                                            onTap: () =>
-                                                model.onlessontap(lesson),
-                                          );
-                                        },
-                                      ),
-                          ),
+                          SizedBox(height: isLandscape ? 10 : 16),
                         ],
                       ),
                     ),
-                  ),
+
+                    // ✅ Grid — Expanded, poori remaining height
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 16),
+                        child: model.isBusy
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white),
+                              )
+                            : model.lessons.isEmpty
+                                ? Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          model.searchcontroller.text
+                                                  .isNotEmpty
+                                              ? Icons.search_off
+                                              : Icons.menu_book_outlined,
+                                          size: 64,
+                                          color: Colors.white70,
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          model.searchcontroller.text
+                                                  .isNotEmpty
+                                              ? "No lessons found"
+                                              : "No lessons yet.\nTap + to create one!",
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white70,
+                                          ),
+                                        ),
+                                        if (model.searchcontroller.text
+                                            .isNotEmpty)
+                                          TextButton(
+                                            onPressed:
+                                                model.onclearsearch,
+                                            child: const Text(
+                                              "Clear Search",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight:
+                                                    FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  )
+                                : GridView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    padding: EdgeInsets.only(
+                                      bottom: isLandscape ? 20 : 80,
+                                    ),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          isLandscape ? 3 : 2,
+                                      crossAxisSpacing: 12,
+                                      mainAxisSpacing: 12,
+                                      childAspectRatio:
+                                          isLandscape ? 1.1 : 0.78,
+                                    ),
+                                    itemCount: model.lessons.length,
+                                    itemBuilder: (context, index) {
+                                      final lesson = model.lessons[index];
+                                      return LessonCard(
+                                        lessonId: lesson.id,
+                                        lessonName: lesson.title,
+                                        imageUrl: lesson.imageUrl,
+                                        onTap: () =>
+                                            model.onlessontap(lesson),
+                                      );
+                                    },
+                                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-              // FAB — duplicate hata diya, sirf ek rakha
+              // FAB
               Positioned(
                 right: 24,
                 bottom: isLandscape ? 16 : 30,
@@ -220,7 +221,8 @@ class ClassroomdetailView extends StatelessWidget {
                       color: Color(0xFF2F6BFF),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.add, size: 32, color: Colors.white),
+                    child: const Icon(Icons.add,
+                        size: 32, color: Colors.white),
                   ),
                 ),
               ),

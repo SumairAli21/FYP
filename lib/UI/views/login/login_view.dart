@@ -2,6 +2,7 @@ import 'package:englify_app/UI/views/login/login_view_model.dart';
 import 'package:englify_app/UI/widgets/resuale_email_textfeild.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
 import 'package:englify_app/UI/widgets/reusable_pass_txtfeild.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -10,8 +11,6 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final size = MediaQuery.of(context).size;
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) {
@@ -21,12 +20,13 @@ class LoginView extends StatelessWidget {
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
+                padding: EdgeInsets.symmetric(horizontal: context.rs(24)),
+                child: ResponsiveContainer(
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: context.rs(20)),
                     Row(
                       children: [
                         IconButton(
@@ -36,44 +36,46 @@ class LoginView extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(width: size.width * 0.09),
-                        Center(
+                        Expanded(
                           child: Text(
                             "Sign up with Email",
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: context.rf(22),
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
                             ),
                           ),
                         ),
+                        SizedBox(width: context.rs(48)),
                       ],
                     ),
-                    SizedBox(height: size.height * 0.10),
+                    SizedBox(height: context.heightPercent(10)),
                     Text(
                       "Email address",
                       style: TextStyle(
                         fontFamily: "button",
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: context.rs(5)),
                     ResualeEmailTextfeild(
                       onchange: model.onemailchage,
                       emailcontroller: model.emailcontroller,
                       errortext: model.errormasage,
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: context.rs(10)),
                     Text(
                       "Password",
                       style: TextStyle(
                         fontFamily: "buton",
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: context.rs(5)),
                     ReusablePassTxtfeild(
                       isobscue: model.isobsurce,
                       onchnage: model.onpasschage,
@@ -89,16 +91,16 @@ class LoginView extends StatelessWidget {
                           "Forget Password",
                           style: TextStyle(
                             fontFamily: "button",
-                            fontSize: 12,
+                            fontSize: context.rf(12),
                             color: const Color.fromARGB(255, 249, 247, 247),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: context.rs(10)),
                      SizedBox(
-      width: width,
-      height: 52,
+      width: double.infinity,
+      height: context.rs(52),
       child: ElevatedButton(
         onPressed: model.isBusy ? null : model.onlogin,
         style: ElevatedButton.styleFrom(
@@ -125,9 +127,9 @@ class LoginView extends StatelessWidget {
             ],
             Text(
               "Login",
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: "button",
-                fontSize: 18,
+                fontSize: context.rf(18),
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -136,17 +138,20 @@ class LoginView extends StatelessWidget {
         ),
       ),
     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: context.rs(20)),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "I don't have an account? ",
-                            style: TextStyle(
-                              fontFamily: "button",
-                              fontSize: 14,
-                              color: Colors.white70,
+                          Flexible(
+                            child: Text(
+                              "I don't have an account? ",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontFamily: "button",
+                                fontSize: context.rf(14),
+                                color: Colors.white70,
+                              ),
                             ),
                           ),
                           TextButton(
@@ -158,7 +163,7 @@ class LoginView extends StatelessWidget {
                               "Sign out",
                               style: TextStyle(
                                 fontFamily: "button",
-                                fontSize: 14,
+                                fontSize: context.rf(14),
                                 color: const Color.fromARGB(255, 249, 247, 247),
                               ),
                             ),
@@ -167,6 +172,7 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
                 ),
               ),
             ),

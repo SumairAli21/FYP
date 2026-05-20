@@ -1,3 +1,4 @@
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class LessonCard extends StatelessWidget {
@@ -69,7 +70,7 @@ class LessonCard extends StatelessWidget {
                           child: Icon(
                             Icons.broken_image,
                             color: Colors.white.withOpacity(0.3),
-                            size: 50,
+                            size: context.rs(50),
                           ),
                         ),
                       );
@@ -83,34 +84,34 @@ class LessonCard extends StatelessWidget {
                     child: Icon(
                       Icons.image_not_supported,
                       color: Colors.white.withOpacity(0.3),
-                      size: 50,
+                      size: context.rs(50),
                     ),
                   ),
                 ),
 
               // ✅ Lesson name overlay (same style)
               Positioned(
-                bottom: 14,
-                left: 14,
-                right: 14,
+                bottom: context.rs(14),
+                left: context.rs(14),
+                right: context.rs(14),
                 child: Container(
-                  margin: const EdgeInsets.all(8),
-                  height: 50,
+                  margin: EdgeInsets.all(context.rs(8)),
+                  height: context.rs(50),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.9),
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: context.rs(12)),
                     child: Text(
                       lessonName.toUpperCase(),
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: "heading",
-                        fontSize: 15,
+                        fontSize: context.rf(15),
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                         letterSpacing: 0.5,

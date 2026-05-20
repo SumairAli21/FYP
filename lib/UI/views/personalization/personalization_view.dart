@@ -1,5 +1,6 @@
 import 'package:englify_app/UI/views/personalization/personalization_view_model.dart';
 import 'package:englify_app/UI/widgets/reusable_elevated_blue_button.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -8,12 +9,11 @@ class PersonalizationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isLandscape = size.width > size.height;
-    
+    final isLandscape = context.isLandscape;
+
     return ViewModelBuilder<PersonalizationViewModel>.reactive(
       viewModelBuilder: () => PersonalizationViewModel(),
-      
+
       builder: (context, model, child) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -21,48 +21,49 @@ class PersonalizationView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: isLandscape ? 12 : 16,
+                  horizontal: context.rs(24),
+                  vertical: context.rs(isLandscape ? 12 : 16),
                 ),
-                child: Column(
+                child: ResponsiveContainer(
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
                       "assets/images/applogo_blue.png",
-                      height: isLandscape ? 80 : 70,
+                      height: context.rs(isLandscape ? 80 : 70),
                       fit: BoxFit.contain,
                     ),
-                    SizedBox(height: isLandscape ? 16 : 24),
+                    SizedBox(height: context.rs(isLandscape ? 16 : 24)),
                     Text(
                       "What's your name?",
                       style: TextStyle(
                         fontFamily: "heading",
-                        fontSize: isLandscape ? 24 : 30,
+                        fontSize: context.rf(isLandscape ? 24 : 30),
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: context.rs(8)),
                     Text(
                       "Enter your name so we know what to call you. "
                       "We'll use it to personalize your app and orders.",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: context.rf(14),
                         color: Colors.black54,
                         height: 1.4,
                       ),
                     ),
-                    SizedBox(height: isLandscape ? 12 : 15),
+                    SizedBox(height: context.rs(isLandscape ? 12 : 15)),
                     Text(
                       "Name",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: context.rf(15),
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: context.rs(4)),
                     TextField(
                       cursorColor: Colors.black,
                       controller: model.usernamecontroller,
@@ -87,13 +88,14 @@ class PersonalizationView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: isLandscape ? 16 : 20),
+                    SizedBox(height: context.rs(isLandscape ? 16 : 20)),
                     AppButton(
                       title: 'Continue',
                       onTap: model.oncontinue,
                     ),
-                    SizedBox(height: 20), // Bottom padding
+                    SizedBox(height: context.rs(20)), // Bottom padding
                   ],
+                ),
                 ),
               ),
             ),

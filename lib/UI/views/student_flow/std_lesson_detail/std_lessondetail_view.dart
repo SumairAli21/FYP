@@ -1,6 +1,7 @@
 import 'package:englify_app/UI/views/student_flow/std_lesson_detail/std_lessondetail_viewmodel.dart';
 import 'package:englify_app/UI/widgets/pdf_page_viewer.dart';
 import 'package:englify_app/models/lesson_data_model.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -16,8 +17,7 @@ class StdLessondetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isLandscape = size.width > size.height;
+    final isLandscape = context.isLandscape;
 
     return ViewModelBuilder<StdLessondetailViewmodel>.reactive(
       viewModelBuilder: () =>
@@ -43,8 +43,8 @@ class StdLessondetailView extends StatelessWidget {
                     // ── Top bar
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: isLandscape ? 4 : 12,
+                        horizontal: context.rs(16),
+                        vertical: isLandscape ? context.rs(4) : context.rs(12),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +52,7 @@ class StdLessondetailView extends StatelessWidget {
                           GestureDetector(
                             onTap: model.onBack,
                             child: Container(
-                              padding: const EdgeInsets.all(8),
+                              padding: EdgeInsets.all(context.rs(8)),
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
@@ -62,8 +62,9 @@ class StdLessondetailView extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: context.rs(12),
+                                vertical: context.rs(6)),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
@@ -73,13 +74,14 @@ class StdLessondetailView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Image.asset('assets/images/coins.png',
-                                    height: 20, width: 20),
-                                const SizedBox(width: 3),
+                                    height: context.rs(20),
+                                    width: context.rs(20)),
+                                SizedBox(width: context.rs(3)),
                                 Text(
                                   model.scoretext,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14,
+                                    fontSize: context.rf(14),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -100,41 +102,41 @@ class StdLessondetailView extends StatelessWidget {
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.symmetric(
-                          horizontal: isLandscape ? 40 : 16,
-                          vertical: isLandscape ? 8 : 12,
+                          horizontal: isLandscape ? context.rs(40) : context.rs(16),
+                          vertical: isLandscape ? context.rs(8) : context.rs(12),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 8),
+                            SizedBox(height: context.rs(8)),
                             Text(
                               model.lessonNumberText,
-                              style: const TextStyle(
-                                fontSize: 14,
+                              style: TextStyle(
+                                fontSize: context.rf(14),
                                 color: Colors.white54,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            const SizedBox(height: 6),
+                            SizedBox(height: context.rs(6)),
                             Text(
                               'Introduction to ${lesson.title}',
                               style: TextStyle(
-                                fontSize: isLandscape ? 18 : 22,
+                                fontSize: isLandscape ? context.rf(18) : context.rf(22),
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: context.rs(8)),
                             if (lesson.description.isNotEmpty)
                               Text(
                                 lesson.description,
                                 style: TextStyle(
-                                  fontSize: isLandscape ? 12 : 14,
+                                  fontSize: isLandscape ? context.rf(12) : context.rf(14),
                                   color: Colors.white.withOpacity(0.7),
                                   height: 1.5,
                                 ),
                               ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: context.rs(16)),
 
                             // Tags
                             Wrap(
@@ -142,6 +144,7 @@ class StdLessondetailView extends StatelessWidget {
                               runSpacing: 8,
                               children: [
                                 _tag(
+                                  context: context,
                                   icon: Icons.menu_book,
                                   label: 'Grammar Basics',
                                   bgColor: Colors.blue,
@@ -149,6 +152,7 @@ class StdLessondetailView extends StatelessWidget {
                                   iconColor: Colors.white,
                                 ),
                                 _tag(
+                                  context: context,
                                   icon: Icons.edit_note,
                                   label: 'Mini Exercises',
                                   bgColor: Colors.white.withOpacity(0.9),
@@ -157,14 +161,14 @@ class StdLessondetailView extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12),
+                            SizedBox(height: context.rs(12)),
 
                             // ── Quiz + Fav row
                             Row(
                               children: [
                                 Expanded(
                                   child: SizedBox(
-                                    height: isLandscape ? 38 : 46,
+                                    height: isLandscape ? context.rs(38) : context.rs(46),
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:
@@ -183,8 +187,8 @@ class StdLessondetailView extends StatelessWidget {
                                         model.isQuizAttempted
                                             ? 'Already Attempted ✓'
                                             : 'Attempt Quiz',
-                                        style: const TextStyle(
-                                          fontSize: 15,
+                                        style: TextStyle(
+                                          fontSize: context.rf(15),
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -192,28 +196,28 @@ class StdLessondetailView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: context.rs(10)),
 
                                 // ✅ StatefulWidget — animation guaranteed kaam kare
                                 _FavButton(
                                   isFavourite: model.isFavourite,
                                   isLoading: model.isTogglingFavourite,
-                                  size: isLandscape ? 38.0 : 46.0,
+                                  size: isLandscape ? context.rs(38.0) : context.rs(46.0),
                                   onTap: model.toggleFavourite,
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12),
+                            SizedBox(height: context.rs(12)),
 
                             Container(
                               height: 2,
                               width: double.infinity,
                               color: const Color.fromARGB(98, 255, 255, 255),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: context.rs(16)),
 
                             _buildContent(context, model, lesson),
-                            SizedBox(height: isLandscape ? 16 : 30),
+                            SizedBox(height: isLandscape ? context.rs(16) : context.rs(30)),
                           ],
                         ),
                       ),
@@ -229,6 +233,7 @@ class StdLessondetailView extends StatelessWidget {
   }
 
   Widget _tag({
+    required BuildContext context,
     required IconData icon,
     required String label,
     required Color bgColor,
@@ -236,7 +241,8 @@ class StdLessondetailView extends StatelessWidget {
     required Color iconColor,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(
+          horizontal: context.rs(12), vertical: context.rs(6)),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(20),
@@ -244,10 +250,10 @@ class StdLessondetailView extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: iconColor, size: 16),
-          const SizedBox(width: 6),
+          Icon(icon, color: iconColor, size: context.rs(16)),
+          SizedBox(width: context.rs(6)),
           Text(label,
-              style: TextStyle(color: textColor, fontSize: 12)),
+              style: TextStyle(color: textColor, fontSize: context.rf(12))),
         ],
       ),
     );
@@ -281,7 +287,7 @@ class StdLessondetailView extends StatelessWidget {
 
     return Text(
       lessons.contentUrl ?? '',
-      style: const TextStyle(fontSize: 15, height: 1.6, color: Colors.white),
+      style: TextStyle(fontSize: context.rf(15), height: 1.6, color: Colors.white),
     );
   }
 }
@@ -365,8 +371,8 @@ Widget build(BuildContext context) {
         child: widget.isLoading
             ? Center(
                 child: SizedBox(
-                  width: 18,
-                  height: 18,
+                  width: context.rs(18),
+                  height: context.rs(18),
                   child: CircularProgressIndicator(
                     color: widget.isFavourite
                         ? const Color(0xFFFFD700)

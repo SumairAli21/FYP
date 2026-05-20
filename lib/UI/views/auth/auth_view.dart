@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/auth/auth_view_model.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -8,7 +9,6 @@ class AuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return ViewModelBuilder<AuthViewModel>.reactive(
       viewModelBuilder: () => AuthViewModel(),
       builder: (context, model, child) {
@@ -38,23 +38,24 @@ class AuthView extends StatelessWidget {
 
               // Logo
               Positioned(
-                top: size.height * 0.06,
+                top: context.heightPercent(6),
                 left: 5,
-                child: Image.asset("assets/images/applogo.png", height: 65),
+                child: Image.asset("assets/images/applogo.png",
+                    height: context.rs(65)),
               ),
 
               // Buttons Section
               Positioned(
-                left: 23,
-                right: 23,
-                bottom: 70,
+                left: context.rs(23),
+                right: context.rs(23),
+                bottom: context.rs(70),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // ✅ Apple Sign-In Button
                     SizedBox(
                       width: double.infinity,
-                      height: 52,
+                      height: context.rs(52),
                       child: ElevatedButton(
                         onPressed: model.isBusy ? null : model.signInWithApple,
                         style: ElevatedButton.styleFrom(
@@ -80,7 +81,8 @@ class AuthView extends StatelessWidget {
                               ),
                               const SizedBox(width: 12),
                             ] else ...[
-                              Icon(Icons.apple, size: 30, color: Colors.white),
+                              Icon(Icons.apple,
+                                  size: context.rs(30), color: Colors.white),
                               const SizedBox(width: 12),
                             ],
                             Text(
@@ -89,7 +91,7 @@ class AuthView extends StatelessWidget {
                                   : "Continue with Apple",
                               style: TextStyle(
                                 fontFamily: "button",
-                                fontSize: 16,
+                                fontSize: context.rf(16),
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
                               ),
@@ -98,12 +100,12 @@ class AuthView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: context.rs(15)),
 
                     // ✅ Google Sign-In Button
                     SizedBox(
                       width: double.infinity,
-                      height: 52,
+                      height: context.rs(52),
                       child: ElevatedButton(
                         onPressed: model.isBusy ? null : model.signInWithGoogle,
                         style: ElevatedButton.styleFrom(
@@ -131,7 +133,7 @@ class AuthView extends StatelessWidget {
                             ] else ...[
                               FaIcon(
                                 FontAwesomeIcons.google,
-                                size: 28,
+                                size: context.rs(28),
                                 color: Colors.black,
                               ),
                               const SizedBox(width: 12),
@@ -142,7 +144,7 @@ class AuthView extends StatelessWidget {
                                   : "Continue with Gmail",
                               style: TextStyle(
                                 fontFamily: "button",
-                                fontSize: 16,
+                                fontSize: context.rf(16),
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
@@ -151,12 +153,12 @@ class AuthView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: context.rs(15)),
 
                     // ✅ Email Button
                     SizedBox(
                       width: double.infinity,
-                      height: 52,
+                      height: context.rs(52),
                       child: ElevatedButton(
                         onPressed: model.isBusy
                             ? null
@@ -171,13 +173,14 @@ class AuthView extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.email, size: 30, color: Colors.black),
+                            Icon(Icons.email,
+                                size: context.rs(30), color: Colors.black),
                             const SizedBox(width: 12),
                             Text(
                               "Continue with Email",
                               style: TextStyle(
                                 fontFamily: "button",
-                                fontSize: 16,
+                                fontSize: context.rf(16),
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
@@ -190,11 +193,11 @@ class AuthView extends StatelessWidget {
                     // ✅ Error Message Display
                     if (model.errorMessage != null)
                       Padding(
-                        padding: EdgeInsets.only(top: 16),
+                        padding: EdgeInsets.only(top: context.rs(16)),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
+                            horizontal: context.rs(16),
+                            vertical: context.rs(12),
                           ),
                           decoration: BoxDecoration(
                             color: Colors.red.withOpacity(0.15),
@@ -209,15 +212,15 @@ class AuthView extends StatelessWidget {
                               Icon(
                                 Icons.error_outline,
                                 color: Colors.red.shade300,
-                                size: 20,
+                                size: context.rs(20),
                               ),
-                              SizedBox(width: 12),
+                              SizedBox(width: context.rs(12)),
                               Expanded(
                                 child: Text(
                                   model.errorMessage!,
                                   style: TextStyle(
                                     color: Colors.red.shade100,
-                                    fontSize: 14,
+                                    fontSize: context.rf(14),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -227,7 +230,7 @@ class AuthView extends StatelessWidget {
                         ),
                       ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: context.rs(20)),
 
                     // Terms & Privacy
                     Column(
@@ -237,13 +240,13 @@ class AuthView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: "button",
-                            fontSize: 12,
+                            fontSize: context.rf(12),
                             color: Colors.white70,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 6),
+                    SizedBox(height: context.rs(6)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -264,14 +267,14 @@ class AuthView extends StatelessWidget {
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontFamily: "button",
-                              fontSize: 12,
+                              fontSize: context.rf(12),
                               color: Colors.white,
                             ),
                           ),
                         ),
-                        SizedBox(width: 4),
+                        SizedBox(width: context.rs(4)),
                         Text("and", style: TextStyle(color: Colors.white70)),
-                        SizedBox(width: 4),
+                        SizedBox(width: context.rs(4)),
                         TextButton(
                           onPressed: model.isBusy
                               ? null
@@ -289,7 +292,7 @@ class AuthView extends StatelessWidget {
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontFamily: "button",
-                              fontSize: 12,
+                              fontSize: context.rf(12),
                               color: Colors.white,
                             ),
                           ),

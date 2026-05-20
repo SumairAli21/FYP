@@ -1,3 +1,4 @@
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class FileAttachmentCard extends StatelessWidget {
@@ -82,8 +83,8 @@ class FileAttachmentCard extends StatelessWidget {
               children: [
                 // ── Left colored block (file type)
                 Container(
-                  width: 56,
-                  height: 72,
+                  width: context.rs(56),
+                  height: context.rs(72),
                   decoration: BoxDecoration(
                     color: _fileColor,
                     borderRadius: const BorderRadius.only(
@@ -94,13 +95,13 @@ class FileAttachmentCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(_fileIcon, color: Colors.white, size: 26),
-                      const SizedBox(height: 4),
+                      Icon(_fileIcon, color: Colors.white, size: context.rs(26)),
+                      SizedBox(height: context.rs(4)),
                       Text(
                         _fileLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 10,
+                          fontSize: context.rf(10),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -111,7 +112,7 @@ class FileAttachmentCard extends StatelessWidget {
                 // ── File name + status
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: context.rs(12)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -119,19 +120,19 @@ class FileAttachmentCard extends StatelessWidget {
                           _displayName,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: context.rf(14),
                             fontWeight: FontWeight.w600,
                             color: Colors.black87,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: context.rs(4)),
                         Text(
                           isDownloading
                               ? 'Downloading... ${(progress * 100).toStringAsFixed(0)}%'
                               : 'Tap to open',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: context.rf(12),
                             color: isDownloading ? _fileColor : Colors.grey[500],
                             fontWeight: isDownloading
                                 ? FontWeight.w500
@@ -145,11 +146,11 @@ class FileAttachmentCard extends StatelessWidget {
 
                 // ── Right: progress indicator or chevron
                 Padding(
-                  padding: const EdgeInsets.only(right: 12),
+                  padding: EdgeInsets.only(right: context.rs(12)),
                   child: isDownloading
                       ? SizedBox(
-                          width: 24,
-                          height: 24,
+                          width: context.rs(24),
+                          height: context.rs(24),
                           child: CircularProgressIndicator(
                             value: progress,
                             strokeWidth: 2.5,
@@ -160,7 +161,7 @@ class FileAttachmentCard extends StatelessWidget {
                       : Icon(
                           Icons.chevron_right,
                           color: Colors.grey[400],
-                          size: 22,
+                          size: context.rs(22),
                         ),
                 ),
               ],

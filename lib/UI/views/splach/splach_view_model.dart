@@ -3,6 +3,7 @@ import 'package:englify_app/app/app.router.dart';
 import 'package:englify_app/services/auth_service.dart';
 import 'package:englify_app/services/local_storage_service.dart';
 import 'package:englify_app/services/classroom_service.dart';
+import 'package:englify_app/services/notification_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -19,6 +20,9 @@ class SplachViewModel extends BaseViewModel {
 
  final _classroomservice=
  locator<classroomservice>();
+
+ final _notificationservice=
+ locator<NotificationService>();
 
 
  Future<void> runsetuplogic() async {
@@ -79,6 +83,9 @@ class SplachViewModel extends BaseViewModel {
  _navigationservice
  .replaceWithTeacherBottomTabView();
 
+ await _notificationservice
+ .handleLaunchDeepLink();
+
  return;
 
  }
@@ -108,6 +115,9 @@ class SplachViewModel extends BaseViewModel {
 
  _navigationservice
  .replaceWithBottomNaviView();
+
+ await _notificationservice
+ .handleLaunchDeepLink();
 
  return;
 

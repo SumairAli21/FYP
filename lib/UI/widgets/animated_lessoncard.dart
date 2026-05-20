@@ -1,3 +1,4 @@
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedLessonCard extends StatefulWidget {
@@ -97,17 +98,18 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final screenWidth = context.screenWidth;
+    final screenHeight = context.screenHeight;
 
     // ✅ smaller card size (better UI)
     final cardWidth =
-        widget.isLandscape ? size.height * 0.38 : size.width * 0.55;
+        widget.isLandscape ? screenHeight * 0.38 : screenWidth * 0.55;
     final cardHeight =
-        widget.isLandscape ? size.height * 0.52 : size.width * 0.70;
+        widget.isLandscape ? screenHeight * 0.52 : screenWidth * 0.70;
 
     return SizedBox(
-      width: cardWidth + 40,
-      height: cardHeight + 30,
+      width: cardWidth + context.rs(40),
+      height: cardHeight + context.rs(30),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -199,11 +201,11 @@ void initState() {
             /// Title (only main card)
             if (isMain)
               Positioned(
-                bottom: 14,
-                left: 14,
-                right: 14,
+                bottom: context.rs(14),
+                left: context.rs(14),
+                right: context.rs(14),
                 child: Container(
-                  height: 48,
+                  height: context.rs(48),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.92),
@@ -212,8 +214,8 @@ void initState() {
                   child: Text(
                     widget.lessonTitle.toUpperCase(),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: context.rf(15),
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),

@@ -1,4 +1,5 @@
 import 'package:englify_app/UI/views/changepassword/chnagepassword_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -37,28 +38,30 @@ class ChangePasswordView extends StatelessWidget {
                             children: [
                               // ── Top bar
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 16),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: context.rs(20),
+                                    vertical: context.rs(16)),
                                 child: Row(
                                   children: [
                                     GestureDetector(
                                       onTap: model.onBack,
                                       child: Container(
-                                        padding: const EdgeInsets.all(8),
+                                        padding: EdgeInsets.all(context.rs(8)),
                                         decoration: const BoxDecoration(
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(Icons.close,
-                                            color: Colors.black, size: 20),
+                                        child: Icon(Icons.close,
+                                            color: Colors.black,
+                                            size: context.rs(20)),
                                       ),
                                     ),
-                                    const SizedBox(width: 16),
-                                    const Text(
+                                    SizedBox(width: context.rs(16)),
+                                    Text(
                                       'Profile',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: context.rf(20),
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -70,10 +73,10 @@ class ChangePasswordView extends StatelessWidget {
 
                               // ── Card
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: context.rs(20)),
                                 child: Container(
-                                  padding: const EdgeInsets.all(24),
+                                  padding: EdgeInsets.all(context.rs(24)),
                                   decoration: BoxDecoration(
                                     color: Colors.white.withOpacity(0.92),
                                     borderRadius: BorderRadius.circular(24),
@@ -94,10 +97,10 @@ class ChangePasswordView extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Text(
+                                          Text(
                                             'CREATE PASSWORD',
                                             style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: context.rf(20),
                                               fontWeight: FontWeight.w900,
                                               color: Colors.black87,
                                               fontFamily: 'heading',
@@ -107,70 +110,74 @@ class ChangePasswordView extends StatelessWidget {
                                           GestureDetector(
                                             onTap: model.onBack,
                                             child: Container(
-                                              padding: const EdgeInsets.all(4),
+                                              padding:
+                                                  EdgeInsets.all(context.rs(4)),
                                               decoration: const BoxDecoration(
                                                 color: Colors.black87,
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: const Icon(Icons.close,
+                                              child: Icon(Icons.close,
                                                   color: Colors.white,
-                                                  size: 16),
+                                                  size: context.rs(16)),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 20),
+                                      SizedBox(height: context.rs(20)),
 
-                                      _buildLabel('Old Password'),
-                                      const SizedBox(height: 6),
+                                      _buildLabel(context, 'Old Password'),
+                                      SizedBox(height: context.rs(6)),
                                       _buildTextField(
+                                        context: context,
                                         controller:
                                             model.oldPasswordController,
                                         hint: 'Enter your old password',
                                         obscure: !model.showOldPassword,
                                         onToggle: model.toggleOldPassword,
                                       ),
-                                      const SizedBox(height: 14),
+                                      SizedBox(height: context.rs(14)),
 
-                                      _buildLabel('New Password'),
-                                      const SizedBox(height: 6),
+                                      _buildLabel(context, 'New Password'),
+                                      SizedBox(height: context.rs(6)),
                                       _buildTextField(
+                                        context: context,
                                         controller:
                                             model.newPasswordController,
                                         hint: 'Enter your new password',
                                         obscure: !model.showNewPassword,
                                         onToggle: model.toggleNewPassword,
                                       ),
-                                      const SizedBox(height: 14),
+                                      SizedBox(height: context.rs(14)),
 
-                                      _buildLabel('Confirm  Password'),
-                                      const SizedBox(height: 6),
+                                      _buildLabel(context, 'Confirm  Password'),
+                                      SizedBox(height: context.rs(6)),
                                       _buildTextField(
+                                        context: context,
                                         controller:
                                             model.confirmPasswordController,
                                         hint: 'Enter your confirm password',
                                         obscure: !model.showConfirmPassword,
                                         onToggle: model.toggleConfirmPassword,
                                       ),
-                                      const SizedBox(height: 8),
+                                      SizedBox(height: context.rs(8)),
 
                                       if (model.errorMessage != null)
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 8),
+                                          padding: EdgeInsets.only(
+                                              bottom: context.rs(8)),
                                           child: Text(
                                             model.errorMessage!,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: Colors.red,
-                                              fontSize: 13,
+                                              fontSize: context.rf(13),
                                             ),
                                           ),
                                         ),
-                                      const SizedBox(height: 8),
+                                      SizedBox(height: context.rs(8)),
 
                                       SizedBox(
                                         width: double.infinity,
-                                        height: 50,
+                                        height: context.rs(50),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
@@ -186,19 +193,19 @@ class ChangePasswordView extends StatelessWidget {
                                               : () =>
                                                   model.changePassword(context),
                                           child: model.isBusy
-                                              ? const SizedBox(
-                                                  width: 22,
-                                                  height: 22,
+                                              ? SizedBox(
+                                                  width: context.rs(22),
+                                                  height: context.rs(22),
                                                   child:
-                                                      CircularProgressIndicator(
+                                                      const CircularProgressIndicator(
                                                     color: Colors.white,
                                                     strokeWidth: 2.5,
                                                   ),
                                                 )
-                                              : const Text(
+                                              : Text(
                                                   'Save',
                                                   style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: context.rf(16),
                                                     fontWeight: FontWeight.w600,
                                                     color: Colors.white,
                                                   ),
@@ -226,11 +233,11 @@ class ChangePasswordView extends StatelessWidget {
     );
   }
 
-  Widget _buildLabel(String text) {
+  Widget _buildLabel(BuildContext context, String text) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 14,
+      style: TextStyle(
+        fontSize: context.rf(14),
         fontWeight: FontWeight.w500,
         color: Colors.black87,
       ),
@@ -238,6 +245,7 @@ class ChangePasswordView extends StatelessWidget {
   }
 
   Widget _buildTextField({
+    required BuildContext context,
     required TextEditingController controller,
     required String hint,
     required bool obscure,
@@ -253,10 +261,11 @@ class ChangePasswordView extends StatelessWidget {
         cursorColor: Colors.black,
         controller: controller,
         obscureText: obscure,
-        style: const TextStyle(color: Colors.black87, fontSize: 14),
+        style: TextStyle(color: Colors.black87, fontSize: context.rf(14)),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.grey[400], fontSize: 13),
+          hintStyle:
+              TextStyle(color: Colors.grey[400], fontSize: context.rf(13)),
           suffixIcon: GestureDetector(
             onTap: onToggle,
             child: Icon(
@@ -264,12 +273,12 @@ class ChangePasswordView extends StatelessWidget {
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
               color: Colors.grey[500],
-              size: 20,
+              size: context.rs(20),
             ),
           ),
           border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.rs(14), vertical: context.rs(12)),
         ),
       ),
     );

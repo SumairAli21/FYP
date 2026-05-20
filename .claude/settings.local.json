@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(flutter pub *)",
+      "PowerShell(dart run *)",
+      "PowerShell(flutter analyze *)",
+      "PowerShell(flutter build *)",
+      "Bash(flutter analyze *)",
+      "Bash(break)",
+      "Bash(kill -0)",
+      "mcp__ide__getDiagnostics",
+      "Bash(python -c ' *)",
+      "Bash(:)",
+      "Bash(flutter build *)"
+    ]
+  }
+}

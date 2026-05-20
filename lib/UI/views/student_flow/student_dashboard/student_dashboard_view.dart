@@ -1,6 +1,6 @@
 import 'dart:math' as math;
-
 import 'package:englify_app/UI/views/student_flow/student_dashboard/studen_dashboard_viewmodel.dart';
+import 'package:englify_app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -9,6 +9,10 @@ class StudentDashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = context.isLandscape;
+    final isSmall = context.isShort;
+    final isTablet = context.isTablet;
+
     return ViewModelBuilder<StudentDashboardViewmodel>.reactive(
       viewModelBuilder: () => StudentDashboardViewmodel(),
       onViewModelReady: (model) => model.init(),
@@ -16,7 +20,6 @@ class StudentDashboardView extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: [
-              // Background
               Positioned.fill(
                 child: Image.asset(
                   'assets/images/dies_logo.png',
@@ -26,31 +29,49 @@ class StudentDashboardView extends StatelessWidget {
               Positioned.fill(
                 child: Container(color: Colors.black.withOpacity(0.25)),
               ),
-
               SafeArea(
                 child: model.isBusy
                     ? const Center(
-                        child: CircularProgressIndicator(color: Colors.white))
+                        child:
+                            CircularProgressIndicator(color: Colors.white))
                     : SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isTablet ? 24 : 16,
+                          vertical: isLandscape ? 8 : 12,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // ── Top bar
-                            _buildTopBar(),
-                            const SizedBox(height: 20),
+                            _buildTopBar(isLandscape, isTablet, isSmall),
+                            SizedBox(height: isLandscape ? 12 : 20),
+                            _buildStatsGrid(
+                                model, isLandscape, isTablet),
+                            SizedBox(height: isLandscape ? 12 : 20),
 
-                            // ── 4 stat cards
-                            _buildStatsGrid(model),
-                            const SizedBox(height: 20),
-
-                            // ── Continue Learning (top class)
-                            _buildContinueLearning(model),
-                            const SizedBox(height: 20),
-
-                            // ── Rewards & Motivation
-                            _buildRewards(model),
+                            // landscape mein side by side
+                            isLandscape
+                                ? Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          child: _buildContinueLearning(
+                                              model, isTablet)),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                          child: _buildRewards(
+                                              model, isTablet)),
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      _buildContinueLearning(
+                                          model, isTablet),
+                                      SizedBox(
+                                          height: isLandscape ? 12 : 20),
+                                      _buildRewards(model, isTablet),
+                                    ],
+                                  ),
                             const SizedBox(height: 24),
                           ],
                         ),
@@ -63,8 +84,8 @@ class StudentDashboardView extends StatelessWidget {
     );
   }
 
-  // ── Top bar ──────────────────────────────────
-  Widget _buildTopBar() {
+  Widget _buildTopBar(
+      bool isLandscape, bool isTablet, bool isSmall) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,17 +93,21 @@ class StudentDashboardView extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
                 Text(
                   'Welcome back! ',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: isLandscape
+                        ? (isTablet ? 20.0 : 16.0)
+                        : (isTablet ? 26.0 : isSmall ? 18.0 : 20.0),
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                Text('👋', style: TextStyle(fontSize: 20)),
+                Text('👋',
+                    style: TextStyle(
+                        fontSize: isLandscape ? 16.0 : 20.0)),
               ],
             ),
             const SizedBox(height: 2),
@@ -90,74 +115,69 @@ class StudentDashboardView extends StatelessWidget {
               'Learn and grow daily.',
               style: TextStyle(
                 color: Colors.white.withOpacity(0.80),
-                fontSize: 13,
+                fontSize: isTablet ? 14.0 : isSmall ? 11.0 : 13.0,
               ),
             ),
           ],
         ),
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(isTablet ? 12 : 10),
           decoration: const BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
           ),
-          child: const Icon(
+          child: Icon(
             Icons.calendar_today_rounded,
-            color: Color(0xFF2F6BFF),
-            size: 22,
+            color: const Color(0xFF2F6BFF),
+            size: isTablet ? 24 : 22,
           ),
         ),
       ],
     );
   }
 
-  // ── 2×2 Stats Grid ───────────────────────────
-  Widget _buildStatsGrid(StudentDashboardViewmodel model) {
+  Widget _buildStatsGrid(StudentDashboardViewmodel model,
+      bool isLandscape, bool isTablet) {
+    final crossCount = isTablet
+        ? (isLandscape ? 4 : 4)
+        : (isLandscape ? 4 : 2);
+    final aspectRatio = isTablet
+        ? (isLandscape ? 1.4 : 1.2)
+        : (isLandscape ? 1.4 : 1.3);
+
     return GridView.count(
-      crossAxisCount: 2,
+      crossAxisCount: crossCount,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
-      childAspectRatio: 1.3,
+      crossAxisSpacing: isTablet ? 16 : 12,
+      mainAxisSpacing: isTablet ? 16 : 12,
+      childAspectRatio: aspectRatio,
       children: [
-        // Level — bar chart icon blue
         _StatCard(
-          topWidget: const Icon(
-            Icons.bar_chart_rounded,
-            color: Color(0xFF2F6BFF),
-            size: 36,
-          ),
+          topWidget: Icon(Icons.bar_chart_rounded,
+              color: const Color(0xFF2F6BFF),
+              size: isTablet ? 40 : 36),
           value: 'Level ${model.level}',
           label: 'Current Level',
         ),
-        // Total Points — coins image
         _StatCard(
-          topWidget: Image.asset(
-            'assets/images/coins.png',
-            height: 36,
-            width: 36,
-          ),
+          topWidget: Image.asset('assets/images/coins.png',
+              height: isTablet ? 40 : 36,
+              width: isTablet ? 40 : 36),
           value: '${model.totalPoints} pts',
           label: 'Total Points',
         ),
-        // Lessons Done — book icon purple
         _StatCard(
-          topWidget: const Icon(
-            Icons.menu_book_rounded,
-            color: Color(0xFF7C3AED),
-            size: 36,
-          ),
+          topWidget: Icon(Icons.menu_book_rounded,
+              color: const Color(0xFF7C3AED),
+              size: isTablet ? 40 : 36),
           value: '${model.completedLessons}/${model.totalLessons}',
           label: 'Lessons Done',
         ),
-        // Performance — star icon green
         _StatCard(
-          topWidget: const Icon(
-            Icons.star_rounded,
-            color: Color(0xFF16A34A),
-            size: 36,
-          ),
+          topWidget: Icon(Icons.star_rounded,
+              color: const Color(0xFF16A34A),
+              size: isTablet ? 40 : 36),
           value: '${model.performance.toStringAsFixed(0)}%',
           label: 'Performance',
         ),
@@ -165,14 +185,14 @@ class StudentDashboardView extends StatelessWidget {
     );
   }
 
-  // ── Continue Learning ─────────────────────────
-  Widget _buildContinueLearning(StudentDashboardViewmodel model) {
+  Widget _buildContinueLearning(
+      StudentDashboardViewmodel model, bool isTablet) {
     final hasClass = model.topClassName.isNotEmpty;
     final score = model.topClassScore;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(isTablet ? 20 : 16),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(20),
@@ -180,10 +200,10 @@ class StudentDashboardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'CONTINUE LEARNING',
             style: TextStyle(
-              fontSize: 13,
+              fontSize: isTablet ? 15 : 13,
               fontWeight: FontWeight.w900,
               color: Colors.black87,
               letterSpacing: 0.5,
@@ -194,12 +214,13 @@ class StudentDashboardView extends StatelessWidget {
             hasClass
                 ? 'Resume and access new levels.'
                 : 'No class joined yet.',
-            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            style: TextStyle(
+                fontSize: isTablet ? 13 : 12,
+                color: Colors.grey[600]),
           ),
           const SizedBox(height: 14),
           Row(
             children: [
-              // Pie chart showing top class score
               _PieChart(percentage: score / 100),
               const SizedBox(width: 20),
               Expanded(
@@ -209,9 +230,9 @@ class StudentDashboardView extends StatelessWidget {
                     if (hasClass)
                       Text(
                         model.topClassName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w700,
-                          fontSize: 14,
+                          fontSize: isTablet ? 16 : 14,
                           color: Colors.black87,
                         ),
                         maxLines: 1,
@@ -237,7 +258,7 @@ class StudentDashboardView extends StatelessWidget {
                                   ? const Color(0xFF2F6BFF)
                                   : Colors.grey,
                               fontWeight: FontWeight.w600,
-                              fontSize: 14,
+                              fontSize: isTablet ? 15 : 14,
                             ),
                           ),
                         ],
@@ -253,15 +274,15 @@ class StudentDashboardView extends StatelessWidget {
     );
   }
 
-  // ── Rewards & Motivation ──────────────────────
-  Widget _buildRewards(StudentDashboardViewmodel model) {
-    // Determine next level milestone
+  Widget _buildRewards(
+      StudentDashboardViewmodel model, bool isTablet) {
     final nextLevelPoints = model.level * 500;
-    final progress = (model.totalPoints % nextLevelPoints) / nextLevelPoints;
+    final progress =
+        (model.totalPoints % nextLevelPoints) / nextLevelPoints;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(18),
+      padding: EdgeInsets.all(isTablet ? 22 : 18),
       decoration: BoxDecoration(
         color: const Color(0xFF2F6BFF),
         borderRadius: BorderRadius.circular(18),
@@ -269,17 +290,16 @@ class StudentDashboardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'REWARDS & MOTIVATION',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w900,
-              fontSize: 15,
+              fontSize: isTablet ? 17 : 15,
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 12),
-          // Progress bar to next level
           Row(
             children: [
               Expanded(
@@ -288,8 +308,9 @@ class StudentDashboardView extends StatelessWidget {
                   children: [
                     Text(
                       '• Level ${model.level + 1} Unlocked at $nextLevelPoints pts',
-                      style: const TextStyle(
-                          color: Colors.white70, fontSize: 13),
+                      style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: isTablet ? 14 : 13),
                     ),
                     const SizedBox(height: 8),
                     ClipRRect(
@@ -298,15 +319,17 @@ class StudentDashboardView extends StatelessWidget {
                         value: progress.clamp(0.0, 1.0),
                         minHeight: 8,
                         backgroundColor: Colors.white30,
-                        valueColor: const AlwaysStoppedAnimation<Color>(
-                            Colors.white),
+                        valueColor:
+                            const AlwaysStoppedAnimation<Color>(
+                                Colors.white),
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
                       '${model.totalPoints} / $nextLevelPoints pts',
-                      style: const TextStyle(
-                          color: Colors.white70, fontSize: 11),
+                      style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: isTablet ? 12 : 11),
                     ),
                   ],
                 ),
@@ -319,7 +342,6 @@ class StudentDashboardView extends StatelessWidget {
   }
 }
 
-// ── Stat Card ─────────────────────────────────
 class _StatCard extends StatelessWidget {
   final Widget topWidget;
   final String value;
@@ -345,7 +367,7 @@ class _StatCard extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Column(
@@ -378,7 +400,6 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// ── Pie Chart ─────────────────────────────────
 class _PieChart extends StatelessWidget {
   final double percentage;
   const _PieChart({required this.percentage});

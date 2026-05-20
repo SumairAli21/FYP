@@ -46,13 +46,19 @@ class PointsService {
   ///    → student's own record
   ///
   /// 2. lessons/{lessonId}/quizResults/{studentId}
-  ///    → teacher dashboard reads from here
+  ///    → teacher dashboard + quiz tracker read from here
   ///    (lessons are top-level collection with classId field)
+  ///
+  /// [lessonTitle] and [answers] are optional — when supplied they are
+  /// denormalised onto record (2) so the Teacher Quiz Tracker can show
+  /// per-question detail without re-reading the quiz definition.
   Future<void> savequizresult({
     required String lessonId,
     required String classId,
     required int score,
     required int totalPoints,
+    String? lessonTitle,
+    List<Map<String, dynamic>>? answers,
   }) async {
     try {
       final user = _authservice.currentuser;
@@ -62,6 +68,27 @@ class PointsService {
       }
       final studentId = user.uid;
       final now = FieldValue.serverTimestamp();
+
+      // Resolve a display name to denormalise onto the teacher-facing record.
+      String studentName = '';
+      try {
+        final userDoc = await _firestore
+            .collection(FirestoreKeys.users)
+            .doc(studentId)
+            .get();
+        final ud = userDoc.data();
+        if (ud != null) {
+          final n = (ud['name'] as String?)?.trim();
+          studentName = (n != null && n.isNotEmpty)
+              ? n
+              : ((ud['displayName'] as String?)?.trim() ??
+                  (ud['username'] as String?)?.trim() ??
+                  (ud['email'] as String?)?.trim() ??
+                  '');
+        }
+      } catch (e) {
+        print('⚠️ savequizresult: could not resolve student name: $e');
+      }
 
       // ── 1. Student's own record (for student-side display)
       await _firestore
@@ -79,7 +106,7 @@ class PointsService {
       }, SetOptions(merge: true));
 
       // ── 2. Top-level lessons/{lessonId}/quizResults/{studentId}
-      //    DashboardService reads quizResults from this path
+      //    DashboardService + TrackerService read quizResults from this path
       await _firestore
           .collection(FirestoreKeys.lessons)
           .doc(lessonId)
@@ -87,12 +114,15 @@ class PointsService {
           .doc(studentId)
           .set({
         'studentId': studentId,
+        'studentName': studentName,
         'lessonId': lessonId,
+        'lessonTitle': lessonTitle ?? '',
         'classId': classId,
         'score': score,
         'totalPoints': totalPoints,
         'attemptedAt': now,
         'attemptCount': FieldValue.increment(1),
+        'answers': answers ?? const [],
       }, SetOptions(merge: true));
 
       // ── 3. Update student total coins
